@@ -33,6 +33,9 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('demo') }}">Без регистрации</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
                             </li>
                             @if (Route::has('register'))
