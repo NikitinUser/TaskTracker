@@ -8,7 +8,7 @@
                 </button>
             </span>
         </div>
-        <ul class="list-group">
+        <ul class="list-group list-group-flush">
             <task-item  v-for="(task, index) in tasks" @remove="removeTask(index)" @complete="completeTask(task)" :task="task" :key ="task.id"></task-item>
         </ul>
     </section>
