@@ -21,3 +21,4 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/send', [App\Http\Controllers\HomeController::class, 'send_tasks'])->name('send');

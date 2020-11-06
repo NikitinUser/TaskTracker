@@ -10,7 +10,11 @@
                 </div>
             </div>
         </div>
+        
     </div>
+    <div class="card">
+            <a href={{ route('send') }}>Отпрвить</a>
+        </div>
 </div>
 
         
