@@ -21,4 +21,17 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/send', [App\Http\Controllers\HomeController::class, 'send_tasks'])->name('send');
+Route::post('home/tasks_ajax', [App\Http\Controllers\HomeController::class, 'tasks_ajax']);
+/*
+
+Route::post('home/totrash', [App\Http\Controllers\HomeController::class, 'totrash']);
+
+Route::get('/trash', [App\Http\Controllers\HomeController::class, 'trash'])->name('trash');
+Route::post('trash/deleteTask', [App\Http\Controllers\HomeController::class, 'deleteTask']);
+
+Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'settings'])->name('settings');
+Route::get('/settings/aboutsend', [App\Http\Controllers\SettingsController::class, 'aboutsend'])->name('aboutsend');
+Route::post('settings/send', [App\Http\Controllers\SettingsController::class, 'send']);
+Route::post('settings/save', [App\Http\Controllers\SettingsController::class, 'save']);
+Route::post('settings/deleteUser', [App\Http\Controllers\SettingsController::class, 'deleteUser']);
+*/

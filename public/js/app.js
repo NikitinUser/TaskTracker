@@ -1975,21 +1975,15 @@ __webpack_require__.r(__webpack_exports__);
     addTask: function addTask() {
       if (this.newTask) {
         this.tasks.push({
-          title: this.newTask,
-          completed: false
+          task: this.newTask
         });
         this.newTask = '';
         var parsed = JSON.stringify(this.tasks);
-        localStorage.setItem('tasks', parsed);
       }
-    },
-    completeTask: function completeTask(task) {
-      task.completed = !task.completed;
     },
     removeTask: function removeTask(index) {
       this.tasks.splice(index, 1);
       var parsed = JSON.stringify(this.tasks);
-      localStorage.setItem('tasks', parsed);
     }
   }
 });
@@ -37590,11 +37584,11 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-10 text-center" }, [
-        _vm._v("\n            " + _vm._s(_vm.task.title) + "\n        ")
+      _c("div", { staticClass: "col-md-10 col-sm-10 text-center" }, [
+        _vm._v("\n            " + _vm._s(_vm.task.task) + "\n        ")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "col-md-1 col-sm-1" }, [
         _c(
           "button",
           {
@@ -37616,7 +37610,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: " col-md-1" }, [
+    return _c("div", { staticClass: " col-md-1 col-sm-1" }, [
       _c("input", { staticClass: "pull-left", attrs: { type: "checkbox" } })
     ])
   }
@@ -49881,6 +49875,8 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -49908,29 +49904,58 @@ Vue.component('task-item', __webpack_require__(/*! ./components/taskitemComponen
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
+var app = new Vue(_defineProperty({
   el: '#app',
   data: {
     tasks: []
   },
-  mounted: function mounted() {
-    if (localStorage.getItem('tasks')) {
-      try {
-        this.tasks = JSON.parse(localStorage.getItem('tasks'));
-      } catch (e) {
-        localStorage.removeItem('tasks');
-      } //this.tasks = localStorage.tasks;
-
-    }
-  },
-
-  /*
+  flag_rewrite: false,
   watch: {
-   	tasks(newTask) {
-     	localStorage.tasks.push(newTask);// = newName;
-   	}
-  },*/
-  flag_rewrite: false
+    tasks: {
+      handler: function handler(newVal) {
+        if (this.flag_rewrite) {
+          axios({
+            method: 'post',
+            url: '/home/tasks_ajax',
+            data: {
+              action: 'set-storage',
+              'data-storage': JSON.stringify(newVal[newVal.length - 1])
+            }
+          }).then(function (response) {
+            if (response.data == 'error') {
+              console.log('error Ошибка: не удалось сохранить данные');
+            } else {
+              console.log(response.data);
+            }
+          })["catch"](function () {
+            console.log('catch Ошибка: не удалось сохранить данные');
+          });
+        }
+
+        if (!this.flag_rewrite) this.flag_rewrite = true;
+      },
+      deep: true
+    }
+  }
+}, "flag_rewrite", false));
+document.addEventListener('DOMContentLoaded', function () {
+  axios({
+    method: 'post',
+    url: '/home/tasks_ajax',
+    data: {
+      action: 'get-storage'
+    }
+  }).then(function (response) {
+    data = response.data;
+
+    if (data != 'error') {
+      app.tasks = data;
+    } else {
+      console.log('error Ошибка: не удалось загрузить данные');
+    }
+  })["catch"](function () {
+    console.log('catch Ошибка: не удалось загрузить данные');
+  });
 });
 
 /***/ }),

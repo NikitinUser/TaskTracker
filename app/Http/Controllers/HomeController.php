@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Models\TasksMain;
 
 class HomeController extends Controller
 {
@@ -28,23 +28,48 @@ class HomeController extends Controller
         return view('home');	
     }
 
-    public function send_tasks(){
-      $token = "1445980108:AAFCAXQvtQLC3InF2AziCT6nk5wI1g0CB5o";
-      $chat_id = "995126233";
-      $ch = curl_init();
-      curl_setopt_array(
-          $ch,
-          array(
-              CURLOPT_URL => 'https://api.telegram.org/bot' . $token . '/sendMessage',
-              CURLOPT_POST => TRUE,
-              CURLOPT_RETURNTRANSFER => TRUE,
-              CURLOPT_TIMEOUT => 10,
-              CURLOPT_POSTFIELDS => array(
-                  'chat_id' => $chat_id,
-                  'text' => "test",
-              ),
-          )
-      );
-      curl_exec($ch);
+    public function tasks_ajax(Request $request){
+        header('Content-Type: application/json');
+        $userid0 = auth()->user()->id;
+        $userid = intval($userid0);
+
+        $data = 'error';
+        $post = json_decode(json_encode($request->all()), true);
+        if (!empty($post)) {
+            if (isset($post['action'])) {
+
+                if ($post['action'] == 'get-storage') {
+                    $tasks = TasksMain::select('task')->where('userid', $userid)->get();
+                    //file_put_contents("log", json_encode($tasks));
+                    $data = $tasks; //file_get_contents('storage.storage');
+                }
+
+                if ($post['action'] == 'set-storage') {
+
+                    if (isset($post['data-storage'])) {
+                        $data_storage = json_decode($post['data-storage'], true);
+                        $data_storage = strval($data_storage['task']);
+                        $data_storage = htmlspecialchars($data_storage);
+                        $data_storage = trim($data_storage);
+
+                        if (strlen($data_storage) > 300) {
+                            $data_storage = mb_substr($data_storage, 0, 300);
+                        }
+                        $data_storage = trim($data_storage);
+                        $data_todb = [];
+                        if (!empty($data_storage)) {
+                            $data_todb['task'] = $data_storage;
+                            $data_todb['userid'] = $userid;
+
+                            $taskmain = new TasksMain();
+                            $taskmain->add($data_todb);
+                            $data = 'success';
+                        }
+                    }
+                }
+
+            }
+        }
+        return $data;
     }
 }

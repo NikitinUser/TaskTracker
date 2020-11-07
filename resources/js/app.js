@@ -33,21 +33,56 @@ const app = new Vue({
     data: {
 	    tasks: []
 	  },
-  	mounted() {
-    	if (localStorage.getItem('tasks')) {
-	      	try {
-	        	this.tasks = JSON.parse(localStorage.getItem('tasks'));
-	      	} catch(e) {
-	       		localStorage.removeItem('tasks');
-	      	}
-	      	//this.tasks = localStorage.tasks;
-    	}
-  	},
-  	/*
-  	watch: {
-    	tasks(newTask) {
-      	localStorage.tasks.push(newTask);// = newName;
-    	}
-  	},*/
+    flag_rewrite: false,
+    watch: {
+      tasks: { 
+
+        handler: function (newVal) {
+          
+          if (this.flag_rewrite){
+            axios({
+              method: 'post',
+              url: '/home/tasks_ajax',
+              data: {
+                action: 'set-storage',
+                'data-storage': JSON.stringify(newVal[newVal.length - 1])
+              }
+            })
+            .then(function (response) {
+              if (response.data == 'error'){
+                console.log('error Ошибка: не удалось сохранить данные');
+              }else{
+                console.log(response.data);
+              }
+            })
+            .catch(function (){
+              console.log('catch Ошибка: не удалось сохранить данные');
+            })
+          }
+          if (!this.flag_rewrite) this.flag_rewrite = true;
+        },
+        deep: true
+      }  
+    },
   	flag_rewrite: false,
 });
+document.addEventListener('DOMContentLoaded', function(){
+      axios({
+        method: 'post',
+        url: '/home/tasks_ajax',
+        data: {
+          action: 'get-storage'
+        }
+      })
+      .then(function (response) {
+        data = response.data;
+        if (data != 'error'){
+          app.tasks = data;
+        } else {
+            console.log('error Ошибка: не удалось загрузить данные');
+        }
+      })
+      .catch (function (){
+        console.log('catch Ошибка: не удалось загрузить данные');
+      })
+    });

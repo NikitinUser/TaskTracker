@@ -71,7 +71,7 @@
         </main>
     </div>
     <footer class="page-footer pt-5"></footer>
-    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ mix('js/app.js') }}" ></script>
 </body>
 </html>

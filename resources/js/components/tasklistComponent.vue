@@ -29,21 +29,17 @@
             addTask() {
               if (this.newTask) {
                 this.tasks.push({
-                  title: this.newTask,
-                  completed: false
+                  task: this.newTask
                 });
                 this.newTask = '';
                 const parsed = JSON.stringify(this.tasks);
-                localStorage.setItem('tasks', parsed);
+
               }
-            },
-            completeTask(task) {
-              task.completed = ! task.completed;
             },
             removeTask(index) {
               this.tasks.splice(index, 1);
               const parsed = JSON.stringify(this.tasks);
-              localStorage.setItem('tasks', parsed);
+
             }
           }
     }
