@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('chat_id')->nullable();
             $table->integer('block')->nullable();
             $table->dateTime('last_session')->nullable();
+            
             $table->timestamps();
         });
     }

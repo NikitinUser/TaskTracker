@@ -20,6 +20,7 @@ class CreateTasksMainsTable extends Migration
             $table->string('task');
             $table->integer('userid');
             $table->integer('trash')->nullable();
+            $table->dateTime('dt_send')->nullable();
             $table->timestamps();
         });
     }

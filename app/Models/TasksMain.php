@@ -14,11 +14,14 @@ class TasksMain extends Model
     protected $morphClass = 'TasksMain';
 
     public function add($data){
-        TasksMain::insertGetId(
+        $id = TasksMain::insertGetId(
             [
                 'task'       => $data['task'], 
-                'userid'     => $data['userid']
+                'userid'     => $data['userid'],
+                'dt_send'    => $data['dt_send'],
+                'trash'      => 0
             ]
         );
+        return $id;
     }
 }
