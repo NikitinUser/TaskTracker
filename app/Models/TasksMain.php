@@ -16,10 +16,11 @@ class TasksMain extends Model
     public function add($data){
         $id = TasksMain::insertGetId(
             [
-                'task'       => $data['task'], 
-                'userid'     => $data['userid'],
-                'dt_send'    => $data['dt_send'],
-                'trash'      => 0
+                'task'              => $data['task'], 
+                'userid'            => $data['userid'],
+                'dt_send'           => $data['dt_send'],
+                'trash'             => 0,
+                'sending_status'    => 0
             ]
         );
         return $id;

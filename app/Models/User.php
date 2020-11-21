@@ -20,6 +20,10 @@ class User extends Authenticatable
         'login',
         'email',
         'password',
+        'sending',
+        'chat_id',
+        'block',
+        'last_session'
     ];
 
     /**

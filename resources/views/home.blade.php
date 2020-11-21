@@ -5,14 +5,20 @@
     <div class="row justify-content-center">
         <div class="card col-md-8">
             <div class="card-body">
-            	<div class="input-group mb-3">
-            		<input type="text" name="newTask" id="newTask" placeholder="Задача" size="100" class="form-control"> 
-            		<span class="input-group-append">
-            			<button class="btn btn-primary" type="button" onclick="addTask()">
-            				<i class="fa fa-plus"></i>
-            			</button>
-            		</span>
-            	</div> 
+            	@if (url()->current() == "http://tasktracker.ru/home" || url()->current() == "http://tasktracker.ru")
+	            	<div class="input-group mb-3">
+	            		<input type="text" name="newTask" id="newTask" placeholder="Задача" size="100" class="form-control"> 
+	            		<span class="input-group-append">
+	            			<button class="btn btn-primary" type="button" onclick="addTask()">
+	            				<i class="fa fa-plus"></i>
+	            			</button>
+	            		</span>
+	            	</div> 
+	            @elseif (url()->current() == "http://tasktracker.ru/trash")
+	            	<div class="mb-3">
+	            		<center>Удаленные задачи</center>
+	            	</div>
+            	@endif
             	<ul class="list-group list-group-flush" id="list_tasks">
             		@if (!empty($tasks))
             			@foreach ($tasks as $task)
@@ -20,15 +26,26 @@
 		            			<div class="row">
 		            				<div class=" col-md-1 col-sm-1">
 		            					<input type="checkbox" class="pull-left">
-		            					<label><em style="font-size: x-small">{{ $task['dt_send'] }}</em></label>
+		            					<label><em style="font-size: x-small">{{ $task['dt_send'] . "(мск)" }}</em></label>
 		            				</div> 
 		            				<div class="col-md-10 col-sm-10 text-center">
 				                        {{ $task['task'] }}
 				                    </div> 
 				                    <div class="col-md-1 col-sm-1">
-				                    	<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_{{$task['id']}}" onclick="toTrash(this)">
-				                    		<i class="fa fa-trash"></i>
-				                    	</button>
+				                    	@if (url()->current() == "http://tasktracker.ru/home" || url()->current() == "http://tasktracker.ru")
+				                    		<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_{{$task['id']}}" onclick="toTrash(this)">
+					                    		<i class="fa fa-trash"></i>
+					                    	</button>
+					                    	@if (true)
+					                    		<button class="pull-right btn btn-outline-secondary btn-sm " id="sendidtask_{{$task['id']}}" onclick="sendTelegramTask(this)">
+						                    		<i class="fa fa-telegram" aria-hidden="true"></i>
+						                    	</button>
+					                    	@endif
+				                    	@elseif (url()->current() == "http://tasktracker.ru/trash")
+				                    		<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_{{$task['id']}}" onclick="deleteTask(this)">
+					                    		<i class="fa fa-trash"></i>
+					                    	</button>
+				                    	@endif
 				                    </div>
 				                </div>
 				            </li>

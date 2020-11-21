@@ -46,11 +46,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('demo') }}">Без регистрации</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home') }}">TaskTracker</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a href="{{ route('trash') }}" class="nav-link" >Корзина</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="{{ route('settings') }}" class="nav-link" >Настройки</a>
+                                <a href="{{ route('settings') }}" class="nav-link" >Напоминания</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

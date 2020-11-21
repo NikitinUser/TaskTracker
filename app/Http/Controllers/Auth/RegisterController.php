@@ -51,7 +51,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'login' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +64,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $last_session = new \DateTime(null, new \DateTimeZone("Europe/Moscow") );
         return User::create([
-            'login' => $data['login'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'login'         => $data['login'],
+            'email'         => $data['email'],
+            'password'      => Hash::make($data['password']),
+            'sending'       =>  0,
+            'chat_id'       =>  0,
+            'block'         =>  0,
+            'last_session'  =>  $last_session
         ]);
     }
 }
