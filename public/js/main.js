@@ -42,11 +42,26 @@ function deleteTask(elem){
 	
 }
 
+function ConfirmSendTelegramTask(elem){
+	var id = elem.getAttribute('id');
+	var new_btn = document.querySelector(".send");
+	new_btn.setAttribute('id', 'n'+id);
+	$('#sendConfirmModal').modal("show");
+}
+
 function sendTelegramTask(elem){
+	var minuts = 0;
+	if(typeof document.querySelector("#minuts") !== 'undefined' && document.querySelector("#minuts") !== null){
+		minuts = document.querySelector("#minuts");
+		minuts = Number(minuts.value);
+	}
+	if(isNaN(minuts)){
+		minuts = 0;
+	}
 	var id = elem.getAttribute('id');
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
-	var params = "_token=" + token + "&id=" + id;
-	
+	var params = "_token=" + token + "&id=" + id + "&minuts=" + minuts;
+
 	ajaxPost('/settings/send', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){

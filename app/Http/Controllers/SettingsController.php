@@ -36,9 +36,13 @@ class SettingsController extends Controller{
     	$userid = intval(auth()->user()->id);
     	$post = json_decode(json_encode($request->all()), true);
     	$id_task = 0;
+        $minuts = 0;
     	if (!empty($post)) {
             if (isset($post['id'])) {
 				$id_task = intval(explode("_", $post['id'])[1]);
+            }
+            if (isset($post['minuts'])) {
+                $minuts = intval($post['minuts']);
             }
         }
         if ( !empty($id_task) ) {
@@ -46,10 +50,11 @@ class SettingsController extends Controller{
         	$chat_id = strval($chat_id[0]['chat_id']);
         	if (!empty($chat_id)) {
         		$text = TasksMain::select('task')->where([
-                                                                    ['userid', "=", $userid], 
-                                                                    ['id', "=", $id_task]
-                                                                ])->get()->toArray();
+                                                            ['userid', "=", $userid], 
+                                                            ['id', "=", $id_task]
+                                                        ])->get()->toArray();
 	        	$text = base64_decode($text[0]['task']);
+                sleep($minuts * 60);
 	        	$this->sendToTg($chat_id, $text);
 	        	return 1;
         	}

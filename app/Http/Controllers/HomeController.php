@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\TasksMain;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         $userid = intval(auth()->user()->id);
+
+        $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
+        $chat_id = strval($chat_id[0]['chat_id']);
+
         $tasks = TasksMain::select('task', 'id', 'dt_send')->where([
                                                                     ['userid', "=", $userid], 
                                                                     ['trash', "<>", 1]
@@ -35,7 +40,7 @@ class HomeController extends Controller
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
-        return view('home', compact('tasks') );	
+        return view('home', compact('tasks', 'chat_id') );	
     }
 
     public function trash()
@@ -83,22 +88,32 @@ class HomeController extends Controller
                     $taskmain = new TasksMain();
                     $data_todb['id'] = $taskmain->add($data_todb);
                     unset($data_todb['userid']);
-                    $data = "<li class='list-group-item'>
-                                <div class='row'>
-                                    <div class=' col-md-1 col-sm-1'>
-                                        <input type='checkbox' class='pull-left'>
-                                        <label><em style='font-size: x-small'>" . $data_todb['dt_send'] . "</em></label>
+
+                    $buf_str = '<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_'.$data_todb['id'].'" onclick="toTrash(this)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>';
+                                            
+                    $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
+                    $chat_id = strval($chat_id[0]['chat_id']);
+                    if (!empty($chat_id)) {
+                        $buf_str .= '<button class="pull-right btn btn-outline-secondary btn-sm " id="sendidtask_'.$data_todb['id'].'" onclick="ConfirmSendTelegramTask(this)">
+                                                    <i class="fa fa-telegram" aria-hidden="true"></i>
+                                                </button>';
+                    }
+                    
+                    $data = '<li class="list-group-item">
+                                <div class="row">
+                                    <div class=" col-md-1 col-sm-1">
+                                        <label><em style="font-size: x-small">'. $data_todb['dt_send'] . '"(мск)" </em></label>
                                     </div> 
-                                    <div class='col-md-10 col-sm-10 text-center'>
-                                        " . base64_decode($data_todb['task']) . "
+                                    <div class="col-md-10 col-sm-10 text-center">
+                                        '. base64_decode($data_todb['task']) .'
                                     </div> 
-                                    <div class='col-md-1 col-sm-1'>
-                                        <button class='pull-right btn btn-outline-danger btn-sm ' id='idtask_" . $data_todb['id'] . "' onclick='toTrash(this)'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
-                                    </div>
+                                    <div class="col-md-1 col-sm-1">'
+                                     .   $buf_str .
+                                    '</div>
                                 </div>
-                            </li>";
+                            </li>';
                 }
             }
         }
