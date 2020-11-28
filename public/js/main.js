@@ -62,11 +62,13 @@ function sendTelegramTask(elem){
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var params = "_token=" + token + "&id=" + id + "&minuts=" + minuts;
 
-	ajaxPost('/settings/send', params, function(data){
+	ajaxPost('/home/send', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
 				console.log("sent");
 				//elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+			}else{
+				console.log("dont sent");
 			}
 		} 
 	});

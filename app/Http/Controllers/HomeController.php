@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\TasksMain;
 use App\Models\User;
+use Artisan;
 
 class HomeController extends Controller
 {
@@ -157,5 +158,48 @@ class HomeController extends Controller
             }
         }
         return $status;
+    }
+
+    public function send(Request $request){
+        $userid = intval(auth()->user()->id);
+
+        $post = json_decode(json_encode($request->all()), true);
+        $id_task = 0;
+        $minuts = 0;
+        if (!empty($post)) {
+            if (isset($post['id'])) {
+                $id_task = intval(explode("_", $post['id'])[1]);
+            }
+            if (isset($post['minuts'])) {
+                $minuts = intval($post['minuts']);
+            }
+        }
+        if ( !empty($id_task) ) {
+            $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
+            $chat_id = strval($chat_id[0]['chat_id']);
+            if (!empty($chat_id)) {
+                $record = TasksMain::select('sending_status')->where([
+                                                                        ['userid', "=", $userid], 
+                                                                        ['id', "=", $id_task]
+                                                                    ])->get()->toArray();
+                $status = $record[0]['sending_status'];
+                if (intval($status) === 0) {
+                    $arr_totg = [
+                                    'userid'  => $userid,
+                                    'id_task' => $id_task,
+                                    'minuts'  => $minuts,
+                                    'chat_id' => $chat_id
+                                ];
+                    $arr_totg = json_encode($arr_totg);
+                    $exitCode = Artisan::call('command:SendTaskCommand', ['inputarr' => $arr_totg] );
+                    return 1;
+                } else {
+                    return -1;
+                }
+                
+            }
+            
+        }
+        return 0;
     }
 }
