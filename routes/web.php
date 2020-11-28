@@ -33,7 +33,5 @@ Route::post('trash/deleteTask', [App\Http\Controllers\HomeController::class, 'de
 
 Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'settings'])->name('settings');
 
-/*
 Route::post('settings/save', [App\Http\Controllers\SettingsController::class, 'save']);
 Route::post('settings/deleteUser', [App\Http\Controllers\SettingsController::class, 'deleteUser']);
-*/
