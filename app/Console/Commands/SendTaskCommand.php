@@ -80,7 +80,8 @@ class SendTaskCommand extends Command
                                                         ['id', "=", $id_task]
                                                     ])->get()->toArray();
         $text = base64_decode($record[0]['task']);
-        sleep($minuts * 60);
+        $sleep_sec = $minuts * 60;
+        sleep($sleep_sec);
         $this->sendToTg($chat_id, $text);
         $upd_status = TasksMain::where([
                                             ['userid', "=", $userid], 
