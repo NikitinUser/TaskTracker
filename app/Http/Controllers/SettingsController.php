@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\TasksMain;
 use App\Models\User;
 
 class SettingsController extends Controller{
@@ -27,7 +26,32 @@ class SettingsController extends Controller{
     {
         $userid = intval(auth()->user()->id);
 
-        return view('settings' );	
+        $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
+        $chat_id = intval($chat_id[0]['chat_id']);
+        if (empty($chat_id)) {
+            $chat_id = "";
+        }
+
+        return view('settings', compact('chat_id') );	
     }
 
+    public function save(Request $request)
+    {
+        $userid = intval(auth()->user()->id);
+
+        $data = $request->all();
+        $chat_id = intval($data['chat_id']);
+        if (empty($chat_id)) {
+            return redirect()->route('settings')->withErrors('Неверный формат chat id');
+        }
+
+        $affected = User::where('id', "=", $userid)->update(['chat_id' => $chat_id]);
+        return redirect()->route('settings')->withSuccess('chat id сохранен');
+    }
+
+    public function deleteUser()
+    {
+        $userid = intval(auth()->user()->id);
+        return redirect()->back();
+    }
 }

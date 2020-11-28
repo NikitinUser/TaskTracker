@@ -19,15 +19,19 @@
         </div>
         <div class="card col-md-8 mt-3">
             <div class="card-body">
-            	<form method="POST" action="settings/send">
+            	<form method="POST" action="settings/save">
             		@csrf
 	            	<div class="form-group">
                         <label for="chat_id">id telegram-аккаунта (для отправки уведомлений):</label>
-                        <div class="col-md-6">                            
-                            <input type="text" id="chat_id" name="chat_id" class="form-control">
+                        <div class="col-md-6">     
+                            @if (!empty($chat_id)) 
+                                <input type="text" id="chat_id" name="chat_id" class="form-control" placeholder="текущий chat id {{ $chat_id }}">
+                            @else
+                                <input type="text" id="chat_id" name="chat_id" class="form-control" placeholder="введите chat id">
+                            @endif
                         </div>
 	            		<div class="col-md-6 mt-2">  
-                            <input type="submit" value="Сохранить" class="form-control btn btn-outline-secondary">
+                            <input type="submit" value="Сохранить" class="btn btn-outline-secondary">
                         </div>
 	            		
 	            	</div>
@@ -37,7 +41,7 @@
         <div class="card col-md-8 mt-3">
             <div class="card-body">
                 <div class="col-md-6 mt-2">  
-                    <input type="submit" value="Удалить аккаунт" class="form-control btn btn-outline-danger">
+                    <input type="button" value="Удалить аккаунт" class="btn btn-outline-danger" onclick="alert('нет')">
                 </div>
             </div>
         </div>

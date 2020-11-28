@@ -176,7 +176,7 @@ class HomeController extends Controller
         }
         if ( !empty($id_task) ) {
             $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
-            $chat_id = strval($chat_id[0]['chat_id']);
+            $chat_id = intval($chat_id[0]['chat_id']);
             if (!empty($chat_id)) {
                 $record = TasksMain::select('sending_status')->where([
                                                                         ['userid', "=", $userid], 
