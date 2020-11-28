@@ -53,7 +53,7 @@
                                 <a href="{{ route('trash') }}" class="nav-link" >Корзина</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="{{ route('settings') }}" class="nav-link" >Напоминания</a>
+                                <a href="{{ route('settings') }}" class="nav-link" >Настройки</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -83,7 +83,6 @@
         </main>
     </div>
     <footer class="page-footer pt-5"></footer>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ mix('js/app.js') }}" ></script>
     <script src="{{ asset('js/main.js') }}" ></script>
 </body>
