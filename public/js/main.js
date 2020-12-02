@@ -89,3 +89,15 @@ function ajaxPost(url, params, callback){
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	request.send(params);
 }
+
+function show_hidTask(elem){
+	var id = elem.getAttribute('id');
+	id = Number(id.split("_")[1]) ;
+	var task = document.querySelector("#textid_" + id); 
+	task.hidden = !task.hidden;
+	if(task.hidden == true){
+		elem.textContent = "Показать";
+	}else{
+		elem.textContent = "Скрыть";
+	}
+}

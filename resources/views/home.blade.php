@@ -9,7 +9,7 @@
 	            	<div class="input-group mb-3">
 	            		<input type="text" name="newTask" id="newTask" placeholder="Задача" size="100" class="form-control"> 
 	            		<span class="input-group-append">
-	            			<button class="btn btn-primary" type="button" onclick="addTask()">
+	            			<button class="btn btn-secondary" type="button" onclick="addTask()">
 	            				<i class="fa fa-plus"></i>
 	            			</button>
 	            		</span>
@@ -26,9 +26,13 @@
 		            			<div class="row">
 		            				<div class=" col-md-1 col-sm-1">
 		            					<label><em style="font-size: x-small">{{ $task['dt_send'] . "(мск)" }}</em></label>
+		            					<button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_{{$task['id']}}" onclick="show_hidTask(this)">Скрыть</button>
 		            				</div> 
 		            				<div class="col-md-10 col-sm-10 text-center">
-				                        {{ $task['task'] }}
+		            					<span id="textid_{{ $task['id'] }}">
+		            						{{ $task['task'] }}
+		            					</span>
+				                        
 				                    </div> 
 				                    <div class="col-md-1 col-sm-1">
 				                    	@if (url()->current() == "http://tasktracker.ru/home" || url()->current() == "http://tasktracker.ru")
