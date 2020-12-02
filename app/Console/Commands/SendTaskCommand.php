@@ -79,6 +79,14 @@ class SendTaskCommand extends Command
                                                         ['userid', "=", $userid], 
                                                         ['id', "=", $id_task]
                                                     ])->get()->toArray();
+        if ($minuts > 600) {
+            $minuts = 600;
+        }
+
+        if ($minuts <= 0) {
+            $minuts = 0.5;
+        }
+
         $text = base64_decode($record[0]['task']);
         $sleep_sec = $minuts * 60;
         sleep($sleep_sec);
