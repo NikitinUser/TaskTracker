@@ -61,7 +61,7 @@ function sendTelegramTask(elem){
 	var id = elem.getAttribute('id');
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var params = "_token=" + token + "&id=" + id + "&minuts=" + minuts;
-	$('#sendConfirmModal').modal("hide");
+	
 	ajaxPost('/home/send', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
@@ -69,9 +69,14 @@ function sendTelegramTask(elem){
 				
 			}else{
 				console.log("dont sent");
+				var msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> Не получилось отправить </center> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+				document.querySelector("#returnMessages").innerHTML = msg;
 			}
 		} 
 	});
+	$('#sendConfirmModal').modal("hide");
+	var msg = '<div class="alert alert-success alert-dismissible fade show" role="alert"><center> Отправленно </center>  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+	document.querySelector("#returnMessages").innerHTML = msg;
 }
 
 function ajaxPost(url, params, callback){

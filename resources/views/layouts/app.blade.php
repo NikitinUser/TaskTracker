@@ -78,7 +78,30 @@
                 </div>
             </div>
         </nav>
-
+        <div id="returnMessages">
+            @if( isset($errors) )
+                @if( !empty($errors->all()))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <center>
+                            {{ $errors->all()[0] }}
+                        </center>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+            @endif
+            @if( Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <center>
+                        {{ Session::get('success') }}
+                    </center>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+        </div>
         <main class="py-4">
             @yield('content')
         </main>
