@@ -82,7 +82,7 @@ class HomeController extends Controller
                 if (!empty($data_storage)) {
                     $data_storage = base64_encode($data_storage);
                     $date = new \DateTime(null, new \DateTimeZone('Europe/Moscow'));
-                    $date = $date->format('Y-m-d H:i');
+                    $date = $date->format('Y-m-d H:i:s');
                     $data_todb['task'] = $data_storage;
                     $data_todb['userid'] = $userid;
                     $data_todb['dt_send'] = $date;   
@@ -105,11 +105,12 @@ class HomeController extends Controller
                     $data = '<li class="list-group-item">
                                 <div class="row">
                                     <div class=" col-md-1 col-sm-1">
-                                        <label><em style="font-size: x-small">'. $data_todb['dt_send'] . '"(мск)" </em></label>
+                                        <label><em style="font-size: x-small">'.$data_todb['dt_send'].'(мск)</em></label>
+                                        <button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_'.$data_todb['id'].'" onclick="show_hidTask(this)">Скрыть</button>
                                     </div> 
-                                    <div class="col-md-10 col-sm-10 text-center">
+                                    <div class="col-md-10 col-sm-10 text-center"><span id="textid_'.$data_todb['id'].'">
                                         '. base64_decode($data_todb['task']) .'
-                                    </div> 
+                                    </span></div> 
                                     <div class="col-md-1 col-sm-1">'
                                      .   $buf_str .
                                     '</div>
