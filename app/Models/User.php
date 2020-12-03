@@ -18,7 +18,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'login',
-        'email',
         'password',
         'chat_id',
         'block',
