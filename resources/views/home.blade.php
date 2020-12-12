@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="card col-md-8">
             <div class="card-body">
-            	@if (url()->current() == "http://tasktracker.ru/home" || url()->current() == "http://tasktracker.ru")
+            	@if (url()->current() == "http://t-tasktracker.ru/home" || url()->current() == "http://t-tasktracker.ru")
 	            	<div class="input-group mb-3">
 	            		<input type="text" name="newTask" id="newTask" placeholder="Задача" size="100" class="form-control"> 
 	            		<span class="input-group-append">
@@ -14,7 +14,7 @@
 	            			</button>
 	            		</span>
 	            	</div> 
-	            @elseif (url()->current() == "http://tasktracker.ru/trash")
+	            @elseif (url()->current() == "http://t-tasktracker.ru/trash")
 	            	<div class="mb-3">
 	            		<center>Удаленные задачи</center>
 	            	</div>
@@ -35,7 +35,7 @@
 				                        
 				                    </div> 
 				                    <div class="col-md-1 col-sm-1">
-				                    	@if (url()->current() == "http://tasktracker.ru/home" || url()->current() == "http://tasktracker.ru")
+				                    	@if (url()->current() == "http://t-tasktracker.ru/home" || url()->current() == "http://t-tasktracker.ru")
 				                    		<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_{{$task['id']}}" onclick="toTrash(this)">
 					                    		<i class="fa fa-trash"></i>
 					                    	</button>
