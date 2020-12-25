@@ -51,10 +51,10 @@
                                 <a class="nav-link" href="{{ route('home') }}">TaskTracker</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="{{ route('trash') }}" class="nav-link" >Корзина</a>
+                                <a href="{{ route('trash') }}" class="nav-link" >Выплненное</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="{{ route('settings') }}" class="nav-link" >Настройки</a>
+                                <!--<a href="{{ route('settings') }}" class="nav-link" >Настройки</a>-->
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -102,11 +102,16 @@
                 </div>
             @endif
         </div>
+        <a name="top"></a>
         <main class="py-4">
             @yield('content')
         </main>
     </div>
-    <footer class="page-footer pt-5"></footer>
+    <footer class="page-footer mt-2 mb-3">
+        <center>
+            <a href="#top" class="btn btn-outline-secondary btn-sm ">Наверх</a>
+        </center>
+    </footer>
     <script src="{{ mix('js/app.js') }}" ></script>
     <script src="{{ asset('js/main.js') }}" ></script>
 </body>
