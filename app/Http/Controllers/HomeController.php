@@ -81,7 +81,7 @@ class HomeController extends Controller
                 $data_todb = [];
                 if (!empty($data_storage)) {
                     $data_storage = base64_encode($data_storage);
-                    $date = new \DateTime(null, new \DateTimeZone('Europe/Moscow'));
+                    $date = new \DateTime($post['date']);
                     $date = $date->format('Y-m-d H:i:s');
                     $data_todb['task'] = $data_storage;
                     $data_todb['userid'] = $userid;
@@ -128,14 +128,17 @@ class HomeController extends Controller
         $userid = intval(auth()->user()->id);
         $status = 0;
         $post = json_decode(json_encode($request->all()), true);
+
         if (!empty($post)) {
+            $date = new \DateTime($post['date']);
+            $date = $date->format('Y-m-d H:i:s');
             if (isset($post['id'])) {
 
                 $id = intval(explode("_", $post['id'])[1]);
                 $affected = TasksMain::where([
                                                 ['userid', "=", $userid], 
-                                                ['id', '=', $id]
-                                            ])->update(['trash' => 1]);
+                                                ['id', '=', $id],
+                                            ])->update(['trash' => 1, 'dt_send' => $date ]);
                 $status = 1;
             }
         }
