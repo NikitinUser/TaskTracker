@@ -1,7 +1,9 @@
 function addTask(){
 	var task = document.querySelector('#newTask').value;
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
-	var params = "_token=" + token + "&task=" + task;
+	var dateTime = getDateTime();
+
+	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime;
 	if (Number(task) !== 0 && task.lenght != 0){
 		ajaxPost('/home/addtask', params, function(data){
 			if(data != ''){
@@ -12,10 +14,23 @@ function addTask(){
 	}
 }
 
+function getDateTime(){
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+	var yyyy = today.getFullYear();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	var s = today.getSeconds();
+
+	return dd + '-' + mm + '-' + yyyy + " " + h + ":" + m + ":" + s;
+}
+
 function toTrash(elem){
 	var id = elem.getAttribute('id');
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
-	var params = "_token=" + token + "&id=" + id;
+	var dateTime = getDateTime();
+	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime;
 	
 	ajaxPost('/home/totrash', params, function(data){
 		if(data != ''){
@@ -104,5 +119,29 @@ function show_hidTask(elem){
 		elem.textContent = "Показать";
 	}else{
 		elem.textContent = "Скрыть";
+	}
+}
+
+function hideAll(elem){
+	var tasks = document.querySelectorAll(".taskText");
+	let arrBtns = new Array();
+
+	for(var i=0; i < tasks.length; i++){
+		var id_task = tasks[i].getAttribute("id");
+		var id = Number(id_task.split("_")[1]) ;
+		arrBtns.push(document.querySelector("#show_"+id));
+		tasks[i].hidden = !tasks[i].hidden;
+	}
+	
+	if(tasks[0].hidden){
+		elem.textContent = "Показать все";
+		for(var i=0; i < arrBtns.length; i++){
+			arrBtns[i].textContent = "Показать";
+		}
+	}else{
+		elem.textContent = "Скрыть все";
+		for(var i=0; i < arrBtns.length; i++){
+			arrBtns[i].textContent = "Скрыть";
+		}
 	}
 }
