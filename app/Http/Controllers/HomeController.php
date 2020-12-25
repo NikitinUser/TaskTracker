@@ -90,8 +90,8 @@ class HomeController extends Controller
                     $data_todb['id'] = $taskmain->add($data_todb);
                     unset($data_todb['userid']);
 
-                    $buf_str = '<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_'.$data_todb['id'].'" onclick="toTrash(this)">
-                                                <i class="fa fa-trash"></i>
+                    $buf_str = '<button class="pull-right btn btn-outline-success btn-sm " id="idtask_'.$data_todb['id'].'" onclick="toTrash(this)">
+                                                <i class="fa fa-check-square"></i>
                                             </button>';
                                             
                     $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
