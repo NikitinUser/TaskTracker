@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\TasksMain;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Artisan;
 
 class HomeController extends Controller
@@ -31,7 +32,6 @@ class HomeController extends Controller
 
         $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
         $chat_id = strval($chat_id[0]['chat_id']);
-
         $tasks = TasksMain::select('task', 'id', 'dt_send')->where([
                                                                     ['userid', "=", $userid], 
                                                                     ['trash', "<>", 1]
@@ -51,7 +51,6 @@ class HomeController extends Controller
                                                                     ['userid', "=", $userid], 
                                                                     ['trash', "=", 1]
                                                                 ])->get()->toArray();
-        //dd($tasks);
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
@@ -65,10 +64,9 @@ class HomeController extends Controller
 
         $data = 'error';
         $post = json_decode(json_encode($request->all()), true);
-
+        Log::info("add task:: user = " . $userid . ", post = " . json_encode($post));
         
         if (!empty($post)) {
-
             if (isset($post['task'])) {
                 $data_storage = strval($post['task'] );
                 $data_storage = trim($data_storage);
@@ -80,6 +78,7 @@ class HomeController extends Controller
                 
                 $data_todb = [];
                 if (!empty($data_storage)) {
+                	Log::info("add task:: user = " . $userid . ", data_storage = " . json_encode($data_storage));
                     $data_storage = base64_encode($data_storage);
                     $date = new \DateTime($post['date']);
                     $date = $date->format('Y-m-d H:i:s');
@@ -128,7 +127,7 @@ class HomeController extends Controller
         $userid = intval(auth()->user()->id);
         $status = 0;
         $post = json_decode(json_encode($request->all()), true);
-
+        Log::info("totrash:: user = " . $userid . ", post = " . json_encode($post));
         if (!empty($post)) {
             $date = new \DateTime($post['date']);
             $date = $date->format('Y-m-d H:i:s');
@@ -142,6 +141,7 @@ class HomeController extends Controller
                 $status = 1;
             }
         }
+        Log::info("totrash:: user = " . $userid . ", status = " . json_encode($status));
         return $status;
     }
 
@@ -150,6 +150,7 @@ class HomeController extends Controller
         $userid = intval(auth()->user()->id);
         $status = 0;
         $post = json_decode(json_encode($request->all()), true);
+        Log::info("deleteTask:: user = " . $userid . ", post = " . json_encode($post));
         if (!empty($post)) {
             if (isset($post['id'])) {
 
@@ -161,6 +162,7 @@ class HomeController extends Controller
                 $status = 1;
             }
         }
+        Log::info("deleteTask:: user = " . $userid . ", status = " . json_encode($status));
         return $status;
     }
 
