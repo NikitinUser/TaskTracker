@@ -18,6 +18,7 @@
 </head>
 <body>
     <div id="app">
+     <a name="top"></a>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <a class="navbar-brand" href="{{ route('home') }}">TaskTracker</a>
             <div class="container">
@@ -102,7 +103,7 @@
                 </div>
             @endif
         </div>
-        <a name="top"></a>
+       
         <main class="py-4">
             @yield('content')
         </main>
