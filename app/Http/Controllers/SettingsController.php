@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class SettingsController extends Controller{
 	/**
@@ -40,6 +41,7 @@ class SettingsController extends Controller{
         $userid = intval(auth()->user()->id);
 
         $data = $request->all();
+        Log::info("save settings:: user = " . $userid . ", data = " . json_encode($data));
         $chat_id = intval($data['chat_id']);
         if (empty($chat_id)) {
             return redirect()->route('settings')->withErrors('Неверный формат chat id');
