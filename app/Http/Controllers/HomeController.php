@@ -103,11 +103,11 @@ class HomeController extends Controller
                     
                     $data = '<li class="list-group-item">
                                 <div class="row">
-                                    <div class=" col-md-1 col-sm-1">
+                                    <div class=" col-md-2 col-sm-2">
                                         <label><em style="font-size: x-small">'.$data_todb['dt_send'].'(мск)</em></label>
                                         <button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_'.$data_todb['id'].'" onclick="show_hidTask(this)">Скрыть</button>
                                     </div> 
-                                    <div class="col-md-10 col-sm-10 text-center"><span id="textid_'.$data_todb['id'].'">
+                                    <div class="col-md-9 col-sm-9 text-center"><span id="textid_'.$data_todb['id'].'">
                                         '. base64_decode($data_todb['task']) .'
                                     </span></div> 
                                     <div class="col-md-1 col-sm-1">'
