@@ -30,11 +30,11 @@
             			@foreach ($tasks as $task)
             				<li class="list-group-item">
 		            			<div class="row">
-		            				<div class=" col-md-1 col-sm-1">
+		            				<div class=" col-md-2 col-sm-2">
 		            					<label><em style="font-size: small">{{ $task['dt_send']}}</em></label>
 		            					<button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_{{$task['id']}}" onclick="show_hidTask(this)">Скрыть</button>
 		            				</div> 
-		            				<div class="col-md-10 col-sm-10 text-center">
+		            				<div class="col-md-9 col-sm-9 text-center">
 		            					<span id="textid_{{ $task['id'] }}" class="taskText">
 		            						{{ $task['task'] }}
 		            					</span>
