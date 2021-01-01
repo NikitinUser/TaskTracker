@@ -19,9 +19,7 @@ class TasksMain extends Model
                 'task'              => $data['task'], 
                 'userid'            => $data['userid'],
                 'dt_send'           => $data['dt_send'],
-                'trash'             => 0,
-                'sending_status'    => 0
-            ]
+                'trash'             => 0
         );
         return $id;
     }

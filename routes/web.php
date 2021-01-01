@@ -25,13 +25,7 @@ Route::post('home/addtask', [App\Http\Controllers\HomeController::class, 'addtas
 
 Route::post('home/totrash', [App\Http\Controllers\HomeController::class, 'totrash']);
 
-Route::post('home/send', [App\Http\Controllers\HomeController::class, 'send']);
-
 Route::get('/trash', [App\Http\Controllers\HomeController::class, 'trash'])->name('trash');
 
 Route::post('trash/deleteTask', [App\Http\Controllers\HomeController::class, 'deleteTask']);
 
-Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'settings'])->name('settings');
-
-Route::post('settings/save', [App\Http\Controllers\SettingsController::class, 'save']);
-Route::post('settings/deleteUser', [App\Http\Controllers\SettingsController::class, 'deleteUser']);

@@ -55,9 +55,6 @@
                                 <a href="{{ route('trash') }}" class="nav-link" >Выплненное</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <!--<a href="{{ route('settings') }}" class="nav-link" >Настройки</a>-->
-                            </li>
-                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->login }} <span class="caret"></span>
                                 </a>

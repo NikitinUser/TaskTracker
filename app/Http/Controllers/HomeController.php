@@ -29,9 +29,6 @@ class HomeController extends Controller
     public function index()
     {
         $userid = intval(auth()->user()->id);
-
-        $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
-        $chat_id = strval($chat_id[0]['chat_id']);
         $tasks = TasksMain::select('task', 'id', 'dt_send')->where([
                                                                     ['userid', "=", $userid], 
                                                                     ['trash', "<>", 1]
@@ -41,7 +38,7 @@ class HomeController extends Controller
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
-        return view('home', compact('tasks', 'chat_id') );	
+        return view('home', compact('tasks') );	
     }
 
     public function trash()
@@ -92,19 +89,11 @@ class HomeController extends Controller
                     $buf_str = '<button class="pull-right btn btn-outline-success btn-sm " id="idtask_'.$data_todb['id'].'" onclick="toTrash(this)">
                                                 <i class="fa fa-check-square"></i>
                                             </button>';
-                                            
-                    $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
-                    $chat_id = strval($chat_id[0]['chat_id']);
-                    if (!empty($chat_id)) {
-                        $buf_str .= '<button class="pull-right btn btn-outline-secondary btn-sm " id="sendidtask_'.$data_todb['id'].'" onclick="ConfirmSendTelegramTask(this)">
-                                                    <i class="fa fa-telegram" aria-hidden="true"></i>
-                                                </button>';
-                    }
                     
                     $data = '<li class="list-group-item">
                                 <div class="row">
                                     <div class=" col-md-2 col-sm-2">
-                                        <label><em style="font-size: x-small">'.$data_todb['dt_send'].'(мск)</em></label>
+                                        <label><em style="font-size: small">'.$data_todb['dt_send'].'</em></label>
                                         <button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_'.$data_todb['id'].'" onclick="show_hidTask(this)">Скрыть</button>
                                     </div> 
                                     <div class="col-md-9 col-sm-9 text-center"><span id="textid_'.$data_todb['id'].'">
@@ -166,46 +155,4 @@ class HomeController extends Controller
         return $status;
     }
 
-    public function send(Request $request){
-        $userid = intval(auth()->user()->id);
-
-        $post = json_decode(json_encode($request->all()), true);
-        $id_task = 0;
-        $minuts = 0;
-        if (!empty($post)) {
-            if (isset($post['id'])) {
-                $id_task = intval(explode("_", $post['id'])[1]);
-            }
-            if (isset($post['minuts'])) {
-                $minuts = intval($post['minuts']);
-            }
-        }
-        if ( !empty($id_task) ) {
-            $chat_id = User::select('chat_id')->where('id', "=", $userid)->get()->toArray();
-            $chat_id = intval($chat_id[0]['chat_id']);
-            if (!empty($chat_id)) {
-                $record = TasksMain::select('sending_status')->where([
-                                                                        ['userid', "=", $userid], 
-                                                                        ['id', "=", $id_task]
-                                                                    ])->get()->toArray();
-                $status = $record[0]['sending_status'];
-                if (intval($status) === 0) {
-                    $arr_totg = [
-                                    'userid'  => $userid,
-                                    'id_task' => $id_task,
-                                    'minuts'  => $minuts,
-                                    'chat_id' => $chat_id
-                                ];
-                    $arr_totg = json_encode($arr_totg);
-                    $exitCode = Artisan::call('command:SendTaskCommand', ['inputarr' => $arr_totg] );
-                    return 1;
-                } else {
-                    return -1;
-                }
-                
-            }
-            
-        }
-        return 0;
-    }
 }

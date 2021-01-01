@@ -20,8 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             
-
-            $table->integer('chat_id')->nullable();
             $table->integer('block')->nullable();
             $table->dateTime('last_session')->nullable();
             

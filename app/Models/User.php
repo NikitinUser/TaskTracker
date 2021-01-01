@@ -19,7 +19,6 @@ class User extends Authenticatable
     protected $fillable = [
         'login',
         'password',
-        'chat_id',
         'block',
         'last_session'
     ];
