@@ -7,7 +7,64 @@ function addTask(){
 	if (Number(task) !== 0 && task.lenght != 0){
 		ajaxPost('/home/addtask', params, function(data){
 			if(data != ''){
-				document.querySelector("#list_tasks").insertAdjacentHTML('beforeend', data);
+				data = JSON.parse(data);
+				
+				let liNew = document.createElement('li');
+				liNew.className = "list-group-item";
+
+				let divRowNew = document.createElement('div');
+				divRowNew.className = "row";
+
+				let divDateNew = document.createElement('div');
+				divDateNew.className = "col-md-2 col-sm-2";
+
+				let divTextNew = document.createElement('div');
+				divTextNew.className = "col-md-9 col-sm-9 text-center";
+
+				let divDoneNew = document.createElement('div');
+				divDoneNew.className = "col-md-1 col-sm-1";
+
+				let labelDate = document.createElement('label');
+				let emDate = document.createElement('em');
+				emDate.setAttribute('style', "font-size: small");
+				emDate.append(data['date']);
+				labelDate.append(emDate);
+
+				let spanNewText = document.createElement('span');
+				spanNewText.className = "taskText";
+				spanNewText.setAttribute('id', 'textid_' + data['id']);
+
+				let btnNewHide = document.createElement('button');
+				btnNewHide.className = "btn btn-outline-secondary ntn-sm";
+				btnNewHide.setAttribute('id', 'show_' + data['id']);
+				btnNewHide.setAttribute('style', 'font-size: x-small');
+				btnNewHide.setAttribute('onclick', 'show_hidTask(this)');
+
+				let btnNewDone = document.createElement('button');
+				btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
+				btnNewDone.setAttribute('id', 'idtask_' + data['id']);
+				btnNewDone.setAttribute('onclick', 'toTrash(this)');
+
+				let iNewDone = document.createElement('i');
+				iNewDone.className = "fa fa-check-square";
+
+				btnNewDone.append(iNewDone);
+				btnNewHide.append('Скрыть');
+				spanNewText.append(task);
+
+				divDateNew.append(labelDate);
+				divDateNew.append(btnNewHide);
+				divTextNew.append(spanNewText);
+				divDoneNew.append(btnNewDone);
+
+				divRowNew.append(divDateNew);
+				divRowNew.append(divTextNew);
+				divRowNew.append(divDoneNew);
+
+				liNew.append(divRowNew);
+
+
+				document.querySelector("#list_tasks").append(liNew);
 				document.querySelector('#newTask').value = "";
 			} 
 		});

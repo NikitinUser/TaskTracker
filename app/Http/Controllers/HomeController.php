@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Artisan;
 
+use Illuminate\Console\Scheduling\Schedule;
+
 class HomeController extends Controller
 {
     /**
@@ -38,7 +40,7 @@ class HomeController extends Controller
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
-        return view('home', compact('tasks') );	
+        return view('home', compact('tasks') ); 
     }
 
     public function trash()
@@ -55,14 +57,15 @@ class HomeController extends Controller
         return view('home', compact('tasks') ); 
     }
     
-    public function addtask(Request $request){
+    public function addtask(Request $request)
+    {
         header('Content-Type: application/json');
         $userid = intval(auth()->user()->id);
 
-        $data = 'error';
+        $data = [];
         $post = json_decode(json_encode($request->all()), true);
         Log::info("add task:: user = " . $userid . ", post = " . json_encode($post));
-        
+
         if (!empty($post)) {
             if (isset($post['task'])) {
                 $data_storage = strval($post['task'] );
@@ -75,7 +78,7 @@ class HomeController extends Controller
                 
                 $data_todb = [];
                 if (!empty($data_storage)) {
-                	Log::info("add task:: user = " . $userid . ", data_storage = " . json_encode($data_storage));
+                    Log::info("add task:: user = " . $userid . ", data_storage = " . json_encode($data_storage));
                     $data_storage = base64_encode($data_storage);
                     $date = new \DateTime($post['date']);
                     $date = $date->format('Y-m-d H:i:s');
@@ -83,27 +86,10 @@ class HomeController extends Controller
                     $data_todb['userid'] = $userid;
                     $data_todb['dt_send'] = $date;   
                     $taskmain = new TasksMain();
-                    $data_todb['id'] = $taskmain->add($data_todb);
-                    unset($data_todb['userid']);
-
-                    $buf_str = '<button class="pull-right btn btn-outline-success btn-sm " id="idtask_'.$data_todb['id'].'" onclick="toTrash(this)">
-                                                <i class="fa fa-check-square"></i>
-                                            </button>';
                     
-                    $data = '<li class="list-group-item">
-                                <div class="row">
-                                    <div class=" col-md-2 col-sm-2">
-                                        <label><em style="font-size: small">'.$data_todb['dt_send'].'</em></label>
-                                        <button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_'.$data_todb['id'].'" onclick="show_hidTask(this)">Скрыть</button>
-                                    </div> 
-                                    <div class="col-md-9 col-sm-9 text-center"><span id="textid_'.$data_todb['id'].'">
-                                        '. base64_decode($data_todb['task']) .'
-                                    </span></div> 
-                                    <div class="col-md-1 col-sm-1">'
-                                     .   $buf_str .
-                                    '</div>
-                                </div>
-                            </li>';
+                    $data['id'] = $taskmain->add($data_todb);
+                    $data['date'] = $date;
+                    $data = json_encode($data);
                 }
             }
         }
@@ -111,7 +97,8 @@ class HomeController extends Controller
     }
     
 
-    public function totrash(Request $request){
+    public function totrash(Request $request)
+    {
         header('Content-Type: application/json');
         $userid = intval(auth()->user()->id);
         $status = 0;
@@ -134,7 +121,8 @@ class HomeController extends Controller
         return $status;
     }
 
-    public function deleteTask(Request $request){
+    public function deleteTask(Request $request)
+    {
         header('Content-Type: application/json');
         $userid = intval(auth()->user()->id);
         $status = 0;
@@ -154,5 +142,4 @@ class HomeController extends Controller
         Log::info("deleteTask:: user = " . $userid . ", status = " . json_encode($status));
         return $status;
     }
-
 }
