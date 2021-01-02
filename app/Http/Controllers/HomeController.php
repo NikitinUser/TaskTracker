@@ -47,7 +47,7 @@ class HomeController extends Controller
         $tasks = TasksMain::select('task', 'id', 'dt_send')->where([
                                                                     ['userid', "=", $userid], 
                                                                     ['trash', "=", 1]
-                                                                ])->get()->toArray();
+                                                                ])->orderBy('dt_send', 'asc')->get()->toArray();
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
