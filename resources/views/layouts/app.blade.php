@@ -113,6 +113,7 @@
     @endauth
     </footer>
     <script src="{{ mix('js/app.js') }}" ></script>
+    <script src="{{ asset('js/Task.js') }}" ></script>
     <script src="{{ asset('js/main.js') }}" ></script>
 </body>
 </html>

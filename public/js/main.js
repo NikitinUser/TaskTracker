@@ -8,61 +8,9 @@ function addTask(){
 		ajaxPost('/home/addtask', params, function(data){
 			if(data != ''){
 				data = JSON.parse(data);
-				
-				let liNew = document.createElement('li');
-				liNew.className = "list-group-item";
 
-				let divRowNew = document.createElement('div');
-				divRowNew.className = "row";
-
-				let divDateNew = document.createElement('div');
-				divDateNew.className = "col-md-2 col-sm-2";
-
-				let divTextNew = document.createElement('div');
-				divTextNew.className = "col-md-9 col-sm-9 text-center";
-
-				let divDoneNew = document.createElement('div');
-				divDoneNew.className = "col-md-1 col-sm-1";
-
-				let labelDate = document.createElement('label');
-				let emDate = document.createElement('em');
-				emDate.setAttribute('style', "font-size: small");
-				emDate.append(data['date']);
-				labelDate.append(emDate);
-
-				let spanNewText = document.createElement('span');
-				spanNewText.className = "taskText";
-				spanNewText.setAttribute('id', 'textid_' + data['id']);
-
-				let btnNewHide = document.createElement('button');
-				btnNewHide.className = "btn btn-outline-secondary ntn-sm";
-				btnNewHide.setAttribute('id', 'show_' + data['id']);
-				btnNewHide.setAttribute('style', 'font-size: x-small');
-				btnNewHide.setAttribute('onclick', 'show_hidTask(this)');
-
-				let btnNewDone = document.createElement('button');
-				btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
-				btnNewDone.setAttribute('id', 'idtask_' + data['id']);
-				btnNewDone.setAttribute('onclick', 'toTrash(this)');
-
-				let iNewDone = document.createElement('i');
-				iNewDone.className = "fa fa-check-square";
-
-				btnNewDone.append(iNewDone);
-				btnNewHide.append('Скрыть');
-				spanNewText.append(task);
-
-				divDateNew.append(labelDate);
-				divDateNew.append(btnNewHide);
-				divTextNew.append(spanNewText);
-				divDoneNew.append(btnNewDone);
-
-				divRowNew.append(divDateNew);
-				divRowNew.append(divTextNew);
-				divRowNew.append(divDoneNew);
-
-				liNew.append(divRowNew);
-
+				var taskLi = new Task(data['id'], data['date'], task);
+				var liNew = taskLi.getNewTaskLi();
 
 				document.querySelector("#list_tasks").append(liNew);
 				document.querySelector('#newTask').value = "";
@@ -112,43 +60,6 @@ function deleteTask(elem){
 		} 
 	});
 	
-}
-
-function ConfirmSendTelegramTask(elem){
-	var id = elem.getAttribute('id');
-	var new_btn = document.querySelector(".send");
-	new_btn.setAttribute('id', 'n'+id);
-	$('#sendConfirmModal').modal("show");
-}
-
-function sendTelegramTask(elem){
-	var minuts = 0;
-	if(typeof document.querySelector("#minuts") !== 'undefined' && document.querySelector("#minuts") !== null){
-		minuts = document.querySelector("#minuts");
-		minuts = Number(minuts.value);
-	}
-	if(isNaN(minuts)){
-		minuts = 0;
-	}
-	var id = elem.getAttribute('id');
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
-	var params = "_token=" + token + "&id=" + id + "&minuts=" + minuts;
-	
-	ajaxPost('/home/send', params, function(data){
-		if(data != ''){
-			if(Number(data) == 1){
-				console.log("sent");
-				
-			}else{
-				console.log("dont sent");
-				var msg = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> Не получилось отправить </center> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-				document.querySelector("#returnMessages").innerHTML = msg;
-			}
-		} 
-	});
-	$('#sendConfirmModal').modal("hide");
-	var msg = '<div class="alert alert-success alert-dismissible fade show" role="alert"><center> Отправленно </center>  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-	document.querySelector("#returnMessages").innerHTML = msg;
 }
 
 function ajaxPost(url, params, callback){
