@@ -20,6 +20,7 @@ class TasksMain extends Model
                 'userid'            => $data['userid'],
                 'dt_send'           => $data['dt_send'],
                 'trash'             => 0
+            ]
         );
         return $id;
     }
