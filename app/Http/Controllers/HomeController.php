@@ -59,7 +59,6 @@ class HomeController extends Controller
     
     public function addtask(Request $request)
     {
-        header('Content-Type: application/json');
         $userid = intval(auth()->user()->id);
 
         $data = [];
@@ -99,7 +98,6 @@ class HomeController extends Controller
 
     public function totrash(Request $request)
     {
-        header('Content-Type: application/json');
         $userid = intval(auth()->user()->id);
         $status = 0;
         $post = json_decode(json_encode($request->all()), true);
@@ -123,7 +121,6 @@ class HomeController extends Controller
 
     public function deleteTask(Request $request)
     {
-        header('Content-Type: application/json');
         $userid = intval(auth()->user()->id);
         $status = 0;
         $post = json_decode(json_encode($request->all()), true);
