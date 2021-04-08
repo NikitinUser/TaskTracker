@@ -1,5 +1,25 @@
+window.onload = function () {
+	var currentURL = window.location.href;
+	
+	var arrURL = currentURL.split("/");
+	var route = arrURL[3];
+
+	if (route == "trash") {
+		document.querySelector("#div-done-tasks").hidden = false;
+		document.querySelector("#div-add-task").hidden = true;
+	} else {
+		 document.querySelector("#div-add-task").hidden = false;
+	}
+	console.log(route);
+}
+
+function detectRoute() {
+	
+}
+
 function addTask(){
 	var task = document.querySelector('#newTask').value;
+	task = task.replace(/&/g, "%26");
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
 
