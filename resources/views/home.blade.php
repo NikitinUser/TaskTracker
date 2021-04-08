@@ -24,35 +24,6 @@
             		</center>
             	</div>
             	<ul class="list-group list-group-flush" id="list_tasks">
-            		@if (!empty($tasks))
-            			@foreach ($tasks as $task)
-            				<li class="list-group-item">
-		            			<div class="row">
-		            				<div class=" col-md-2 col-sm-2">
-		            					<label><em style="font-size: small">{{ $task['dt_send']}}</em></label>
-		            					<button class="btn btn-outline-secondary ntn-sm" style="font-size: x-small" id="show_{{$task['id']}}" onclick="show_hidTask(this)">Скрыть</button>
-		            				</div> 
-		            				<div class="col-md-9 col-sm-9 text-center">
-		            					<span id="textid_{{ $task['id'] }}" class="taskText">
-		            						{{ $task['task'] }}
-		            					</span>
-				                        
-				                    </div> 
-				                    <div class="col-md-1 col-sm-1">
-				                    	@if (url()->current() == "http://t-tasktracker.ru/home" || url()->current() == "http://t-tasktracker.ru")
-				                    		<button class="pull-right btn btn-outline-success btn-sm " id="idtask_{{$task['id']}}" onclick="toTrash(this)">
-					                    		<i class="fa fa-check-square"></i>
-					                    	</button>
-				                    	@elseif (url()->current() == "http://t-tasktracker.ru/trash")
-				                    		<button class="pull-right btn btn-outline-danger btn-sm " id="idtask_{{$task['id']}}" onclick="deleteTask(this)">
-					                    		<i class="fa fa-trash"></i>
-					                    	</button>
-				                    	@endif
-				                    </div>
-				                </div>
-				            </li>
-            			@endforeach
-            		@endif
             		
 		        </ul>
 

@@ -1,9 +1,10 @@
 class Task {
 
- 	constructor(id, date, task) {
+ 	constructor(id, date, task, type) {
     	this.id = id;
     	this.date = date;
     	this.task = task;
+    	this.type = type;
  	}
 	getNewTaskLi() {
 	  	let liNew = document.createElement('li');
@@ -38,13 +39,26 @@ class Task {
 		btnNewHide.setAttribute('onclick', 'show_hidTask(this)');
 
 		let btnNewDone = document.createElement('button');
-		btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
-		btnNewDone.setAttribute('id', 'idtask_' + this.id);
-		btnNewDone.setAttribute('onclick', 'toTrash(this)');
 
 		let iNewDone = document.createElement('i');
-		iNewDone.className = "fa fa-check-square";
 
+		if (this.type == 0) {
+			
+			btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
+			btnNewDone.setAttribute('id', 'idtask_' + this.id);
+			btnNewDone.setAttribute('onclick', 'toDone(this)');
+
+			
+			iNewDone.className = "fa fa-check-square";
+		} else {	//if (this.type = 1)
+
+			btnNewDone.className = "pull-right btn btn-outline-danger btn-sm";
+			btnNewDone.setAttribute('id', 'idtask_' + this.id);
+			btnNewDone.setAttribute('onclick', 'deleteTask(this)');
+
+			iNewDone.className = "fa fa-trash";
+		}
+		
 		btnNewDone.append(iNewDone);
 		btnNewHide.append('Скрыть');
 		spanNewText.append(this.task);

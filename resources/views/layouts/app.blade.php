@@ -52,7 +52,7 @@
                                 <a class="nav-link" href="{{ route('home') }}">TaskTracker</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="{{ route('trash') }}" class="nav-link" >Выплненное</a>
+                                <a href="{{ route('done') }}" class="nav-link" >Выплненное</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

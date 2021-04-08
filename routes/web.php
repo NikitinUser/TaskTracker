@@ -21,11 +21,14 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('home/addtask', [App\Http\Controllers\HomeController::class, 'addtask']);
+Route::get('/done', [App\Http\Controllers\HomeController::class, 'index'])->name('done');
 
-Route::post('home/totrash', [App\Http\Controllers\HomeController::class, 'totrash']);
+Route::get('/main_tasks', [App\Http\Controllers\HomeController::class, 'getMainTasks'])->name('main_tasks');
+Route::get('/done_tasks', [App\Http\Controllers\HomeController::class, 'getDoneTasks'])->name('done_tasks');
 
-Route::get('/trash', [App\Http\Controllers\HomeController::class, 'trash'])->name('trash');
 
-Route::post('trash/deleteTask', [App\Http\Controllers\HomeController::class, 'deleteTask']);
+Route::post('addTask', [App\Http\Controllers\HomeController::class, 'addtask']);
 
+Route::post('toDone', [App\Http\Controllers\HomeController::class, 'taskToDone']);
+
+Route::post('deleteTask', [App\Http\Controllers\HomeController::class, 'deleteTask']);

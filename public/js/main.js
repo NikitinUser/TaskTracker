@@ -1,20 +1,39 @@
 window.onload = function () {
-	var currentURL = window.location.href;
-	
-	var arrURL = currentURL.split("/");
-	var route = arrURL[3];
-
-	if (route == "trash") {
-		document.querySelector("#div-done-tasks").hidden = false;
-		document.querySelector("#div-add-task").hidden = true;
-	} else {
-		 document.querySelector("#div-add-task").hidden = false;
-	}
-	console.log(route);
+	detectRoute();
 }
 
 function detectRoute() {
-	
+	var currentURL = window.location.href;
+
+	var arrURL = currentURL.split("/");
+	var route = arrURL[3];
+
+	if (route == "done") {
+		document.querySelector("#div-done-tasks").hidden = false;
+		document.querySelector("#div-add-task").hidden = true;
+		loadTasks('/done_tasks', 1);
+	} else {
+		 document.querySelector("#div-add-task").hidden = false;
+		 loadTasks('/main_tasks', 0);
+	}
+	//console.log(route);
+}
+
+function loadTasks(route, type) {
+	ajaxGet(route, function(data) {
+		if(data != ''){
+			data = JSON.parse(data);
+
+			for (var i = 0; i < data.length; i++) {
+				var taskLi = new Task(data[i].id, data[i].dt_task, data[i].task, type);
+				var liNew = taskLi.getNewTaskLi();
+
+				document.querySelector("#list_tasks").append(liNew);
+				//document.querySelector('#newTask').value = "";
+			}
+			//console.log(data);
+		}
+	});
 }
 
 function addTask(){
@@ -23,9 +42,12 @@ function addTask(){
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
 
+	//var params = "data="+JSON.stringify({ 0: sendArr})+"&"+"track_key="+track_key+"&"+"btnName="+btnName;
+
 	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime;
+
 	if (Number(task) !== 0 && task.lenght != 0){
-		ajaxPost('/home/addtask', params, function(data){
+		ajaxPost('addTask', params, function(data){
 			if(data != ''){
 				data = JSON.parse(data);
 
@@ -51,13 +73,13 @@ function getDateTime(){
 	return dd + '-' + mm + '-' + yyyy + " " + h + ":" + m + ":" + s;
 }
 
-function toTrash(elem){
+function toDone(elem){
 	var id = elem.getAttribute('id');
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
 	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime;
 	
-	ajaxPost('/home/totrash', params, function(data){
+	ajaxPost('/toDone', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
 				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
@@ -72,7 +94,7 @@ function deleteTask(elem){
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var params = "_token=" + token + "&id=" + id;
 	
-	ajaxPost('/trash/deleteTask', params, function(data){
+	ajaxPost('/deleteTask', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
 				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
@@ -96,6 +118,22 @@ function ajaxPost(url, params, callback){
 	request.open('POST', url);
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	request.send(params);
+}
+
+function ajaxGet(url, callback){
+	var f = callback || function(data){};
+	var request = new XMLHttpRequest();
+	
+	request.onreadystatechange = function(){
+		if (request.readyState==4 && request.response != ''){
+			var myObj = request.response;
+			f(myObj);
+		}
+	}
+	
+	request.open('GET', url);
+	//request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	request.send();
 }
 
 function show_hidTask(elem){
