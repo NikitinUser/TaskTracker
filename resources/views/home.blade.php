@@ -3,10 +3,17 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="card col-md-8">
+        <div class="card col-md-10">
             <div class="card-body">
             	<div class="input-group mb-3" id="div-add-task" hidden="true">
             		<input type="text" name="newTask" id="newTask" placeholder="Задача" size="100" class="form-control"> 
+            		<span class="input-group-append">
+            			<select class="form-select" name="priorityTask" id="priorityTask">
+            				<option value="0"> Low </option>
+            				<option value="1"> Middle</option>
+            				<option value="2"> High</option>
+            			</select>
+            		</span>
             		<span class="input-group-append">
             			<button class="btn btn-secondary" type="button" onclick="addTask()">
             				<i class="fa fa-plus"></i>

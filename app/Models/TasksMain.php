@@ -42,10 +42,10 @@ class TasksMain extends Model
     {
         $userid = intval(auth()->user()->id);
 
-        $tasks = self::select('task', 'id', 'dt_task')->where([
-                                                                ['userid', "=", $userid], 
-                                                                ['type', "=", $type]
-                                                            ])->orderBy('dt_task', 'asc')->get()->toArray();
+        $tasks = self::select('task', 'id', 'dt_task', 'priority')->where([
+                                                                            ['userid', "=", $userid], 
+                                                                            ['type', "=", $type]
+                                                                        ])->orderBy('dt_task', 'asc')->get()->toArray();
 
         for ($i = 0; $i < count($tasks); $i++) {
 

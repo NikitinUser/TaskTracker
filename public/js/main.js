@@ -25,7 +25,7 @@ function loadTasks(route, type) {
 			data = JSON.parse(data);
 
 			for (var i = 0; i < data.length; i++) {
-				var taskLi = new Task(data[i].id, data[i].dt_task, data[i].task, type);
+				var taskLi = new Task(data[i].id, data[i].dt_task, data[i].task, type, data[i].priority);
 				var liNew = taskLi.getNewTaskLi();
 
 				document.querySelector("#list_tasks").append(liNew);
@@ -41,17 +41,18 @@ function addTask(){
 	task = task.replace(/&/g, "%26");
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
+	var priorityTask = document.querySelector('#priorityTask').value;
 
-	//var params = "data="+JSON.stringify({ 0: sendArr})+"&"+"track_key="+track_key+"&"+"btnName="+btnName;
+	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask;
 
-	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime;
+	console.log(params);
 
 	if (Number(task) !== 0 && task.lenght != 0){
 		ajaxPost('addTask', params, function(data){
 			if(data != ''){
 				data = JSON.parse(data);
 
-				var taskLi = new Task(data['id'], data['date'], task);
+				var taskLi = new Task(data['id'], data['date'], task, 0, priorityTask);
 				var liNew = taskLi.getNewTaskLi();
 
 				document.querySelector("#list_tasks").append(liNew);

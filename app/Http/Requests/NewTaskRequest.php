@@ -91,4 +91,17 @@ class NewTaskRequest extends FormRequest
 
         return $data['id'];
     }
+
+    public function validTaskPriority($data)
+    {
+
+        if (!isset($data['priorityTask'])) {
+            Log::info("[".__FUNCTION__."]: data[priorityTask] !isset");
+            return false;
+        }
+
+        $data['priorityTask'] = preg_replace('/[^0-9]/', "", $data['priorityTask'] );
+
+        return $data['priorityTask'];
+    }
 }

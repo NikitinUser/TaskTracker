@@ -71,11 +71,16 @@ class HomeController extends Controller
         $post['date'] = $NewTaskRequest->validTaskDate($post);
         if (!$post['date']) {
             return false;
-        }       
+        }    
+
+        $post['priorityTask'] = $NewTaskRequest->validTaskPriority($post);
+        if ($post['priorityTask'] === false) {
+            return false;
+        }     
 
         $TasksMain = new TasksMain();
         $TasksMain->setType(0);
-        $TasksMain->setPriority(0);
+        $TasksMain->setPriority($post['priorityTask']);
         $data = $TasksMain->addNewTask($post);
 
         return json_encode($data);
