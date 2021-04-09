@@ -1,9 +1,11 @@
 class Task {
 
- 	constructor(id, date, task) {
+ 	constructor(id, date, task, type, priority = 0) {
     	this.id = id;
     	this.date = date;
     	this.task = task;
+    	this.type = type;
+    	this.priority = priority;
  	}
 	getNewTaskLi() {
 	  	let liNew = document.createElement('li');
@@ -31,6 +33,14 @@ class Task {
 		spanNewText.className = "taskText";
 		spanNewText.setAttribute('id', 'textid_' + this.id);
 
+		let iPriority = document.createElement('i');
+		
+		if (this.priority == 1) {
+			iPriority.className = "fa fa-exclamation-circle text-warning";
+		} else if (this.priority == 2) {
+			iPriority.className = "fa fa-exclamation-circle text-danger";
+		}
+
 		let btnNewHide = document.createElement('button');
 		btnNewHide.className = "btn btn-outline-secondary ntn-sm";
 		btnNewHide.setAttribute('id', 'show_' + this.id);
@@ -38,16 +48,30 @@ class Task {
 		btnNewHide.setAttribute('onclick', 'show_hidTask(this)');
 
 		let btnNewDone = document.createElement('button');
-		btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
-		btnNewDone.setAttribute('id', 'idtask_' + this.id);
-		btnNewDone.setAttribute('onclick', 'toTrash(this)');
 
 		let iNewDone = document.createElement('i');
-		iNewDone.className = "fa fa-check-square";
 
+		if (this.type == 0) {
+			
+			btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
+			btnNewDone.setAttribute('id', 'idtask_' + this.id);
+			btnNewDone.setAttribute('onclick', 'toDone(this)');
+
+			
+			iNewDone.className = "fa fa-check-square";
+		} else {	//if (this.type = 1)
+
+			btnNewDone.className = "pull-right btn btn-outline-danger btn-sm";
+			btnNewDone.setAttribute('id', 'idtask_' + this.id);
+			btnNewDone.setAttribute('onclick', 'deleteTask(this)');
+
+			iNewDone.className = "fa fa-trash";
+		}
+		
 		btnNewDone.append(iNewDone);
 		btnNewHide.append('Скрыть');
 		spanNewText.append(this.task);
+		spanNewText.append(iPriority);
 
 		divDateNew.append(labelDate);
 		divDateNew.append(btnNewHide);
