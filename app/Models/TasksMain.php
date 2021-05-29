@@ -7,7 +7,7 @@ use App\Repositories\TaskRepository;
 
 class TasksMain extends TaskRepository
 {
-    public function addNewTask($post, $typeTask)
+    public function addNewTask($post)
     {
         $post['userid'] = intval(auth()->user()->id);
 
@@ -26,7 +26,7 @@ class TasksMain extends TaskRepository
                             'task'      =>  $post['task'], 
                             'userid'    =>  $post['userid'],
                             'dt_task'   =>  $post['date'],
-                            'type'      =>  $typeTask,
+                            'type'      =>  $post['type'],
                             'priority'  =>  $post['priorityTask']
                         ]
         );
@@ -34,7 +34,7 @@ class TasksMain extends TaskRepository
         return $post;
     }
 
-    public function swapTypeTask($post, $typeTask)
+    public function swapTypeTask($post)
     {
         $userid = intval(auth()->user()->id);
 
@@ -47,7 +47,7 @@ class TasksMain extends TaskRepository
                                     ['userid', "=", $userid], 
                                     ['id', '=', $id],
                                 ])
-                         ->update(['type' => $typeTask, 'dt_task' => $post['date'] ]);
+                         ->update(['type' => $post['type'], 'dt_task' => $post['date'] ]);
         return true;
     }
 

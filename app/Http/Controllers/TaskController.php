@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\MoveTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
+use App\Http\Requests\GetTasksRequest;
 
 class TaskController extends Controller
 {
@@ -35,18 +36,11 @@ class TaskController extends Controller
         return view('home'); 
     }
 
-    public function getMainTasks()
+    public function getTasks(GetTasksRequest $request)
     {
-        $tasks = $this->TasksMain->allTasksUser(TasksMain::TYPE_ACTIVE_TASK);
+        $type = intval($request->input('type'));
 
-        $tasks = json_encode($tasks);
-
-        return $tasks;
-    }
-
-    public function getDoneTasks()
-    {
-        $tasks = $this->TasksMain->allTasksUser(TasksMain::TYPE_DONE_TASK);
+        $tasks = $this->TasksMain->allTasksUser($type);
 
         $tasks = json_encode($tasks);
 
@@ -59,21 +53,20 @@ class TaskController extends Controller
 
         Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
 
-        $data = $this->TasksMain->addNewTask($post, TasksMain::TYPE_ACTIVE_TASK);
+        $data = $this->TasksMain->addNewTask($post);
 
         $data = json_encode($data);
 
         return $data;
     }
     
-
-    public function taskToDone(MoveTaskRequest $request)
+    public function taskChangeType(MoveTaskRequest $request)
     {
         $post = $request->all();
 
         Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
 
-        $status = $this->TasksMain->swapTypeTask($post, TasksMain::TYPE_DONE_TASK);
+        $status = $this->TasksMain->swapTypeTask($post);
         
         return $status;
     }

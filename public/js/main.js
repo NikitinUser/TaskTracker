@@ -20,6 +20,7 @@ function detectRoute() {
 }
 
 function loadTasks(route, type) {
+	route += "?type=" + type;
 	ajaxGet(route, function(data) {
 		if(data != ''){
 			data = JSON.parse(data);
@@ -43,7 +44,7 @@ function addTask(){
 	var dateTime = getDateTime();
 	var priorityTask = document.querySelector('#priorityTask').value;
 
-	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask;
+	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask + "&type=0";
 
 	console.log(params);
 
@@ -80,7 +81,7 @@ function toDone(elem){
 
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
-	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime;
+	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=" + 1;
 	ajaxPost('/toDone', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
