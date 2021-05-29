@@ -37,7 +37,7 @@ class TaskController extends Controller
 
     public function getMainTasks()
     {
-        $tasks = $this->TasksMain->allTasksUser(0);
+        $tasks = $this->TasksMain->allTasksUser(TasksMain::TYPE_ACTIVE_TASK);
 
         $tasks = json_encode($tasks);
 
@@ -46,7 +46,7 @@ class TaskController extends Controller
 
     public function getDoneTasks()
     {
-        $tasks = $this->TasksMain->allTasksUser(1);
+        $tasks = $this->TasksMain->allTasksUser(TasksMain::TYPE_DONE_TASK);
 
         $tasks = json_encode($tasks);
 
@@ -59,7 +59,7 @@ class TaskController extends Controller
 
         Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
 
-        $data = $this->TasksMain->addNewTask($post, 0);
+        $data = $this->TasksMain->addNewTask($post, TasksMain::TYPE_ACTIVE_TASK);
 
         $data = json_encode($data);
 
@@ -73,7 +73,7 @@ class TaskController extends Controller
 
         Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
 
-        $status = $this->TasksMain->swapTypeTask($post, 1);
+        $status = $this->TasksMain->swapTypeTask($post, TasksMain::TYPE_DONE_TASK);
         
         return $status;
     }

@@ -10,6 +10,11 @@ class TaskRepository extends Model implements TaskRepositoryInterface
 
     protected $table = 'tasks_mains';
 
+    public const TYPE_ACTIVE_TASK = 0;
+    public const TYPE_DONE_TASK = 1;
+    public const TYPE_ARCHIVE_TASK = 2;
+    public const TYPE_BOOKMARK = 3;
+
     public function allTasksUser($type)
     {
         $userid = intval(auth()->user()->id);
