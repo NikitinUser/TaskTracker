@@ -19,7 +19,7 @@ class CreateTasksMainsTable extends Migration
             $table->string('task', 1700);
 
             $table->unsignedBigInteger('userid');
-            $table->foreign('userid')->references('id')->on('users');
+            $table->foreign('userid')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->dateTime('dt_task')->nullable();
 
