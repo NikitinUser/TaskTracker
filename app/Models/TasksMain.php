@@ -21,7 +21,7 @@ class TasksMain extends TaskRepository
         $dt_task = new \DateTime($post['date']);
         $post['date'] = $dt_task->format('Y-m-d H:i:s');
 
-        $post['id'] = self::insertGetId(
+        $post['id'] = $this->insertGetId(
                         [
                             'task'      =>  $post['task'], 
                             'userid'    =>  $post['userid'],
@@ -43,10 +43,11 @@ class TasksMain extends TaskRepository
         $dt_task = new \DateTime($post['date']);
         $post['date'] = $dt_task->format('Y-m-d H:i:s');
 
-        $affected = self::where([
+        $affected = $this->where([
                                     ['userid', "=", $userid], 
                                     ['id', '=', $id],
-                                ])->update(['type' => $typeTask, 'dt_task' => $post['date'] ]);
+                                ])
+                         ->update(['type' => $typeTask, 'dt_task' => $post['date'] ]);
         return true;
     }
 
@@ -56,10 +57,11 @@ class TasksMain extends TaskRepository
 
         $id = intval($post['id']);
 
-        $affected = self::where([
+        $affected = $this->where([
                                     ['userid', "=", $userid], 
                                     ['id', '=', $id]
-                                ])->delete();
+                                ])
+                         ->delete();
 
         return true;
     }
