@@ -19,16 +19,16 @@ Route::get('/demo', function () {
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/done', [App\Http\Controllers\HomeController::class, 'index'])->name('done');
+Route::get('/', [App\Http\Controllers\TaskController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\TaskController::class, 'index'])->name('home');
+Route::get('/done', [App\Http\Controllers\TaskController::class, 'index'])->name('done');
 
-Route::get('/main_tasks', [App\Http\Controllers\HomeController::class, 'getMainTasks'])->name('main_tasks');
-Route::get('/done_tasks', [App\Http\Controllers\HomeController::class, 'getDoneTasks'])->name('done_tasks');
+Route::get('/main_tasks', [App\Http\Controllers\TaskController::class, 'getMainTasks'])->name('main_tasks');
+Route::get('/done_tasks', [App\Http\Controllers\TaskController::class, 'getDoneTasks'])->name('done_tasks');
 
 
-Route::post('addTask', [App\Http\Controllers\HomeController::class, 'addtask']);
+Route::post('addTask', [App\Http\Controllers\TaskController::class, 'addtask']);
 
-Route::post('toDone', [App\Http\Controllers\HomeController::class, 'taskToDone']);
+Route::post('toDone', [App\Http\Controllers\TaskController::class, 'taskToDone']);
 
-Route::post('deleteTask', [App\Http\Controllers\HomeController::class, 'deleteTask']);
+Route::post('deleteTask', [App\Http\Controllers\TaskController::class, 'deleteTask']);

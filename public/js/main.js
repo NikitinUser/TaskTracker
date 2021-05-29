@@ -76,10 +76,11 @@ function getDateTime(){
 
 function toDone(elem){
 	var id = elem.getAttribute('id');
+	id = id.split("_")[1];
+
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
 	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime;
-	
 	ajaxPost('/toDone', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
@@ -92,6 +93,7 @@ function toDone(elem){
 
 function deleteTask(elem){
 	var id = elem.getAttribute('id');
+	id = id.split("_")[1];
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var params = "_token=" + token + "&id=" + id;
 	
