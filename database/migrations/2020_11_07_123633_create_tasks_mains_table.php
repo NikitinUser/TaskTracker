@@ -16,12 +16,18 @@ class CreateTasksMainsTable extends Migration
         Schema::create('tasks_mains', function (Blueprint $table) {
             $table->id();
             
-            $table->dateTime('datatime_trash')->nullable();
-            $table->string('task');
-            $table->integer('userid');
-            $table->integer('trash')->nullable();
-            $table->dateTime('dt_send')->nullable();
-            $table->timestamps();
+            $table->string('task', 1700);
+
+            $table->unsignedBigInteger('userid');
+            $table->foreign('userid')->references('id')->on('users');
+
+            $table->dateTime('dt_task')->nullable();
+
+            $table->integer('type')->default(0);
+            $table->integer('priority')->default(0);
+
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 
