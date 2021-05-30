@@ -19,10 +19,10 @@ function drawStat(data) {
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [],
+            labels: ['Активные', 'Всего завершено', 'В архиве'],
             datasets: [{
                 label: '# of Votes',
-                data: data,
+                data: [data.countActive, data.countDone, data.countArchive],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
