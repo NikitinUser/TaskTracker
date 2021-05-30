@@ -71,11 +71,20 @@
               </div>
             </div>
           </div>
-        </div>
-
-        
+        </div>        
     </div>
 </div>
+
+<footer class="page-footer mt-2 mb-3">
+@auth
+    <center>
+        <a href="#top" class="btn btn-outline-secondary btn-sm ">Наверх</a>
+    </center>
+@endauth
+</footer>
+
+<script src="{{ asset('js/Task.js') }}" ></script>
+<script src="{{ asset('js/main.js') }}" ></script>
 
 <script type="text/javascript">
 	document.addEventListener('keydown', function(event) {

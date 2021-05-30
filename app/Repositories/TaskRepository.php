@@ -29,11 +29,25 @@ class TaskRepository extends Model implements TaskRepositoryInterface
                       ->orderBy('dt_task', 'asc')
                       ->get()
                       ->toArray();
-
+                      
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
 
         return $tasks;
+    }
+
+    public function getCountTasks($type)
+    {
+        $userid = intval(auth()->user()->id);
+
+        $count = $this->select('id')
+                      ->where([
+                                ['userid', "=", $userid], 
+                                ['type', "=", $type]
+                        ])
+                      ->get()
+                      ->count();
+        return $count;
     }
 }

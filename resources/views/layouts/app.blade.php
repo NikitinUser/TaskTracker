@@ -61,6 +61,9 @@
                                 <a href="{{ route('bookmarks') }}" class="nav-link" >Закладки</a>
                             </li>
                             <li class="nav-item dropdown">
+                                <a href="{{ route('statistic') }}" class="nav-link" >Статистика</a>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->login }} <span class="caret"></span>
                                 </a>
@@ -111,15 +114,9 @@
             @yield('content')
         </main>
     </div>
-    <footer class="page-footer mt-2 mb-3">
-    @auth
-        <center>
-            <a href="#top" class="btn btn-outline-secondary btn-sm ">Наверх</a>
-        </center>
-    @endauth
-    </footer>
+    
     <script src="{{ mix('js/app.js') }}" ></script>
-    <script src="{{ asset('js/Task.js') }}" ></script>
-    <script src="{{ asset('js/main.js') }}" ></script>
+    <script src="{{ asset('js/ajax.js') }}" ></script>
+    
 </body>
 </html>
