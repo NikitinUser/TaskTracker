@@ -11,6 +11,7 @@ use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\MoveTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\GetTasksRequest;
+use App\Http\Requests\ChangeTaskRequest;
 
 class TaskController extends Controller
 {
@@ -43,7 +44,7 @@ class TaskController extends Controller
         $tasks = $this->TasksMain->allTasksUser($type);
 
         $tasks = json_encode($tasks);
-
+        
         return $tasks;
     }
     
@@ -58,6 +59,17 @@ class TaskController extends Controller
         $data = json_encode($data);
 
         return $data;
+    }
+
+    public function changeTask(ChangeTaskRequest $request)
+    {
+        $post = $request->all();
+
+        Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
+
+        $status = $this->TasksMain->changeTask($post);
+
+        return $status;
     }
     
     public function taskChangeType(MoveTaskRequest $request)

@@ -55,6 +55,12 @@
                                 <a href="{{ route('done') }}" class="nav-link" >Выплненное</a>
                             </li>
                             <li class="nav-item dropdown">
+                                <a href="{{ route('archive') }}" class="nav-link" >Архив</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="{{ route('bookmarks') }}" class="nav-link" >Закладки</a>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->login }} <span class="caret"></span>
                                 </a>
