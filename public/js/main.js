@@ -11,10 +11,17 @@ function detectRoute() {
 	if (route == "done") {
 		document.querySelector("#div-done-tasks").hidden = false;
 		document.querySelector("#div-add-task").hidden = true;
-		loadTasks('/done_tasks', 1);
+		loadTasks('/get_tasks', 1);
+	} else if (route == "archive") {
+		document.querySelector("#div-done-tasks").hidden = true;
+		document.querySelector("#div-add-task").hidden = true;
+		loadTasks('/get_tasks', 2);
+	} else if (route == "bookmarks") {
+		document.querySelector("#div-add-task").hidden = false;
+		 loadTasks('/get_tasks', 3);
 	} else {
 		 document.querySelector("#div-add-task").hidden = false;
-		 loadTasks('/main_tasks', 0);
+		 loadTasks('/get_tasks', 0);
 	}
 	//console.log(route);
 }
@@ -44,7 +51,16 @@ function addTask(){
 	var dateTime = getDateTime();
 	var priorityTask = document.querySelector('#priorityTask').value;
 
-	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask + "&type=0";
+	var currentURL = window.location.href;
+	var arrURL = currentURL.split("/");
+	var route = arrURL[3];
+	var typeTask = 0;
+
+	if (route == "bookmarks") {
+		typeTask = 3;
+	}
+
+	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask + "&type=" + typeTask;
 
 	console.log(params);
 
@@ -53,7 +69,7 @@ function addTask(){
 			if(data != ''){
 				data = JSON.parse(data);
 
-				var taskLi = new Task(data['id'], data['date'], task, 0, priorityTask);
+				var taskLi = new Task(data['id'], data['date'], task, typeTask, priorityTask);
 				var liNew = taskLi.getNewTaskLi();
 
 				document.querySelector("#list_tasks").append(liNew);
@@ -174,4 +190,59 @@ function hideAll(elem){
 			arrBtns[i].textContent = "Скрыть";
 		}
 	}
+}
+
+
+function toBookmarks(elem) {
+	var id = elem.parentNode.getAttribute('id');
+	id = id.split("_")[1];
+
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+	var dateTime = getDateTime();
+	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=" + 3;
+	ajaxPost('/toBookmark', params, function(data){
+		if(data != ''){
+			if(Number(data) == 1){
+				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+			}
+		} 
+	});
+}
+
+function toArchive(elem) {
+	var id = elem.parentNode.getAttribute('id');
+	id = id.split("_")[1];
+
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+	var dateTime = getDateTime();
+	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=" + 2;
+	ajaxPost('/toArchive', params, function(data){
+		if(data != ''){
+			if(Number(data) == 1){
+				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+			}
+		} 
+	});
+}
+
+function toTasks(elem) {
+	var id = elem.parentNode.getAttribute('id');
+	id = id.split("_")[1];
+	console.log(id);
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+	var dateTime = getDateTime();
+	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=0";
+
+	ajaxPost('/toActive', params, function(data){
+		if(data != ''){
+			if(Number(data) == 1){
+				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+			}
+		} 
+	});
+
+}
+
+function changeTask(elem) {
+
 }

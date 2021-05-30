@@ -43,7 +43,7 @@ class TaskController extends Controller
         $tasks = $this->TasksMain->allTasksUser($type);
 
         $tasks = json_encode($tasks);
-
+        
         return $tasks;
     }
     
