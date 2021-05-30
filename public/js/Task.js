@@ -33,12 +33,19 @@ class Task {
 		spanNewText.className = "taskText";
 		spanNewText.setAttribute('id', 'textid_' + this.id);
 
+		let inputPriority = document.createElement('input');
+		inputPriority.setAttribute('id', 'priorityid_' + this.id);
+		inputPriority.setAttribute('type', 'hidden');
+		inputPriority.value = 0;
+
 		let iPriority = document.createElement('i');
 		
 		if (this.priority == 1) {
 			iPriority.className = "fa fa-exclamation-circle text-warning";
+			inputPriority.value = 1;
 		} else if (this.priority == 2) {
 			iPriority.className = "fa fa-exclamation-circle text-danger";
+			inputPriority.value = 2;
 		}
 
 		let btnNewHide = document.createElement('button');
@@ -81,7 +88,7 @@ class Task {
 		divDropMenu.innerHTML = '<button class="dropdown-item" onclick="toBookmarks(this)">В закладки</button>'+
 								'<button class="dropdown-item" onclick="toArchive(this)">В архив</button>'+
 								'<button class="dropdown-item" onclick="toTasks(this)">В задачи</button>'+
-								'<button class="dropdown-item" onclick="changeTask(this)">Изменить</button>';
+								'<button class="dropdown-item" onclick="modalChangeTask(this)">Изменить</button>';
 
 		//btnMoreActions.setAttribute('onclick', 'deleteTask(this)');
 		
@@ -89,6 +96,7 @@ class Task {
 		btnNewHide.append('Скрыть');
 		spanNewText.append(this.task);
 		spanNewText.append(iPriority);
+		spanNewText.append(inputPriority);
 
 		divDateNew.append(labelDate);
 		divDateNew.append(btnNewHide);

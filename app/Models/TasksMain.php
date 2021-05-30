@@ -13,7 +13,7 @@ class TasksMain extends TaskRepository
 
         $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $post['task']);
         $task = trim($post['task']);
-        $task = mb_substr($task, 0, 700);
+        $task = mb_substr($task, 0, 900);
         $task = base64_encode($task);
 
         $post['task'] = $task;
@@ -32,6 +32,27 @@ class TasksMain extends TaskRepository
         );
 
         return $post;
+    }
+
+    public function changeTask($post)
+    {
+        $userid = intval(auth()->user()->id);
+
+        $id = intval($post['id']);
+
+        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $post['task']);
+        $task = trim($post['task']);
+        $task = mb_substr($task, 0, 900);
+        $task = base64_encode($task);
+
+        $post['task'] = $task;
+
+        $affected = $this->where([
+                                    ['userid', "=", $userid], 
+                                    ['id', '=', $id],
+                                ])
+                         ->update(['task' => $post['task'], 'priority' => $post['priorityTask'] ]);
+        return true;
     }
 
     public function swapTypeTask($post)

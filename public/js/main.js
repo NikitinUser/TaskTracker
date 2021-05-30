@@ -228,7 +228,7 @@ function toArchive(elem) {
 function toTasks(elem) {
 	var id = elem.parentNode.getAttribute('id');
 	id = id.split("_")[1];
-	console.log(id);
+
 	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
 	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=0";
@@ -243,6 +243,34 @@ function toTasks(elem) {
 
 }
 
-function changeTask(elem) {
+function modalChangeTask(elem) {
+	var id = elem.parentNode.getAttribute('id');
+	id = id.split("_")[1];
 
+	document.querySelector("#idChangeTaskModal").value = id;
+
+	document.querySelector('#contentChangeTaskModal').value = document.querySelector('#textid_'+id).textContent;
+	document.querySelector('#priorityChangeTaskModal').value = document.querySelector('#priorityid_'+id).value;
+
+	$('#exampleModal').modal('show');
+}
+
+function changeTask() {
+	var id = document.querySelector("#idChangeTaskModal").value;
+
+	var task = document.querySelector('#contentChangeTaskModal').value;
+	task = task.replace(/&/g, "%26");
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+
+	var priorityTask = document.querySelector('#priorityChangeTaskModal').value;
+
+	var params = "_token=" + token + "&task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
+
+	if (Number(task) !== 0 && task.lenght != 0){
+		ajaxPost('changeTask', params, function(data){
+			if(data != ''){
+				location.reload();
+			} 
+		});
+	}
 }

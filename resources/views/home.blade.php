@@ -8,7 +8,7 @@
             	<div class="input-group mb-3" id="div-add-task" hidden="true">
             		<input type="text" name="newTask" id="newTask" placeholder="Задача" size="100" class="form-control"> 
             		<span class="input-group-append">
-            			<select class="form-select" name="priorityTask" id="priorityTask">
+            			<select class="custom-select" name="priorityTask" id="priorityTask">
             				<option value="0"> Low </option>
             				<option value="1"> Middle</option>
             				<option value="2"> High</option>
@@ -36,6 +36,43 @@
 
             </div>
         </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <input type="hidden" id="idChangeTaskModal" value="">
+
+                <div>
+                    <label>Текст:</label>
+                    <textarea class="form-control" id="contentChangeTaskModal" rows="3"></textarea>
+                </div>
+                
+                <div>
+                    <label>Приоритетность:</label>
+                    <select class="custom-select" id="priorityChangeTaskModal">
+                        <option value="0"> Low </option>
+                        <option value="1"> Middle</option>
+                        <option value="2"> High</option>
+                    </select>
+                </div>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick="changeTask()">Сохранить</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         
     </div>
 </div>
