@@ -1,0 +1,477 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"js",
+				"json_encode"
+			],
+			[
+				"text",
+				"textContent"
+			],
+			[
+				"l",
+				"log"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"s",
+				"split"
+			],
+			[
+				"co",
+				"console"
+			],
+			[
+				"in",
+				"innerHTML"
+			],
+			[
+				"isa",
+				"is_array"
+			],
+			[
+				"ST",
+				"STATUS_NON_INSTALL"
+			],
+			[
+				"file_",
+				"file_put_contents"
+			],
+			[
+				"di",
+				"display\tproperty"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/tmp/fz3temp-2/TasksMainObserver.php",
+		"/home/mint/aps/TaskTracker/app/Observers/TasksMainObserver.php",
+		"/home/mint/aps/TaskTracker/app/Repositories/TaskRepository.php",
+		"/home/mint/aps/TaskTracker/storage/logs/laravel.log",
+		"/home/mint/aps/TaskTracker/app/Models/TasksMain.php",
+		"/tmp/fz3temp-2/laravel.log",
+		"/home/mint/aps/TaskTracker/routes/web.php",
+		"/tmp/fz3temp-2/web.php",
+		"/home/mint/aps/TaskTracker/database/migrations/2020_11_07_123633_create_tasks_mains_table.php",
+		"/tmp/fz3temp-2/2020_11_07_123633_create_tasks_mains_table.php",
+		"/home/mint/aps/TaskTracker/database/migrations/2014_10_12_000000_create_users_table.php",
+		"/tmp/fz3temp-2/app.php",
+		"/home/mint/aps/TaskTracker/config/app.php",
+		"/home/mint/aps/TaskTracker/app/Http/Controllers/TaskStatisticController.php",
+		"/home/mint/aps/TaskTracker/app/Models/TaskStatistic.php",
+		"/home/mint/aps/TaskTracker/app/Observers/UserObserver.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/ui/auth-backend/AuthenticatesUsers.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Validation/Concerns/FilterEmailValidation.php",
+		"/home/mint/aps/TaskTracker/resources/views/auth/login.blade.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/ui/src/AuthRouteMethods.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/ui/src/Auth/bootstrap-stubs/auth/login.stub",
+		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Access/Authorizable.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Access/AuthorizesRequests.php",
+		"/home/mint/aps/TaskTracker/app/Providers/AppServiceProvider.php",
+		"/home/mint/aps/TaskTracker/app/Http/Controllers/TaskController.php",
+		"/home/mint/aps/TaskTracker/public/js/ajax.js",
+		"/home/mint/aps/TaskTracker/public/js/main.js",
+		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php",
+		"/home/mint/aps/TaskTracker/bootstrap/app.php",
+		"/home/mint/aps/TaskTracker/bootstrap/cache/config.php",
+		"/home/mint/aps/TaskTracker/bootstrap/cache/services.php",
+		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasEvents.php",
+		"/home/mint/aps/TaskTracker/app/Observers/DoneTasksObserver.php",
+		"/home/mint/aps/TaskTracker/app/Providers/DoneTasksObserverServiceProvider.php",
+		"/home/mint/aps/TaskTracker/app/Providers/TaskRepositoryServiceProvider.php",
+		"/home/mint/Рабочий стол/TaskTracker ToDo",
+		"/home/mint/aps/CMS-prototype/app/Repositories/PostRepository.php",
+		"/home/mint/aps/CMS-prototype/resources/views/dashboard.blade.php",
+		"/home/mint/aps/CMS-prototype/public/js/dashboardPage.js",
+		"/home/mint/aps/CMS-prototype/public/js/adminAllPage.js",
+		"/home/mint/aps/CMS-prototype/public/js/createPostPage.js",
+		"/home/mint/aps/CMS-prototype/public/js/ajax.js",
+		"/home/mint/aps/CMS-prototype/public/js/onePost.js",
+		"/home/mint/учеба/диплом/мысли о дипломе",
+		"/home/mint/aps/TaskTracker/database/migrations/2021_05_30_155123_create_tasks_statistic.php",
+		"/home/mint/aps/TaskTracker/resources/views/statistic.blade.php",
+		"/home/mint/aps/TaskTracker/public/js/statistic.js",
+		"/home/mint/aps/TaskTracker/resources/views/home.blade.php",
+		"/home/mint/aps/TaskTracker/resources/views/layouts/app.blade.php",
+		"/home/mint/aps/TaskTracker/debug.sublime-project",
+		"/etc/php/7.4/cgi/php.ini",
+		"/etc/php/7.4/apache2/php.ini",
+		"/etc/php/7.4/cli/php.ini",
+		"/home/mint/.config/sublime-text-3/Packages/User/Xdebug.sublime-settings",
+		"/home/mint/.config/sublime-text-3/Packages/Xdebug Client/Xdebug.sublime-settings",
+		"/home/mint/Рабочий стол/index.html",
+		"/home/mint/aps/TaskTracker/app/Providers/BroadcastServiceProvider.php",
+		"/home/mint/aps/TaskTracker/.env",
+		"/home/mint/aps/TaskTracker/app/Http/Requests/ChangeTaskRequest.php",
+		"/home/mint/aps/TaskTracker/public/js/Task.js",
+		"/home/mint/aps/CMS-prototype/public/js/updPost.js",
+		"/home/mint/Загрузки/srv168175_tasktracker.dump",
+		"/home/mint/Загрузки/srv168175_tasktracker.sql",
+		"/home/mint/aps/TaskTracker/app/Http/Requests/AddTaskRequest.php",
+		"/home/mint/aps/TaskTracker/app/Http/Requests/GetTasksRequest.php",
+		"/home/mint/aps/TaskTracker/app/Http/Requests/MoveTaskRequest.php",
+		"/home/mint/aps/TaskTracker/app/Http/Requests/DeleteTaskRequest.php",
+		"/home/mint/aps/CMS-prototype/database/migrations/2021_05_08_141204_create_posts_table.php",
+		"/home/mint/aps/TaskTracker/app/Repositories/Interfaces/TaskRepositoryInterface.php",
+		"/home/mint/aps/с работы/код/«¯/rs/AddWebKassaRequest.php",
+		"/home/mint/aps/CMS-prototype/config/app.php",
+		"/home/mint/aps/CMS-prototype/public/js/mainPage.js",
+		"/home/mint/aps/CMS-prototype/app/Http/Requests/AddPostRequest.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Controllers/PostController.php",
+		"/home/mint/aps/CMS-prototype/app/Models/Post.php",
+		"/home/mint/aps/CMS-prototype/storage/logs/laravel.log",
+		"/home/mint/aps/CMS-prototype/public/js/pluginsPage.js",
+		"/home/mint/aps/CMS-prototype/routes/web.php",
+		"/home/mint/aps/CMS-prototype/tests/Feature/PostRoutesTest.php",
+		"/home/mint/aps/CMS-prototype/app/Repositories/Interfaces/PostRepositoryInterface.php",
+		"/home/mint/aps/CMS-prototype/tests/Feature/RolesTest.php",
+		"/home/mint/aps/CMS-prototype/tests/Feature/AuthMiddlewareTest.php",
+		"/home/mint/aps/CMS-prototype/tests/Feature/GetRoutesTest.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Requests/AddCommentRequest.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Controllers/VisitorsController.php",
+		"/home/mint/aps/CMS-prototype/app/Console/Commands/installPluginCommand.php",
+		"/home/mint/aps/CMS-prototype/app/Console/Commands/deletePluginCommand.php",
+		"/home/mint/aps/CMS-prototype/resources/views/layouts/sidePlugins.blade.php",
+		"/home/mint/aps/CMS-prototype/app/Models/Plugins.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Controllers/PluginController.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Requests/UpdatePostRequest.php",
+		"/home/mint/aps/CMS-prototype/tests/Unit/VisitorsControllerTest.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/RoleMiddleware.php",
+		"/home/mint/aps/CMS-prototype/app/Providers/RolesServiceProvider.php",
+		"/home/mint/aps/CMS-prototype/tests/Feature/ExampleTest.php",
+		"/home/mint/aps/CMS-prototype/tests/TestCase.php",
+		"/home/mint/aps/CMS-prototype/tests/CreatesApplication.php",
+		"/home/mint/aps/CMS-prototype/.env",
+		"/home/mint/aps/CMS-prototype/app/Models/Comment.php",
+		"/home/mint/aps/CMS-prototype/app/Models/User.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Controllers/DashboardController.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Controllers/CommentController.php",
+		"/home/mint/учеба/веб/курсовая/список литературы Димон",
+		"/home/mint/учеба/веб/курсовая/список литературы Вова",
+		"/home/mint/учеба/веб/курсовая/стуктура курсача Димон",
+		"/home/mint/учеба/веб/курсовая/структура курсача Вова",
+		"/home/mint/aps/CMS-prototype/vendor/nikitinuser/users-cms-prototype/lib/Controllers/UsersController.php",
+		"/home/mint/aps/usersCMSPrototype/lib/Controllers/UsersController.php",
+		"/home/mint/aps/CMS-prototype/vendor/nikitinuser/users-cms-prototype/lib/Models/Users.php",
+		"/home/mint/aps/usersCMSPrototype/lib/Models/Users.php",
+		"/home/mint/aps/usersCMSPrototype/lib/Views/userNew.blade.php",
+		"/home/mint/aps/CMS-prototype/vendor/nikitinuser/users-cms-prototype/lib/Views/userNew.blade.php",
+		"/home/mint/aps/usersCMSPrototype/lib/Requests/AddUserRequest.php",
+		"/home/mint/aps/CMS-prototype/vendor/nikitinuser/users-cms-prototype/lib/routes.php",
+		"/home/mint/aps/usersCMSPrototype/lib/routes.php",
+		"/home/mint/aps/CMS-prototype/vendor/nikitinuser/users-cms-prototype/UsersCMSPrototypeProvider.php",
+		"/home/mint/aps/usersCMSPrototype/UsersCMSPrototypeProvider.php",
+		"/home/mint/aps/CMS-prototype/app/Providers/AppServiceProvider.php",
+		"/home/mint/aps/CMS-prototype/resources/views/layouts/side.blade.php",
+		"/home/mint/aps/CMS-prototype/app/Providers/AuthServiceProvider.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/Authenticate.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/VerifyCsrfToken.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/TrustProxies.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/TrimStrings.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/RedirectIfAuthenticated.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/PreventRequestsDuringMaintenance.php",
+		"/home/mint/aps/CMS-prototype/app/Http/Middleware/EncryptCookies.php"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"observe",
+			"xdebug",
+			"debug",
+			"BroadcastServiceProvider",
+			"done_tasks",
+			"ajaxGet",
+			"\\TasksMain::",
+			"morphClass",
+			"dbFields",
+			"type_task",
+			"id_task",
+			"User",
+			"Schedule",
+			"Artisan",
+			"userid",
+			"User",
+			"HasFactory",
+			"TasksMain",
+			"HomeController",
+			"Users::checkPermission",
+			"pack",
+			" ",
+			"maxCoverRatio",
+			"e.pause",
+			"e.pause()",
+			"map",
+			"userswp",
+			"appointment",
+			"apoi",
+			"onload",
+			"w-pdf",
+			"без",
+			"без этого",
+			"adform",
+			"iframe",
+			"google_ads_iframe",
+			"google_ads_iframe_",
+			"google",
+			"GoogleActiveViewElement",
+			"password",
+			"uwp_get_form_label",
+			"placeholder_value",
+			"uwp_get_field_placeholder",
+			"function uwp_get_field_placeholder",
+			"n uwp_get_field_placeholder",
+			"uwp_get_field_placeholder",
+			"password",
+			"username",
+			".js",
+			"pf-d",
+			"pf-dialog",
+			"pf-dialog-print",
+			"loadCore",
+			"time",
+			"tim",
+			"pf-s",
+			"pf",
+			"pf-spinner",
+			"pf-app-message",
+			"pn-loading",
+			"svg style",
+			"noscript",
+			"async",
+			"asyn",
+			"asynk",
+			"google_analytics_enabled",
+			"a ",
+			"console",
+			"pdo",
+			"resTest",
+			"points_spec",
+			"point_spec",
+			"listTariffsPhones",
+			"Phones",
+			"console"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 55.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.xdebug":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "debug.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"xdebug":
+		{
+			"hide_conflict": false,
+			"restore_index":
+			{
+				"13":
+				{
+					"group": 0,
+					"index": 0
+				},
+				"23":
+				{
+					"group": 0,
+					"index": 4
+				},
+				"34":
+				{
+					"group": 0,
+					"index": 1
+				},
+				"48":
+				{
+					"group": 0,
+					"index": 3
+				},
+				"50":
+				{
+					"group": 0,
+					"index": 2
+				}
+			},
+			"restore_layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			}
+		}
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 420.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

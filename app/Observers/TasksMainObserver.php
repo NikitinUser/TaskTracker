@@ -27,8 +27,9 @@ class TasksMainObserver
      */
     public function updated(TasksMain $tasksMain)
     {
-        Log::info("updated");
-        (new TaskStatistic)->commitDoneTask();
+        if ($tasksMain->isDirty('type') && $tasksMain->type == 1) {
+            (new TaskStatistic)->commitDoneTask();
+        }
     }
 
     /**
