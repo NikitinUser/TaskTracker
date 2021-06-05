@@ -10,6 +10,7 @@ class TaskRepository extends Model implements TaskRepositoryInterface
 {
 
     protected $table = 'tasks_mains';
+    protected $fillable = ['task', 'id', 'dt_task', 'priority', 'userid', 'type', 'created_at', 'updated_at'];
 
     public const TYPE_ACTIVE_TASK = 0;
     public const TYPE_DONE_TASK = 1;
@@ -50,20 +51,5 @@ class TaskRepository extends Model implements TaskRepositoryInterface
                       ->get()
                       ->count();
         return $count;
-    }
-
-    public function getCountDoneTasks()
-    {
-        $userid = intval(auth()->user()->id);
-
-        $count = DB::table('tasks_statistic')
-                      ->select('doneTasks')
-                      ->where([
-                                ['userid', "=", $userid]
-                        ])
-                      ->get()
-                      ->first();
-                      
-        return $count->doneTasks;
     }
 }

@@ -102,8 +102,10 @@ function toDone(elem){
 		if(data != ''){
 			if(Number(data) == 1){
 				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
-			}
-		} 
+			} 
+		} else {
+			alert("Ошибка");
+		}
 	});
 	
 }
