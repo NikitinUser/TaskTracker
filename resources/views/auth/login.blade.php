@@ -12,10 +12,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="login" class="col-md-4 col-form-label text-md-right">{{ __('Почта / Логин') }}</label>
+                            <label for="login" class="col-md-4 col-form-label text-md-right">{{ __('Логин') }}</label>
 
                             <div class="col-md-6">
-                                <input id="login" type="text" class="form-control " name="login" value="{{ old('email') ??  old('login')}}" required autocomplete="login" autofocus>
+                                <input id="login" type="text" class="form-control " name="login" value="{{ old('login') ??  old('login')}}" required autocomplete="login" autofocus>
                             </div>
                         </div>
 

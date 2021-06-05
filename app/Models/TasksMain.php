@@ -64,11 +64,16 @@ class TasksMain extends TaskRepository
         $dt_task = new \DateTime($post['date']);
         $post['date'] = $dt_task->format('Y-m-d H:i:s');
 
-        $affected = $this->where([
-                                    ['userid', "=", $userid], 
-                                    ['id', '=', $id],
-                                ])
-                         ->update(['type' => $post['type'], 'dt_task' => $post['date'] ]);
+        $model = $this->where([
+                        ['userid', "=", $userid]
+                    ])->find($id);
+
+        if (empty($model)) {
+            return false;
+        }
+        
+        $model->update(['type' => $post['type'], 'dt_task' => $post['date'] ]);
+
         return true;
     }
 
