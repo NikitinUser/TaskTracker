@@ -27,9 +27,11 @@ class TasksMainObserver
      */
     public function updated(TasksMain $tasksMain)
     {
-        if ($tasksMain->isDirty('type') && $tasksMain->type == 1) {
-            (new TaskStatistic)->commitDoneTask();
-        }
+        if ($tasksMain->isDirty('type') && $tasksMain->type == $tasksMain::TYPE_DONE_TASK) {
+            $TaskStatistic = new TaskStatistic();
+            $TaskStatistic->commitDoneTask();
+            unset($TaskStatistic);
+        }   
     }
 
     /**
