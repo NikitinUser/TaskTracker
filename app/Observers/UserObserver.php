@@ -15,7 +15,9 @@ class UserObserver
      */
     public function created(User $user)
     {
-        (new TaskStatistic)->addStatistic($user->id);
+        $TaskStatistic = new TaskStatistic();
+        $TaskStatistic->addStatistic($user->id);
+        unset($TaskStatistic);
     }
 
     /**
