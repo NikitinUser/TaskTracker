@@ -58,7 +58,7 @@ class Task {
 
 		let iNewDone = document.createElement('i');
 
-		if (this.type == 0) {
+		if (this.type == 0 || this.type == 2) {
 			
 			btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
 			btnNewDone.setAttribute('id', 'idtask_' + this.id);
@@ -66,7 +66,7 @@ class Task {
 
 			
 			iNewDone.className = "fa fa-check-square";
-		} else if (this.type == 1){	//
+		} else {
 
 			btnNewDone.className = "pull-right btn btn-outline-danger btn-sm";
 			btnNewDone.setAttribute('id', 'idtask_' + this.id);

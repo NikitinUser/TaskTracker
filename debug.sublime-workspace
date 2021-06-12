@@ -51,6 +51,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/home/mint/aps/пример резюме/вопросы на собеседовании",
+			"settings":
+			{
+				"buffer_size": 9894,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -63,6 +72,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
 			[
 				"Package Control: ins",
 				"Package Control: Install Package"
@@ -92,24 +109,26 @@
 	},
 	"file_history":
 	[
+		"/home/mint/Рабочий стол/TaskTracker ToDo",
+		"/home/mint/aps/TaskTracker/app/Observers/UserObserver.php",
+		"/home/mint/aps/TaskTracker/app/Observers/TasksMainObserver.php",
+		"/home/mint/aps/TaskTracker/app/Models/TasksMain.php",
+		"/home/mint/aps/TaskTracker/app/Repositories/TaskRepository.php",
+		"/home/mint/aps/TaskTracker/app/Models/TaskStatistic.php",
+		"/home/mint/aps/TaskTracker/app/Http/Controllers/TaskStatisticController.php",
+		"/home/mint/aps/TaskTracker/app/Http/Controllers/TaskController.php",
+		"/home/mint/aps/CMS-prototype/app/Repositories/PostRepository.php",
 		"/tmp/fz3temp-2/laravel.log",
 		"/tmp/fz3temp-2/web.php",
-		"/home/mint/Рабочий стол/TaskTracker ToDo",
 		"/home/mint/Рабочий стол/nanokassa bitrix ToDo",
 		"/tmp/fz3temp-2/TasksMainObserver.php",
-		"/home/mint/aps/TaskTracker/app/Observers/TasksMainObserver.php",
-		"/home/mint/aps/TaskTracker/app/Repositories/TaskRepository.php",
 		"/home/mint/aps/TaskTracker/storage/logs/laravel.log",
-		"/home/mint/aps/TaskTracker/app/Models/TasksMain.php",
 		"/home/mint/aps/TaskTracker/routes/web.php",
 		"/home/mint/aps/TaskTracker/database/migrations/2020_11_07_123633_create_tasks_mains_table.php",
 		"/tmp/fz3temp-2/2020_11_07_123633_create_tasks_mains_table.php",
 		"/home/mint/aps/TaskTracker/database/migrations/2014_10_12_000000_create_users_table.php",
 		"/tmp/fz3temp-2/app.php",
 		"/home/mint/aps/TaskTracker/config/app.php",
-		"/home/mint/aps/TaskTracker/app/Http/Controllers/TaskStatisticController.php",
-		"/home/mint/aps/TaskTracker/app/Models/TaskStatistic.php",
-		"/home/mint/aps/TaskTracker/app/Observers/UserObserver.php",
 		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Foundation/Auth/User.php",
 		"/home/mint/aps/TaskTracker/vendor/laravel/ui/auth-backend/AuthenticatesUsers.php",
 		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Validation/Concerns/FilterEmailValidation.php",
@@ -119,7 +138,6 @@
 		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Access/Authorizable.php",
 		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Foundation/Auth/Access/AuthorizesRequests.php",
 		"/home/mint/aps/TaskTracker/app/Providers/AppServiceProvider.php",
-		"/home/mint/aps/TaskTracker/app/Http/Controllers/TaskController.php",
 		"/home/mint/aps/TaskTracker/public/js/ajax.js",
 		"/home/mint/aps/TaskTracker/public/js/main.js",
 		"/home/mint/aps/TaskTracker/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php",
@@ -130,7 +148,6 @@
 		"/home/mint/aps/TaskTracker/app/Observers/DoneTasksObserver.php",
 		"/home/mint/aps/TaskTracker/app/Providers/DoneTasksObserverServiceProvider.php",
 		"/home/mint/aps/TaskTracker/app/Providers/TaskRepositoryServiceProvider.php",
-		"/home/mint/aps/CMS-prototype/app/Repositories/PostRepository.php",
 		"/home/mint/aps/CMS-prototype/resources/views/dashboard.blade.php",
 		"/home/mint/aps/CMS-prototype/public/js/dashboardPage.js",
 		"/home/mint/aps/CMS-prototype/public/js/adminAllPage.js",
@@ -223,7 +240,7 @@
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -329,14 +346,43 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/mint/aps/пример резюме/вопросы на собеседовании",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9894,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3184,
+								3184
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -377,7 +423,7 @@
 	"project": "debug.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
