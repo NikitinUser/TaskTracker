@@ -47,7 +47,6 @@ function loadTasks(route, type) {
 function addTask(){
 	var task = document.querySelector('#newTask').value;
 	task = task.replace(/&/g, "%26");
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
 	var priorityTask = document.querySelector('#priorityTask').value;
 
@@ -60,7 +59,7 @@ function addTask(){
 		typeTask = 3;
 	}
 
-	var params = "_token=" + token + "&task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask + "&type=" + typeTask;
+	var params = "task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask + "&type=" + typeTask;
 
 	console.log(params);
 
@@ -95,9 +94,8 @@ function toDone(elem){
 	var id = elem.getAttribute('id');
 	id = id.split("_")[1];
 
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
-	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=" + 1;
+	var params = "id=" + id + "&date=" + dateTime+ "&type=" + 1;
 	ajaxPost('/toDone', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
@@ -113,8 +111,8 @@ function toDone(elem){
 function deleteTask(elem){
 	var id = elem.getAttribute('id');
 	id = id.split("_")[1];
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
-	var params = "_token=" + token + "&id=" + id;
+
+	var params = "id=" + id;
 	
 	ajaxPost('/deleteTask', params, function(data){
 		if(data != ''){
@@ -167,9 +165,8 @@ function toBookmarks(elem) {
 	var id = elem.parentNode.getAttribute('id');
 	id = id.split("_")[1];
 
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
-	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=" + 3;
+	var params = "id=" + id + "&date=" + dateTime+ "&type=" + 3;
 	ajaxPost('/toBookmark', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
@@ -183,9 +180,8 @@ function toArchive(elem) {
 	var id = elem.parentNode.getAttribute('id');
 	id = id.split("_")[1];
 
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
-	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=" + 2;
+	var params = "id=" + id + "&date=" + dateTime+ "&type=" + 2;
 	ajaxPost('/toArchive', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
@@ -199,9 +195,8 @@ function toTasks(elem) {
 	var id = elem.parentNode.getAttribute('id');
 	id = id.split("_")[1];
 
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 	var dateTime = getDateTime();
-	var params = "_token=" + token + "&id=" + id + "&date=" + dateTime+ "&type=0";
+	var params = "id=" + id + "&date=" + dateTime+ "&type=0";
 
 	ajaxPost('/toActive', params, function(data){
 		if(data != ''){
@@ -230,11 +225,10 @@ function changeTask() {
 
 	var task = document.querySelector('#contentChangeTaskModal').value;
 	task = task.replace(/&/g, "%26");
-	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 
 	var priorityTask = document.querySelector('#priorityChangeTaskModal').value;
 
-	var params = "_token=" + token + "&task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
+	var params = "task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
 
 	if (Number(task) !== 0 && task.lenght != 0){
 		ajaxPost('changeTask', params, function(data){

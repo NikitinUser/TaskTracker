@@ -1,6 +1,9 @@
 function ajaxPost(url, params, callback){
 	var f = callback || function(data){};
 	var request = new XMLHttpRequest();
+
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+	params += "&_token=" + token
 	
 	request.onreadystatechange = function(){
 		if (request.readyState==4){
