@@ -19,6 +19,7 @@ function ajaxPost(url, params, callback){
 			}
 		} else {
 			document.querySelector("#modalWaitingServer").className = "modal fade show";
+			document.querySelector("#modalWaitingServer").style.display = "block";
 			$('#modalWaitingServer').modal('show');
 		}
 	}
@@ -58,7 +59,8 @@ function hideWaitingModal() {
 	$("#modalWaitingServer").removeClass("in");
 	$(".modal-backdrop").remove();
 	document.querySelector("#modalWaitingServer").className = "modal fade";
-	//$("#modalWaitingServer").hide();
+	document.querySelector("#modalWaitingServer").style.display = "none";
 	$("#modalWaitingServer").modal('hide');
 	$('body').removeClass('modal-open');
+
 }

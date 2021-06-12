@@ -51,7 +51,7 @@ class TaskController extends Controller
     public function addtask(AddTaskRequest $request)
     {
         $post = $request->all();
-
+        sleep(3);
         Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
 
         $data = $this->TasksMain->addNewTask($post);
