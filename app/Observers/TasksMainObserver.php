@@ -8,15 +8,21 @@ use App\Models\TaskStatistic;
 
 class TasksMainObserver
 {
+
     /**
-     * Handle the TasksMain "created" event.
+     * Handle the TasksMain "creating" event.
      *
      * @param  \App\Models\TasksMain  $tasksMain
      * @return void
      */
-    public function created(TasksMain $tasksMain)
+    public function creating(TasksMain $tasksMain)
     {
-        //
+        $countTasks = $tasksMain->getCountTasks($tasksMain->type);
+
+        if ($countTasks >= $tasksMain::MAX_COUNT_TASK_INTYPE) {
+
+            return false;
+        }
     }
 
     /**
@@ -32,38 +38,5 @@ class TasksMainObserver
             $TaskStatistic->commitDoneTask();
             unset($TaskStatistic);
         }   
-    }
-
-    /**
-     * Handle the TasksMain "deleted" event.
-     *
-     * @param  \App\Models\TasksMain  $tasksMain
-     * @return void
-     */
-    public function deleted(TasksMain $tasksMain)
-    {
-        //
-    }
-
-    /**
-     * Handle the TasksMain "restored" event.
-     *
-     * @param  \App\Models\TasksMain  $tasksMain
-     * @return void
-     */
-    public function restored(TasksMain $tasksMain)
-    {
-        //
-    }
-
-    /**
-     * Handle the TasksMain "force deleted" event.
-     *
-     * @param  \App\Models\TasksMain  $tasksMain
-     * @return void
-     */
-    public function forceDeleted(TasksMain $tasksMain)
-    {
-        //
     }
 }

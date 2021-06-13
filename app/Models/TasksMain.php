@@ -7,6 +7,8 @@ use App\Repositories\TaskRepository;
 
 class TasksMain extends TaskRepository
 {
+    public const MAX_COUNT_TASK_INTYPE = 50;
+
     public function addNewTask($post)
     {
         $post['userid'] = intval(auth()->user()->id);
@@ -21,16 +23,16 @@ class TasksMain extends TaskRepository
         $dt_task = new \DateTime($post['date']);
         $post['date'] = $dt_task->format('Y-m-d H:i:s');
 
-        $post['id'] = $this->insertGetId(
-                        [
-                            'task'      =>  $post['task'], 
-                            'userid'    =>  $post['userid'],
-                            'dt_task'   =>  $post['date'],
-                            'type'      =>  $post['type'],
-                            'priority'  =>  $post['priorityTask']
-                        ]
-        );
+        $newTask = TasksMain::create([
+            'task'      =>  $post['task'], 
+            'userid'    =>  $post['userid'],
+            'dt_task'   =>  $post['date'],
+            'type'      =>  $post['type'],
+            'priority'  =>  $post['priorityTask']
+         ]);
 
+        $post['id'] = $newTask->id;
+        
         return $post;
     }
 

@@ -65,14 +65,19 @@ function addTask(){
 
 	if (Number(task) !== 0 && task.lenght != 0){
 		ajaxPost('addTask', params, function(data){
+
 			if(data != ''){
 				data = JSON.parse(data);
 
-				var taskLi = new Task(data['id'], data['date'], task, typeTask, priorityTask);
-				var liNew = taskLi.getNewTaskLi();
+				if (data.id == null) {
+					alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
+				} else {
+					var taskLi = new Task(data['id'], data['date'], task, typeTask, priorityTask);
+					var liNew = taskLi.getNewTaskLi();
 
-				document.querySelector("#list_tasks").append(liNew);
-				document.querySelector('#newTask').value = "";
+					document.querySelector("#list_tasks").append(liNew);
+					document.querySelector('#newTask').value = "";
+				}	
 			} 
 		});
 	}
