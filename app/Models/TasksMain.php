@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\TaskRepository;
 
+use Illuminate\Support\Facades\Redis;
+
 class TasksMain extends TaskRepository
 {
     public const MAX_COUNT_TASK_INTYPE = 50;
@@ -85,12 +87,52 @@ class TasksMain extends TaskRepository
 
         $id = intval($post['id']);
 
-        $affected = $this->where([
-                                    ['userid', "=", $userid], 
-                                    ['id', '=', $id]
-                                ])
-                         ->delete();
+        $model = $this->where([
+                                ['userid', "=", $userid]
+                            ])
+                      ->find($id);
+
+        if (empty($model)) {
+            return false;
+        }
+
+        $model->delete();
 
         return true;
+    }
+
+    public function recoverTask($post)
+    {
+        $userid = intval(auth()->user()->id);
+
+        $id = intval($post['id']);
+
+        $key = "task_" . $id . "_" . $userid;
+
+        $taskInRedis = Redis::get($key);
+        Log::debug(json_encode($taskInRedis));
+
+        if (!$taskInRedis) {
+            return false;
+        }
+
+        $task = json_decode($taskInRedis);
+
+        if ($task->userid != $userid) {
+            return false;
+        }
+
+        $this->insert([
+            'id'        =>  $task->id, 
+            'task'      =>  $task->task, 
+            'userid'    =>  $task->userid,
+            'dt_task'   =>  $task->dt_task,
+            'type'      =>  $task->type,
+            'priority'  =>  $task->priority
+        ]);
+
+        $task->task = base64_decode($task->task);
+        
+        return $task;
     }
 }

@@ -122,9 +122,56 @@ function deleteTask(elem){
 	ajaxPost('/deleteTask', params, function(data){
 		if(data != ''){
 			if(Number(data) == 1){
-				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+				var parentDiv = elem.parentNode.parentNode.parentNode;
+				parentDiv.removeChild(elem.parentNode.parentNode);
+
+				var divRecover = document.createElement("div");
+				divRecover.className = "row justify-content-center";
+
+				var btnRecover = document.createElement("button");
+				btnRecover.className = "btn btn-outline-primary btn-sm";
+				btnRecover.type = "button";
+				btnRecover.textContent = "Восстановить";
+				btnRecover.setAttribute('id', 'btnRecover_' + id);
+				btnRecover.setAttribute('onclick', 'recoverTask(this)');
+
+				divRecover.append(btnRecover);
+
+				parentDiv.append(divRecover);
 			}
 		} 
+	});
+	
+}
+
+function recoverTask(elem){
+	var id = elem.getAttribute('id');
+	id = id.split("_")[1];
+
+	var params = "id=" + id;
+	
+	ajaxPost('/recoverTask', params, function(data){
+
+		try {
+			data = JSON.parse(data);
+		} catch {
+			data = false;
+		}
+
+		if(data.length != 0 && data != false && data != null){
+			var parentDiv = elem.parentNode.parentNode.parentNode;
+			parentDiv.removeChild(elem.parentNode.parentNode);
+
+			var taskLi = new Task(data.id, data.dt_task, data.task, data.typeTask, data.priorityTask);
+			var liNew = taskLi.getNewTaskLi();
+
+			parentDiv.append(liNew);
+
+		} else {
+			alert("Эту запись нельзя восстановить");
+			location.reload();
+		}
+
 	});
 	
 }

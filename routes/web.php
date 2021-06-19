@@ -40,3 +40,5 @@ Route::post('toArchive', [App\Http\Controllers\TaskController::class, 'taskChang
 Route::post('toBookmark', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
 
 Route::post('deleteTask', [App\Http\Controllers\TaskController::class, 'deleteTask']);
+
+Route::post('recoverTask', [App\Http\Controllers\TaskController::class, 'recoverTask']);
