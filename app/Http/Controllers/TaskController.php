@@ -12,6 +12,7 @@ use App\Http\Requests\MoveTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\GetTasksRequest;
 use App\Http\Requests\ChangeTaskRequest;
+use App\Http\Requests\RecoverTaskRequest;
 
 class TaskController extends Controller
 {
@@ -92,5 +93,17 @@ class TaskController extends Controller
         $status = $this->TasksMain->removeTask($post);
         
         return $status;
+    }
+
+    public function recoverTask(RecoverTaskRequest $request)
+    {
+        $post = $request->all();
+
+        Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
+
+        $recoveredTask = $this->TasksMain->recoverTask($post);
+        $recoveredTask = json_encode($recoveredTask);
+        
+        return $recoveredTask;
     }
 }
