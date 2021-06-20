@@ -3,14 +3,12 @@ window.onload = function () {
 }
 
 function getCounTasks() {
-    
-    ajaxGet('getCounTasks', function(data) {
-        if(data != ''){
-            data = JSON.parse(data);
-
-            drawStat(data);
-            //console.log(data);
-        }
+    fetch('getCounTasks')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        drawStat(data);
     });
 }
 

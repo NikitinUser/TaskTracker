@@ -28,18 +28,21 @@ function detectRoute() {
 
 function loadTasks(route, type) {
 	route += "?type=" + type;
-	ajaxGet(route, function(data) {
-		if(data != ''){
-			data = JSON.parse(data);
 
-			for (var i = 0; i < data.length; i++) {
-				var taskLi = new Task(data[i].id, data[i].dt_task, data[i].task, type, data[i].priority);
-				var liNew = taskLi.getNewTaskLi();
+	startWaitingModal();
 
-				document.querySelector("#list_tasks").append(liNew);
-				//document.querySelector('#newTask').value = "";
-			}
-			//console.log(data);
+	fetch(route)
+	  .then((response) => {
+	    return response.json();
+	  })
+	  .then((data) => {
+	  	hideWaitingModal();
+	    for (var i = 0; i < data.length; i++) {
+			var taskLi = new Task(data[i].id, data[i].dt_task, data[i].task, type, data[i].priority);
+			var liNew = taskLi.getNewTaskLi();
+
+			document.querySelector("#list_tasks").append(liNew);
+			document.querySelector('#newTask').value = "";
 		}
 	});
 }
@@ -64,21 +67,33 @@ function addTask(){
 	console.log(params);
 
 	if (Number(task) !== 0 && task.lenght != 0){
-		ajaxPost('addTask', params, function(data){
+		var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 
-			if(data != ''){
-				data = JSON.parse(data);
+		startWaitingModal();
 
-				if (data.id == null) {
-					alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
-				} else {
-					var taskLi = new Task(data['id'], data['date'], task, typeTask, priorityTask);
-					var liNew = taskLi.getNewTaskLi();
+		fetch('addTask', {
+		  method: 'POST',
+		  headers: new Headers({
+		     'Content-Type': 'application/x-www-form-urlencoded',
+		     "X-CSRF-TOKEN": token
+		   }), 
+		  body: params,
+		})
+		.then((response) => {
+		    return response.json();
+		})
+		.then((data) => {
+			hideWaitingModal();
 
-					document.querySelector("#list_tasks").append(liNew);
-					document.querySelector('#newTask').value = "";
-				}	
-			} 
+		    if (data.id == null) {
+				alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
+			} else {
+				var taskLi = new Task(data['id'], data['date'], task, typeTask, priorityTask);
+				var liNew = taskLi.getNewTaskLi();
+
+				document.querySelector("#list_tasks").append(liNew);
+				document.querySelector('#newTask').value = "";
+			}
 		});
 	}
 }
@@ -101,16 +116,31 @@ function toDone(elem){
 
 	var dateTime = getDateTime();
 	var params = "id=" + id + "&date=" + dateTime+ "&type=" + 1;
-	ajaxPost('/toDone', params, function(data){
-		if(data != ''){
-			if(Number(data) == 1){
-				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
-			} 
+
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+
+	startWaitingModal();
+
+	fetch('toDone', {
+	  method: 'POST',
+	  headers: new Headers({
+	     'Content-Type': 'application/x-www-form-urlencoded',
+	     "X-CSRF-TOKEN": token
+	   }), 
+	  body: params,
+	})
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		hideWaitingModal();
+
+	    if(Number(data) == 1){
+			elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
 		} else {
 			alert("Ошибка");
 		}
-	});
-	
+	});	
 }
 
 function deleteTask(elem){
@@ -118,30 +148,44 @@ function deleteTask(elem){
 	id = id.split("_")[1];
 
 	var params = "id=" + id;
-	
-	ajaxPost('/deleteTask', params, function(data){
-		if(data != ''){
-			if(Number(data) == 1){
-				var parentDiv = elem.parentNode.parentNode.parentNode;
-				parentDiv.removeChild(elem.parentNode.parentNode);
 
-				var divRecover = document.createElement("div");
-				divRecover.className = "row justify-content-center";
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 
-				var btnRecover = document.createElement("button");
-				btnRecover.className = "btn btn-outline-primary btn-sm";
-				btnRecover.type = "button";
-				btnRecover.textContent = "Восстановить";
-				btnRecover.setAttribute('id', 'btnRecover_' + id);
-				btnRecover.setAttribute('onclick', 'recoverTask(this)');
+	startWaitingModal();
 
-				divRecover.append(btnRecover);
+	fetch('deleteTask', {
+	  method: 'POST',
+	  headers: new Headers({
+	     'Content-Type': 'application/x-www-form-urlencoded',
+	     "X-CSRF-TOKEN": token
+	   }), 
+	  body: params,
+	})
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		hideWaitingModal();
 
-				parentDiv.append(divRecover);
-			}
-		} 
-	});
-	
+	    if(Number(data) == 1){
+			var parentDiv = elem.parentNode.parentNode.parentNode;
+			parentDiv.removeChild(elem.parentNode.parentNode);
+
+			var divRecover = document.createElement("div");
+			divRecover.className = "row justify-content-center";
+
+			var btnRecover = document.createElement("button");
+			btnRecover.className = "btn btn-outline-primary btn-sm";
+			btnRecover.type = "button";
+			btnRecover.textContent = "Восстановить";
+			btnRecover.setAttribute('id', 'btnRecover_' + id);
+			btnRecover.setAttribute('onclick', 'recoverTask(this)');
+
+			divRecover.append(btnRecover);
+
+			parentDiv.append(divRecover);
+		}
+	});	
 }
 
 function recoverTask(elem){
@@ -149,16 +193,26 @@ function recoverTask(elem){
 	id = id.split("_")[1];
 
 	var params = "id=" + id;
-	
-	ajaxPost('/recoverTask', params, function(data){
 
-		try {
-			data = JSON.parse(data);
-		} catch {
-			data = false;
-		}
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 
-		if(data.length != 0 && data != false && data != null){
+	startWaitingModal();
+
+	fetch('recoverTask', {
+	  method: 'POST',
+	  headers: new Headers({
+	     'Content-Type': 'application/x-www-form-urlencoded',
+	     "X-CSRF-TOKEN": token
+	   }), 
+	  body: params,
+	})
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		hideWaitingModal();
+
+	    if(data.length != 0 && data != false && data != null){
 			var parentDiv = elem.parentNode.parentNode.parentNode;
 			parentDiv.removeChild(elem.parentNode.parentNode);
 
@@ -171,9 +225,7 @@ function recoverTask(elem){
 			alert("Эту запись нельзя восстановить");
 			location.reload();
 		}
-
-	});
-	
+	});		
 }
 
 function show_hidTask(elem){
@@ -219,12 +271,30 @@ function toBookmarks(elem) {
 
 	var dateTime = getDateTime();
 	var params = "id=" + id + "&date=" + dateTime+ "&type=" + 3;
-	ajaxPost('/toBookmark', params, function(data){
-		if(data != ''){
-			if(Number(data) == 1){
-				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
-			}
-		} 
+
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+
+	startWaitingModal();
+
+	fetch('toBookmark', {
+	  method: 'POST',
+	  headers: new Headers({
+	     'Content-Type': 'application/x-www-form-urlencoded',
+	     "X-CSRF-TOKEN": token
+	   }), 
+	  body: params,
+	})
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		hideWaitingModal();
+
+	    if(Number(data) == 1){
+			elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+		} else {
+			alert("Ошибка");
+		}
 	});
 }
 
@@ -234,12 +304,30 @@ function toArchive(elem) {
 
 	var dateTime = getDateTime();
 	var params = "id=" + id + "&date=" + dateTime+ "&type=" + 2;
-	ajaxPost('/toArchive', params, function(data){
-		if(data != ''){
-			if(Number(data) == 1){
-				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
-			}
-		} 
+
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+
+	startWaitingModal();
+
+	fetch('toArchive', {
+	  method: 'POST',
+	  headers: new Headers({
+	     'Content-Type': 'application/x-www-form-urlencoded',
+	     "X-CSRF-TOKEN": token
+	   }), 
+	  body: params,
+	})
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		hideWaitingModal();
+
+	    if(Number(data) == 1){
+			elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+		} else {
+			alert("Ошибка");
+		}
 	});
 }
 
@@ -250,14 +338,30 @@ function toTasks(elem) {
 	var dateTime = getDateTime();
 	var params = "id=" + id + "&date=" + dateTime+ "&type=0";
 
-	ajaxPost('/toActive', params, function(data){
-		if(data != ''){
-			if(Number(data) == 1){
-				elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
-			}
-		} 
-	});
+	var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 
+	startWaitingModal();
+
+	fetch('toActive', {
+	  method: 'POST',
+	  headers: new Headers({
+	     'Content-Type': 'application/x-www-form-urlencoded',
+	     "X-CSRF-TOKEN": token
+	   }), 
+	  body: params,
+	})
+	.then((response) => {
+	    return response.json();
+	})
+	.then((data) => {
+		hideWaitingModal();
+		
+	    if(Number(data) == 1){
+			elem.parentNode.parentNode.parentNode.parentNode.removeChild(elem.parentNode.parentNode.parentNode);
+		} else {
+			alert("Ошибка");
+		}
+	});
 }
 
 function modalChangeTask(elem) {
@@ -283,10 +387,38 @@ function changeTask() {
 	var params = "task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
 
 	if (Number(task) !== 0 && task.lenght != 0){
-		ajaxPost('changeTask', params, function(data){
-			if(data != ''){
-				location.reload();
-			} 
+		startWaitingModal();
+
+		var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
+		fetch('changeTask', {
+		  method: 'POST',
+		  headers: new Headers({
+		     'Content-Type': 'application/x-www-form-urlencoded',
+		     "X-CSRF-TOKEN": token
+		   }), 
+		  body: params,
+		})
+		.then((response) => {
+		    return response.json();
+		})
+		.then((data) => {
+			hideWaitingModal();
+		    location.reload();
 		});
 	}
+}
+
+function hideWaitingModal() {
+	$("#modalWaitingServer").removeClass("in");
+	$(".modal-backdrop").remove();
+	document.querySelector("#modalWaitingServer").className = "modal fade";
+	document.querySelector("#modalWaitingServer").style.display = "none";
+	$("#modalWaitingServer").modal('hide');
+	$('body').removeClass('modal-open');
+}
+
+function startWaitingModal() {
+	document.querySelector("#modalWaitingServer").className = "modal fade show";
+	document.querySelector("#modalWaitingServer").style.display = "block";
+	$('#modalWaitingServer').modal('show');
 }
