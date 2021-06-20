@@ -110,7 +110,6 @@ class TasksMain extends TaskRepository
         $key = "task_" . $id . "_" . $userid;
 
         $taskInRedis = Redis::get($key);
-        Log::debug(json_encode($taskInRedis));
 
         if (!$taskInRedis) {
             return false;
