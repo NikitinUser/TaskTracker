@@ -84,6 +84,9 @@
 </footer>
 
 <script src="{{ asset('js/Task.js') }}" ></script>
+<script src="{{ asset('js/dateTime.js') }}" ></script>
+<script src="{{ asset('js/hiddingElements.js') }}" ></script>
+<script src="{{ asset('js/modalWaiting.js') }}" ></script>
 <script src="{{ asset('js/main.js') }}" ></script>
 
 <script type="text/javascript">
