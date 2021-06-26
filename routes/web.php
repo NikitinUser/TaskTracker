@@ -28,7 +28,7 @@ Route::get('/done', [App\Http\Controllers\TaskController::class, 'index'])->name
 Route::get('/archive', [App\Http\Controllers\TaskController::class, 'index'])->name('archive');
 Route::get('/bookmarks', [App\Http\Controllers\TaskController::class, 'index'])->name('bookmarks');
 
-Route::get('/get_tasks', [App\Http\Controllers\TaskController::class, 'getTasks'])->name('get_tasks');
+Route::get('/get_tasks', [App\Http\Controllers\TaskController::class, 'getUserTasks'])->name('get_tasks');
 
 Route::post('addTask', [App\Http\Controllers\TaskController::class, 'addtask']);
 

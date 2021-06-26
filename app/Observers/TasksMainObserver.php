@@ -21,7 +21,7 @@ class TasksMainObserver
     {
         $countTasks = $tasksMain->getCountTasks($tasksMain->type);
 
-        if ($countTasks >= $tasksMain::MAX_COUNT_TASK_INTYPE) {
+        if ($countTasks >= $tasksMain::MAX_COUNT_TASKS_INTYPE) {
 
             return false;
         }
