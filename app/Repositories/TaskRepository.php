@@ -17,7 +17,7 @@ class TaskRepository extends Model implements TaskRepositoryInterface
     public const TYPE_ARCHIVE_TASK = 2;
     public const TYPE_BOOKMARK = 3;
 
-    public function allTasksUser($type)
+    public function getUserTasks($type)
     {
         $userid = intval(auth()->user()->id);
 

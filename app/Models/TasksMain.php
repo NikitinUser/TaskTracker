@@ -2,71 +2,69 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Log;
 use App\Repositories\TaskRepository;
-
 use Illuminate\Support\Facades\Redis;
 
 class TasksMain extends TaskRepository
 {
-    public const MAX_COUNT_TASK_INTYPE = 50;
+    public const MAX_COUNT_TASKS_INTYPE = 50;
 
-    public function addNewTask($post)
+    public function addNewTask($task)
     {
-        $post['userid'] = intval(auth()->user()->id);
+        $task['userid'] = intval(auth()->user()->id);
 
-        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $post['task']);
-        $task = trim($post['task']);
+        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
+        $task = trim($task['task']);
         $task = mb_substr($task, 0, 900);
         $task = base64_encode($task);
 
-        $post['task'] = $task;
+        $task['task'] = $task;
 
-        $dt_task = new \DateTime($post['date']);
-        $post['date'] = $dt_task->format('Y-m-d H:i:s');
+        $dt_task = new \DateTime($task['date']);
+        $task['date'] = $dt_task->format('Y-m-d H:i:s');
 
         $newTask = TasksMain::create([
-            'task'      =>  $post['task'], 
-            'userid'    =>  $post['userid'],
-            'dt_task'   =>  $post['date'],
-            'type'      =>  $post['type'],
-            'priority'  =>  $post['priorityTask']
+            'task'      =>  $task['task'], 
+            'userid'    =>  $task['userid'],
+            'dt_task'   =>  $task['date'],
+            'type'      =>  $task['type'],
+            'priority'  =>  $task['priorityTask']
          ]);
 
-        $post['id'] = $newTask->id;
+        $task['id'] = $newTask->id;
         
-        return $post;
+        return $task;
     }
 
-    public function changeTask($post)
+    public function rewriteTask($task)
     {
         $userid = intval(auth()->user()->id);
 
-        $id = intval($post['id']);
+        $id = intval($task['id']);
 
-        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $post['task']);
-        $task = trim($post['task']);
+        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
+        $task = trim($task['task']);
         $task = mb_substr($task, 0, 900);
         $task = base64_encode($task);
 
-        $post['task'] = $task;
+        $task['task'] = $task;
 
         $affected = $this->where([
                                     ['userid', "=", $userid], 
                                     ['id', '=', $id],
                                 ])
-                         ->update(['task' => $post['task'], 'priority' => $post['priorityTask'] ]);
+                         ->update(['task' => $task['task'], 'priority' => $task['priorityTask'] ]);
         return true;
     }
 
-    public function swapTypeTask($post)
+    public function swapTheTypeOfTask($task)
     {
         $userid = intval(auth()->user()->id);
 
-        $id = intval($post['id']);
+        $id = intval($task['id']);
 
-        $dt_task = new \DateTime($post['date']);
-        $post['date'] = $dt_task->format('Y-m-d H:i:s');
+        $dt_task = new \DateTime($task['date']);
+        $task['date'] = $dt_task->format('Y-m-d H:i:s');
 
         $model = $this->where([
                         ['userid', "=", $userid]
@@ -76,21 +74,21 @@ class TasksMain extends TaskRepository
             return false;
         }
         
-        $model->update(['type' => $post['type'], 'dt_task' => $post['date'] ]);
+        $model->update(['type' => $task['type'], 'dt_task' => $task['date'] ]);
 
         return true;
     }
 
-    public function removeTask($post)
+    public function removeTask($taskID)
     {
         $userid = intval(auth()->user()->id);
 
-        $id = intval($post['id']);
+        $taskID = intval($taskID);
 
         $model = $this->where([
                                 ['userid', "=", $userid]
                             ])
-                      ->find($id);
+                      ->find($taskID);
 
         if (empty($model)) {
             return false;
@@ -101,13 +99,11 @@ class TasksMain extends TaskRepository
         return true;
     }
 
-    public function recoverTask($post)
+    public function recoverTask($taskID)
     {
         $userid = intval(auth()->user()->id);
 
-        $id = intval($post['id']);
-
-        $key = "task_" . $id . "_" . $userid;
+        $key = "task_" . $taskID . "_" . $userid;
 
         $taskInRedis = Redis::get($key);
 

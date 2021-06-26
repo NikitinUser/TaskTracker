@@ -8,10 +8,10 @@ use App\Models\TasksMain;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\AddTaskRequest;
-use App\Http\Requests\MoveTaskRequest;
+use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\GetTasksRequest;
-use App\Http\Requests\ChangeTaskRequest;
+use App\Http\Requests\RewriteTaskRequest;
 use App\Http\Requests\RecoverTaskRequest;
 
 class TaskController extends Controller
@@ -38,11 +38,11 @@ class TaskController extends Controller
         return view('home'); 
     }
 
-    public function getTasks(GetTasksRequest $request)
+    public function getUserTasks(GetTasksRequest $request)
     {
         $type = intval($request->input('type'));
 
-        $tasks = $this->TasksMain->allTasksUser($type);
+        $tasks = $this->TasksMain->getUserTasks($type);
 
         $tasks = json_encode($tasks);
         
@@ -51,57 +51,57 @@ class TaskController extends Controller
     
     public function addtask(AddTaskRequest $request)
     {
-        $post = $request->all();
+        $taskDataInput = $request->all();
 
-        Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
+        Log::info("[".__FUNCTION__."]: input data of task = " . json_encode($taskDataInput));
 
-        $data = $this->TasksMain->addNewTask($post);
+        $addedTaskData = $this->TasksMain->addNewTask($taskDataInput);
 
-        $data = json_encode($data);
+        $addedTaskData = json_encode($addedTaskData);
 
-        return $data;
+        return $addedTaskData;
     }
 
-    public function changeTask(ChangeTaskRequest $request)
+    public function rewriteTask(RewriteTaskRequest $request)
     {
-        $post = $request->all();
+        $taskDataInput = $request->all();
 
-        Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
+        Log::info("[".__FUNCTION__."]: input data of task = " . json_encode($taskDataInput));
 
-        $status = $this->TasksMain->changeTask($post);
+        $statusRewrite = $this->TasksMain->rewriteTask($taskDataInput);
 
-        return $status;
+        return $statusRewrite;
     }
     
-    public function taskChangeType(MoveTaskRequest $request)
+    public function swapTheTypeOfTask(SwapTheTypeOfTaskRequest $request)
     {
-        $post = $request->all();
+        $taskDataInput = $request->all();
 
-        Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
+        Log::info("[".__FUNCTION__."]: input data of task = " . json_encode($taskDataInput));
 
-        $status = $this->TasksMain->swapTypeTask($post);
+        $statusSwapType = $this->TasksMain->swapTheTypeOfTask($taskDataInput);
         
-        return $status;
+        return $statusSwapType;
     }
 
     public function deleteTask(DeleteTaskRequest $request)
     {
-        $post = $request->all();
+        $taskID = intval($request->input('id') ?? 0);
 
-        Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
+        Log::info("[".__FUNCTION__."]: id task = " . $taskID);
 
-        $status = $this->TasksMain->removeTask($post);
+        $statusDelete = $this->TasksMain->removeTask($taskID);
         
-        return $status;
+        return $statusDelete;
     }
 
     public function recoverTask(RecoverTaskRequest $request)
     {
-        $post = $request->all();
+        $taskID = intval($request->input('id') ?? 0);
 
-        Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
+        Log::info("[".__FUNCTION__."]: id task = " . $taskID);
 
-        $recoveredTask = $this->TasksMain->recoverTask($post);
+        $recoveredTask = $this->TasksMain->recoverTask($taskID);
         $recoveredTask = json_encode($recoveredTask);
         
         return $recoveredTask;

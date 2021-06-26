@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
 
-class MoveTaskRequest extends FormRequest
+class RewriteTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,9 @@ class MoveTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'    => 'required',
-            'date'  => 'required', 
-            'type'  => 'required|integer', 
+            'id'            => 'required|integer',
+            'task'          => 'required|min:3',
+            'priorityTask'  => 'required|integer|min:0|max:3',
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
 
-class ChangeTaskRequest extends FormRequest
+class SwapTheTypeOfTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,9 @@ class ChangeTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'            => 'required|integer',
-            'task'          => 'required|min:3',
-            'priorityTask'  => 'required|integer|min:0|max:3',
+            'id'    => 'required',
+            'date'  => 'required', 
+            'type'  => 'required|integer', 
         ];
     }
 }

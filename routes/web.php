@@ -28,16 +28,16 @@ Route::get('/done', [App\Http\Controllers\TaskController::class, 'index'])->name
 Route::get('/archive', [App\Http\Controllers\TaskController::class, 'index'])->name('archive');
 Route::get('/bookmarks', [App\Http\Controllers\TaskController::class, 'index'])->name('bookmarks');
 
-Route::get('/get_tasks', [App\Http\Controllers\TaskController::class, 'getTasks'])->name('get_tasks');
+Route::get('/get_tasks', [App\Http\Controllers\TaskController::class, 'getUserTasks'])->name('get_tasks');
 
 Route::post('addTask', [App\Http\Controllers\TaskController::class, 'addtask']);
 
-Route::post('changeTask', [App\Http\Controllers\TaskController::class, 'changeTask']);
+Route::post('changeTask', [App\Http\Controllers\TaskController::class, 'rewriteTask']);
 
-Route::post('toActive', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
-Route::post('toDone', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
-Route::post('toArchive', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
-Route::post('toBookmark', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
+Route::post('toActive', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
+Route::post('toDone', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
+Route::post('toArchive', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
+Route::post('toBookmark', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
 
 Route::post('deleteTask', [App\Http\Controllers\TaskController::class, 'deleteTask']);
 
