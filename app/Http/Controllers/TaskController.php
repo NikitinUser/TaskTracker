@@ -11,7 +11,7 @@ use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\MoveTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\GetTasksRequest;
-use App\Http\Requests\ChangeTaskRequest;
+use App\Http\Requests\RewriteTaskRequest;
 use App\Http\Requests\RecoverTaskRequest;
 
 class TaskController extends Controller
@@ -62,13 +62,13 @@ class TaskController extends Controller
         return $data;
     }
 
-    public function changeTask(ChangeTaskRequest $request)
+    public function rewriteTask(RewriteTaskRequest $request)
     {
         $post = $request->all();
 
         Log::info("[".__FUNCTION__."]: data = " . json_encode($post));
 
-        $status = $this->TasksMain->changeTask($post);
+        $status = $this->TasksMain->rewriteTask($post);
 
         return $status;
     }

@@ -38,7 +38,7 @@ class TasksMain extends TaskRepository
         return $post;
     }
 
-    public function changeTask($post)
+    public function rewriteTask($post)
     {
         $userid = intval(auth()->user()->id);
 
