@@ -62,7 +62,7 @@ class Task {
 			
 			btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
 			btnNewDone.setAttribute('id', 'idtask_' + this.id);
-			btnNewDone.setAttribute('onclick', 'toDone(this)');
+			btnNewDone.setAttribute('onclick', 'taskSwapType(this, 1)');
 
 			
 			iNewDone.className = "fa fa-check-square";
@@ -85,10 +85,10 @@ class Task {
 		divDropMenu.className = "dropdown-menu";
 		divDropMenu.setAttribute('id', 'divDropMenu_' + this.id);
 		divDropMenu.setAttribute('aria-labelledby', 'idtaskMore_' + this.id);
-		divDropMenu.innerHTML = '<button class="dropdown-item" onclick="toBookmarks(this)">В закладки</button>'+
-								'<button class="dropdown-item" onclick="toArchive(this)">В архив</button>'+
-								'<button class="dropdown-item" onclick="toTasks(this)">В задачи</button>'+
-								'<button class="dropdown-item" onclick="modalChangeTask(this)">Изменить</button>';
+		divDropMenu.innerHTML = '<button class="dropdown-item" id="itembtnBookmarks_'+this.id+'" onclick="taskSwapType(this, 3)">В закладки</button>'+
+								'<button class="dropdown-item" id="itembtnBookmarks_'+this.id+'" onclick="taskSwapType(this, 2)">В архив</button>'+
+								'<button class="dropdown-item" id="itembtnBookmarks_'+this.id+'" onclick="taskSwapType(this, 0)">В задачи</button>'+
+								'<button class="dropdown-item" id="itembtnBookmarks_'+this.id+'" onclick="modalChangeTask(this)">Изменить</button>';
 
 		//btnMoreActions.setAttribute('onclick', 'deleteTask(this)');
 		
