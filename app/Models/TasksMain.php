@@ -59,7 +59,7 @@ class TasksMain extends TaskRepository
         return true;
     }
 
-    public function swapTypeTask($post)
+    public function swapTheTypeOfTask($post)
     {
         $userid = intval(auth()->user()->id);
 

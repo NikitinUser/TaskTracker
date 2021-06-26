@@ -8,7 +8,7 @@ use App\Models\TasksMain;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Requests\AddTaskRequest;
-use App\Http\Requests\MoveTaskRequest;
+use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\GetTasksRequest;
 use App\Http\Requests\RewriteTaskRequest;
@@ -73,13 +73,13 @@ class TaskController extends Controller
         return $status;
     }
     
-    public function taskChangeType(MoveTaskRequest $request)
+    public function swapTheTypeOfTask(SwapTheTypeOfTaskRequest $request)
     {
         $post = $request->all();
 
         Log::info("[".__FUNCTION__."]: post = " . json_encode($post));
 
-        $status = $this->TasksMain->swapTypeTask($post);
+        $status = $this->TasksMain->swapTheTypeOfTask($post);
         
         return $status;
     }

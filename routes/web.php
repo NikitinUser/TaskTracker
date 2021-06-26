@@ -34,10 +34,10 @@ Route::post('addTask', [App\Http\Controllers\TaskController::class, 'addtask']);
 
 Route::post('changeTask', [App\Http\Controllers\TaskController::class, 'rewriteTask']);
 
-Route::post('toActive', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
-Route::post('toDone', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
-Route::post('toArchive', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
-Route::post('toBookmark', [App\Http\Controllers\TaskController::class, 'taskChangeType']);
+Route::post('toActive', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
+Route::post('toDone', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
+Route::post('toArchive', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
+Route::post('toBookmark', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
 
 Route::post('deleteTask', [App\Http\Controllers\TaskController::class, 'deleteTask']);
 
