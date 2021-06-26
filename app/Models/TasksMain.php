@@ -13,12 +13,10 @@ class TasksMain extends TaskRepository
     {
         $task['userid'] = intval(auth()->user()->id);
 
-        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
-        $task = trim($task['task']);
-        $task = mb_substr($task, 0, 900);
-        $task = base64_encode($task);
-
-        $task['task'] = $task;
+        $task['task'] = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
+        $task['task'] = trim($task['task']);
+        $task['task'] = mb_substr($task['task'], 0, 900);
+        $task['task'] = base64_encode($task['task']);
 
         $dt_task = new \DateTime($task['date']);
         $task['date'] = $dt_task->format('Y-m-d H:i:s');
@@ -42,12 +40,10 @@ class TasksMain extends TaskRepository
 
         $id = intval($task['id']);
 
-        $task = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
-        $task = trim($task['task']);
-        $task = mb_substr($task, 0, 900);
-        $task = base64_encode($task);
-
-        $task['task'] = $task;
+        $task['task'] = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
+        $task['task'] = trim($task['task']);
+        $task['task'] = mb_substr($task['task'], 0, 900);
+        $task['task'] = base64_encode($task['task']);
 
         $affected = $this->where([
                                     ['userid', "=", $userid], 
