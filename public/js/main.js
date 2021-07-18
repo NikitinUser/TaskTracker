@@ -65,7 +65,7 @@ function addTask(){
 
 	console.log(params);
 
-	if (Number(task) !== 0 && task.lenght > 3){
+	if (Number(task) !== 0 && task.length > 3){
 		var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
 
 		startWaitingModal();
@@ -237,7 +237,7 @@ function changeTask() {
 
 	var params = "task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
 
-	if (Number(task) !== 0 && task.lenght != 0){
+	if (Number(task) !== 0 && task.length != 0){
 		startWaitingModal();
 
 		var token = document.querySelector('meta[name=csrf-token').getAttribute('content');
