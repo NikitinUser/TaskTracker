@@ -1,4 +1,4 @@
-function hideWaitingModal() {
+export function hideWaitingModal() {
 	$("#modalWaitingServer").removeClass("in");
 	$(".modal-backdrop").remove();
 	document.querySelector("#modalWaitingServer").className = "modal fade";
@@ -7,7 +7,7 @@ function hideWaitingModal() {
 	$('body').removeClass('modal-open');
 }
 
-function startWaitingModal() {
+export function startWaitingModal() {
 	document.querySelector("#modalWaitingServer").className = "modal fade show";
 	document.querySelector("#modalWaitingServer").style.display = "block";
 	$('#modalWaitingServer').modal('show');
