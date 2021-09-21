@@ -15,7 +15,7 @@
             			</select>
             		</span>
             		<span class="input-group-append">
-            			<button class="btn btn-secondary" type="button" onclick="addTask()">
+            			<button class="btn btn-secondary" id="add_task_btn" type="button" onclick="addTask()">
             				<i class="fa fa-plus"></i>
             			</button>
             		</span>
@@ -83,11 +83,7 @@
 @endauth
 </footer>
 
-<script src="{{ asset('js/Task.js') }}" ></script>
-<script src="{{ asset('js/dateTime.js') }}" ></script>
-<script src="{{ asset('js/hiddingElements.js') }}" ></script>
-<script src="{{ asset('js/modalWaiting.js') }}" ></script>
-<script src="{{ asset('js/main.js') }}" ></script>
+<script type="module" src="{{ asset('js/main.js') }}" ></script>
 
 <script type="text/javascript">
 	document.addEventListener('keydown', function(event) {

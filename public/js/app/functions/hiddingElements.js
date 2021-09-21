@@ -1,4 +1,4 @@
-function show_hidTask(elem){
+export function show_hidTask(elem){
 	var id = elem.getAttribute('id');
 	id = Number(id.split("_")[1]) ;
 	var task = document.querySelector("#textid_" + id); 
@@ -10,7 +10,7 @@ function show_hidTask(elem){
 	}
 }
 
-function hideAll(elem){
+export function hideAll(elem){
 	var tasks = document.querySelectorAll(".taskText");
 	let arrBtns = new Array();
 
