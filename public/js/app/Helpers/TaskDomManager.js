@@ -108,6 +108,8 @@ export default class TaskDomManager {
     }
 
     static deleteDomTask(elem){
+        let id = elem.id.split("_")[1];
+
         let parentDiv = elem.parentNode.parentNode.parentNode;
         parentDiv.removeChild(elem.parentNode.parentNode);
 
