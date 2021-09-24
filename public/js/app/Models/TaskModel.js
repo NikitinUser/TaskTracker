@@ -150,10 +150,10 @@ export default class Task{
                 parentDiv.removeChild(this.currentDomElement.parentNode.parentNode);
 
                 let taskData = {};
-                taskData.id = data[i].id;
-                taskData.date = data[i].date;
-                taskData.task = data[i].task;
-                taskData.priority = data[i].priorityTask;
+                taskData.id = data.id;
+                taskData.date = data.date;
+                taskData.task = data.task;
+                taskData.priority = data.priorityTask;
                 taskData.type = this.type;
 
                 let liNew = TaskDomManager.createDomTask(taskData);
