@@ -31,6 +31,9 @@ class TaskRepository extends Model implements TaskRepositoryInterface
                       ->orderBy('dt_task', 'asc')
                       ->get()
                       ->toArray();
+
+        if (!is_array($tasks))
+            return false;
                       
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
