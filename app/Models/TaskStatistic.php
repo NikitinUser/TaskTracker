@@ -10,7 +10,7 @@ class TaskStatistic extends Model
 {
 	protected $table = 'tasks_statistic';
 
-	public function getCountDoneTasks()
+	public function getCountDoneTasksFromStatistic()
     {
         $userid = intval(auth()->user()->id);
 
@@ -25,7 +25,7 @@ class TaskStatistic extends Model
         return $count;
     }
 
-    public function commitDoneTask()
+    public function commitDoneTaskToStatistic()
     {
     	$userid = intval(auth()->user()->id);
 
@@ -37,7 +37,7 @@ class TaskStatistic extends Model
         return true;
     }
 
-    public function addStatistic($id)
+    public function addStatisticOfDoneTasksToUser($id)
     {
     	$this->insert([
                         'userid'    =>  $id,

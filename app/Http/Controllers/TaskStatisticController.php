@@ -28,7 +28,7 @@ class TaskStatisticController extends Controller
     {
     	$countActive = $this->TeskRepo->getCountTasks($this->TeskRepo::TYPE_ACTIVE_TASK);
     	$countArchive = $this->TeskRepo->getCountTasks($this->TeskRepo::TYPE_ARCHIVE_TASK);
-    	$countDone = $this->TaskStatistic->getCountDoneTasks();
+    	$countDone = $this->TaskStatistic->getCountDoneTasksFromStatistic();
 
     	$data = [
     			 'countActive'  => $countActive,
