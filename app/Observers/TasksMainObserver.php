@@ -37,7 +37,7 @@ class TasksMainObserver
     {
         if ($tasksMain->isDirty('type') && $tasksMain->type == $tasksMain::TYPE_DONE_TASK) {
             $TaskStatistic = new TaskStatistic();
-            $TaskStatistic->commitDoneTask();
+            $TaskStatistic->commitDoneTaskToStatistic();
             unset($TaskStatistic);
         }   
     }
