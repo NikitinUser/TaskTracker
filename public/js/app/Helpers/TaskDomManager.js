@@ -78,9 +78,9 @@ export default class TaskDomManager {
         divDropMenu.className = "dropdown-menu";
         divDropMenu.setAttribute('id', 'divDropMenu_' + taskData.id);
         divDropMenu.setAttribute('aria-labelledby', 'idtaskMore_' + taskData.id);
-        divDropMenu.innerHTML = '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 3)">В закладки</button>'+
+        divDropMenu.innerHTML = '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 0)">В задачи</button>'+
                                 '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 2)">В архив</button>'+
-                                '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 0)">В задачи</button>'+
+                                '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 3)">В закладки</button>'+
                                 '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="modalChangeTask(this)">Изменить</button>';
         
         btnNewDone.append(iNewDone);
