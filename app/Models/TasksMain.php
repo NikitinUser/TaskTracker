@@ -13,7 +13,7 @@ class TasksMain extends TaskRepository
     {
         $task['userid'] = intval(auth()->user()->id);
 
-        $task['task'] = preg_replace('/[^A-Za-z А-Яа-я 0-9 ;.,-=+]/ui', "", $task['task']);
+        $task['task'] = preg_replace('/[^A-Za-z А-Яа-яёЁ 0-9 ;.,-=+]/ui', "", $task['task']);
         $task['task'] = trim($task['task']);
         $task['task'] = mb_substr($task['task'], 0, 900);
         $task['task'] = base64_encode($task['task']);
