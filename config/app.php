@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        NikitinUser\userManagementModule\UserManagementModuleProvider::class,
 
         /*
          * Application Service Providers...
@@ -177,6 +178,7 @@ return [
 
         App\Providers\TaskRepositoryServiceProvider::class,
 
+        App\Providers\RolesServiceProvider::class,
     ],
 
     /*
