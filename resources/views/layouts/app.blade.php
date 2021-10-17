@@ -87,6 +87,19 @@
                 </div>
             </div>
         </nav>
+
+        @role('admin')
+        
+            <div style="float: left; height: 200vh !important;  min-height: 100vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
+
+            <div style="float: left; height: 100vh !important;   min-height: 100vh !important; width: 15%; position:fixed;" >
+                @include('layouts.side_bar')
+            </div>
+
+
+        @endrole
+
+
         <div id="returnMessages">
             @if( isset($errors) )
                 @if( !empty($errors->all()))
@@ -137,5 +150,12 @@
 
 
     <script src="{{ mix('js/app.js') }}" ></script>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            const pageHeight = document.documentElement.scrollHeight;
+            document.querySelector('#sideBarMain').style.height = (pageHeight + 100) + "px";
+          });
+    </script>
 </body>
 </html>
