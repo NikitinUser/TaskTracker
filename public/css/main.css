@@ -1,0 +1,15 @@
+body, html {
+    background: #090b1f;
+}
+
+#app {
+    background: #090b1f;
+}
+
+.bg-dark-theme {
+    background: #090b1f;
+}
+
+.bg-dark-tasks-theme {
+    background: #1e0c3a;
+}

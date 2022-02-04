@@ -2,19 +2,19 @@ export default class TaskDomManager {
 
     static createDomTask(taskData){
         let liNew = document.createElement('li');
-        liNew.className = "list-group-item";
+        liNew.className = "list-group-item list-group-item-purple border border-dark";
 
         let divRowNew = document.createElement('div');
         divRowNew.className = "row";
 
         let divDateNew = document.createElement('div');
-        divDateNew.className = "col-md-2 col-sm-2";
+        divDateNew.className = "col-md-2 col-sm-2 text-white";
 
         let divTextNew = document.createElement('div');
-        divTextNew.className = "col-md-9 col-sm-9 text-center";
+        divTextNew.className = "col-md-9 col-sm-9 text-center text-white";
 
         let divDoneNew = document.createElement('div');
-        divDoneNew.className = "col-md-1 col-sm-1";
+        divDoneNew.className = "col-md-1 col-sm-1 col-1 dropdown";
 
         let labelDate = document.createElement('label');
         let emDate = document.createElement('em');
@@ -42,7 +42,7 @@ export default class TaskDomManager {
         }
 
         let btnNewHide = document.createElement('button');
-        btnNewHide.className = "btn btn-outline-secondary ntn-sm";
+        btnNewHide.className = "btn btn-outline-light ntn-sm";
         btnNewHide.setAttribute('id', 'show_' + taskData.id);
         btnNewHide.setAttribute('style', 'font-size: x-small');
         btnNewHide.setAttribute('onclick', 'show_hidTask(this)');
@@ -70,18 +70,20 @@ export default class TaskDomManager {
 
         let btnMoreActions = document.createElement('button');
         btnMoreActions.innerHTML = '<i class="fa fa-ellipsis-h" aria-hidden="true"></i>';
-        btnMoreActions.className = "pull-right btn btn-outline-secondary btn-sm";
+        btnMoreActions.className = "pull-right btn btn-outline-light btn-sm";
         btnMoreActions.setAttribute('id', 'idtaskMore_' + taskData.id);
-        btnMoreActions.setAttribute('data-toggle', 'dropdown');
+        btnMoreActions.setAttribute('data-bs-toggle', 'dropdown');
+        btnMoreActions.setAttribute('aria-haspopup', false);
+        btnMoreActions.setAttribute('type', 'button');
 
         let divDropMenu = document.createElement('div');
         divDropMenu.className = "dropdown-menu";
         divDropMenu.setAttribute('id', 'divDropMenu_' + taskData.id);
         divDropMenu.setAttribute('aria-labelledby', 'idtaskMore_' + taskData.id);
-        divDropMenu.innerHTML = '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 0)">В задачи</button>'+
-                                '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 2)">В архив</button>'+
-                                '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 3)">В закладки</button>'+
-                                '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="modalChangeTask(this)">Изменить</button>';
+        divDropMenu.innerHTML = '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 0)">В задачи</button>'
+                                +'<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 2)">В архив</button>'
+                                +'<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 3)">В закладки</button>'
+                                +'<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="modalChangeTask(this)">Изменить</button>';
         
         btnNewDone.append(iNewDone);
         btnNewHide.append('Скрыть');
@@ -96,7 +98,7 @@ export default class TaskDomManager {
             divDoneNew.append(btnNewDone);
         divDoneNew.append(btnMoreActions);
         divDoneNew.append(divDropMenu);
-        
+
         divRowNew.append(divDateNew);
         divRowNew.append(divTextNew);
         divRowNew.append(divDoneNew);
