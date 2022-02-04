@@ -13,15 +13,18 @@
     <title>TaskTracker</title>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 </head>
 <body>
     <div id="app">
-     <a name="top"></a>
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <a name="top"></a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm p-3">
             <a class="navbar-brand" href="{{ route('home') }}">TaskTracker</a>
             <div class="container">
 
@@ -53,34 +56,33 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('home') }}">TaskTracker</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
                                 <a href="{{ route('done') }}" class="nav-link" >Выплненное</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
                                 <a href="{{ route('archive') }}" class="nav-link" >Архив</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
                                 <a href="{{ route('bookmarks') }}" class="nav-link" >Закладки</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
                                 <a href="{{ route('statistic') }}" class="nav-link" >Статистика</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" role="button">
                                     {{ Auth::user()->login }} <span class="caret"></span>
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Выход') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
                             </li>
                         @endguest
                     </ul>
@@ -90,7 +92,7 @@
 
         @role('admin')
         
-            <div style="float: left; height: 200vh !important;  min-height: 100vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
+            <div style="float: left; height: 600vh !important;  min-height: 600vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
 
             <div style="float: left; height: 100vh !important;   min-height: 100vh !important; width: 15%; position:fixed;" >
                 @include('layouts.side_bar')
@@ -125,13 +127,13 @@
             @endif
         </div>
        
-        <main class="py-4">
+        <main class="py-4 bg-dark-theme">
             @yield('content')
         </main>
     </div>
     
     <!-- Modal -->
-    <div class="modal fade" id="modalWaitingServer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal" id="modalWaitingServer" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -146,10 +148,7 @@
           </div>
         </div>
       </div>
-    </div>
-
-
-    <script src="{{ mix('js/app.js') }}" ></script>
+    </div>    
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
