@@ -14,7 +14,7 @@ export default class TaskDomManager {
         divTextNew.className = "col-md-9 col-sm-9 text-center text-white";
 
         let divDoneNew = document.createElement('div');
-        divDoneNew.className = "col-md-1 col-sm-1 col-1 dropdown";
+        divDoneNew.className = "col-md-1 col-sm-1 dropdown";
 
         let labelDate = document.createElement('label');
         let emDate = document.createElement('em');
