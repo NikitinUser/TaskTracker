@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="card col-md-10">
-            <div class="card-body">
-                <canvas id="myChart" width="400" height="250"></canvas>
+<div class="container bg-dark-theme">
+    <div class="row justify-content-center bg-dark-theme">
+        <div class="col-md-10 bg-dark-theme">
+            <div class="card-body bg-dark-tasks-theme">
+                <canvas class="bg-dark-tasks-theme" id="myChart" width="400" height="250"></canvas>
             </div>
         </div>
         

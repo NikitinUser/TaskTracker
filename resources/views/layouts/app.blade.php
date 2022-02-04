@@ -24,18 +24,19 @@
 <body>
     <div id="app">
         <a name="top"></a>
+
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm p-3">
             <a class="navbar-brand" href="{{ route('home') }}">TaskTracker</a>
-            <div class="container">
+            <div class="container-fluid">
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="nav nav-pills ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -54,19 +55,29 @@
                                 <a class="nav-link" href="{{ route('demo') }}">Без регистрации</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">TaskTracker</a>
+                                <a class="nav-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
+                                    TaskTracker
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('done') }}" class="nav-link" >Выплненное</a>
+                                <a class="nav-link @if(Request::is('done')) active @endif" href="{{ route('done') }}">
+                                    Выплненное
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('archive') }}" class="nav-link" >Архив</a>
+                                <a class="nav-link @if(Request::is('archive')) active @endif" href="{{ route('archive') }}">
+                                    Архив
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('bookmarks') }}" class="nav-link" >Закладки</a>
+                                <a class="nav-link @if(Request::is('bookmarks')) active @endif" href="{{ route('bookmarks') }}">
+                                    Закладки
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('statistic') }}" class="nav-link" >Статистика</a>
+                                <a class="nav-link @if(Request::is('statistic')) active @endif" href="{{ route('statistic') }}">
+                                    Статистика
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" role="button">
@@ -91,14 +102,13 @@
         </nav>
 
         @role('admin')
-        
-            <div style="float: left; height: 600vh !important;  min-height: 600vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
+        <div id="AdminSideBar">
+            <div style="float: left; height: 200vh !important;  min-height: 100vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
 
             <div style="float: left; height: 100vh !important;   min-height: 100vh !important; width: 15%; position:fixed;" >
                 @include('layouts.side_bar')
             </div>
-
-
+        </div>
         @endrole
 
 
@@ -148,7 +158,9 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {

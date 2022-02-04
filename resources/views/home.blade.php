@@ -35,7 +35,7 @@
               <div class="mt-3">
                 @auth
                     <center>
-                        <a href="#top" class="btn btn-outline-light btn-sm ">Наверх</a>
+                        <a href="#top" class="btn btn-outline-light btn-sm">Наверх</a>
                     </center>
                 @endauth
               </div>
@@ -45,13 +45,13 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
+            <div class="modal-content text-white">
+              <div class="modal-header bg-dark-theme">
                 <h5 class="modal-title" id="exampleModalLabel">Редактирование</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body bg-dark-theme">
                 <input type="hidden" id="idChangeTaskModal" value="">
 
                 <div>
@@ -69,7 +69,7 @@
                 </div>
                 
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer bg-dark-theme">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" onclick="changeTask()">Сохранить</button>
               </div>
