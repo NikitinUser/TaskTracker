@@ -1,6 +1,5 @@
 import TaskController from "./app/Controllers/TaskController.js";
 import {show_hidTask, hideAll} from "./app/functions/hiddingElements.js";
-import {hideWaitingModal, startWaitingModal} from "./app/functions/modalWaiting.js";
 
 /* Для видимости функций за пределами модуля */
 window.addTask = addTask;
@@ -13,9 +12,6 @@ window.changeTask = changeTask;
 
 window.show_hidTask = show_hidTask;
 window.hideAll = hideAll;
-
-window.startWaitingModal = startWaitingModal;
-window.hideWaitingModal = hideWaitingModal;
 /* --- */
 
 
@@ -75,7 +71,8 @@ function modalChangeTask(elem) {
 	document.querySelector('#contentChangeTaskModal').value = document.querySelector('#textid_'+id).textContent;
 	document.querySelector('#priorityChangeTaskModal').value = document.querySelector('#priorityid_'+id).value;
 
-	$('#exampleModal').modal('show');
+    var modalChangeTask = new bootstrap.Modal(document.getElementById('exampleModal'));
+    modalChangeTask.show();
 }
 
 function changeTask(){
