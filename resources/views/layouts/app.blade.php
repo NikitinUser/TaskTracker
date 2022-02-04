@@ -35,7 +35,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="nav nav-pills ml-auto">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -54,19 +54,29 @@
                                 <a class="nav-link" href="{{ route('demo') }}">Без регистрации</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">TaskTracker</a>
+                                <a class="nav-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
+                                    TaskTracker
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('done') }}" class="nav-link" >Выплненное</a>
+                                <a class="nav-link @if(Request::is('done')) active @endif" href="{{ route('done') }}">
+                                    Выплненное
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('archive') }}" class="nav-link" >Архив</a>
+                                <a class="nav-link @if(Request::is('archive')) active @endif" href="{{ route('archive') }}">
+                                    Архив
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('bookmarks') }}" class="nav-link" >Закладки</a>
+                                <a class="nav-link @if(Request::is('bookmarks')) active @endif" href="{{ route('bookmarks') }}">
+                                    Закладки
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('statistic') }}" class="nav-link" >Статистика</a>
+                                <a class="nav-link @if(Request::is('statistic')) active @endif" href="{{ route('statistic') }}">
+                                    Статистика
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" role="button">
