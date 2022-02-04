@@ -101,14 +101,13 @@
         </nav>
 
         @role('admin')
-        
-            <div style="float: left; height: 600vh !important;  min-height: 600vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
+        <div id="AdminSideBar">
+            <div style="float: left; height: 200vh !important;  min-height: 100vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
 
             <div style="float: left; height: 100vh !important;   min-height: 100vh !important; width: 15%; position:fixed;" >
                 @include('layouts.side_bar')
             </div>
-
-
+        </div>
         @endrole
 
 
@@ -158,7 +157,9 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", () => {
