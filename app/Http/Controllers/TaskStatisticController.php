@@ -9,14 +9,9 @@ use Illuminate\Support\Facades\Log;
 
 class TaskStatisticController extends Controller
 {
-	private $TeskRepo;
-    private $TaskStatistic;
-
 	public function __construct()
     {
         $this->middleware('auth');
-        $this->TeskRepo = new TaskRepository();
-        $this->TaskStatistic = new TaskStatistic();
     }
 
     public function index()
@@ -24,11 +19,11 @@ class TaskStatisticController extends Controller
         return view('statistic'); 
     }
 
-    public function getCounTasks()
+    public function getCounTasks(TaskRepository $tasksRepository, TaskStatistic $taskStatistic)
     {
-    	$countActive = $this->TeskRepo->getCountTasks($this->TeskRepo::TYPE_ACTIVE_TASK);
-    	$countArchive = $this->TeskRepo->getCountTasks($this->TeskRepo::TYPE_ARCHIVE_TASK);
-    	$countDone = $this->TaskStatistic->getCountDoneTasksFromStatistic();
+    	$countActive = $tasksRepository->getCountTasks($tasksRepository::TYPE_ACTIVE_TASK);
+    	$countArchive = $tasksRepository->getCountTasks($tasksRepository::TYPE_ARCHIVE_TASK);
+    	$countDone = $taskStatistic->getCountDoneTasksFromStatistic();
 
     	$data = [
     			 'countActive'  => $countActive,
