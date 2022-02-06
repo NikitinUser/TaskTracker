@@ -44,10 +44,7 @@ export default class TaskController{
 
         let params = "task=" + task + "&date=" + dateTime + "&priorityTask=" + priorityTask + "&type=" + typeTask;
 
-        console.log(params);
-
-        if (Number(task) !== 0 && task.length > 3)
-            this.taskModel.addTask(params);
+        this.taskModel.addTask(params);
     }
 
     taskSwapType (elem, type) {
@@ -91,7 +88,6 @@ export default class TaskController{
 
         var params = "task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
 
-        if (Number(task) !== 0 && task.length != 0)
-            this.taskModel.changeTask(params);
+        this.taskModel.changeTask(params);
     }
 }
