@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class RecoverTaskRequest extends FormRequest
 {
@@ -27,5 +29,24 @@ class RecoverTaskRequest extends FormRequest
         return [
             'id'    => 'required|integer',
         ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        $messages = [
+            'id.required' => 'Идентификатор задачи должен быть указан',
+            'id.integer' => 'Идентификатор задачи должен быть целым числом',
+        ];
+        return $messages;
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['errors' => $validator->errors(),'status' => true], 422));
     }
 }
