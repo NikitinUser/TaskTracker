@@ -1,0 +1,19 @@
+
+{
+    "name": "nikitinuser/user-management-module",
+    "description": "",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "NikitinUser",
+            "email": "jo.kent@mail.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "NikitinUser\\userManagementModule\\": ""
+        }
+    },
+    "require": {}
+}

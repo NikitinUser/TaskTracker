@@ -63,6 +63,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $checkExist = User::where('login',$data['login'])->first();
+
+        if (!empty($checkExist)) {
+            return false;
+        }
+
         $last_session = new \DateTime(null, new \DateTimeZone("Europe/Moscow") );
         return User::create([
             'login'         => $data['login'],

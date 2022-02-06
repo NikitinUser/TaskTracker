@@ -2,20 +2,31 @@
 
 namespace App\Models;
 
-use App\Repositories\TaskRepository;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
 
-class TasksMain extends TaskRepository
+class TasksMain extends Model
 {
     public const MAX_COUNT_TASKS_INTYPE = 50;
 
+    public const TYPE_ACTIVE_TASK = 0;
+    public const TYPE_DONE_TASK = 1;
+    public const TYPE_ARCHIVE_TASK = 2;
+    public const TYPE_BOOKMARK = 3;
+
+    protected $table = 'tasks_mains';
+
+    protected $fillable = ['task', 'id', 'dt_task', 'priority', 'userid', 'type', 'created_at', 'updated_at'];
+
     public function addNewTask($task)
     {
-        $task['userid'] = intval(auth()->user()->id);
+        $task['userid'] = intval(auth()?->user()?->id);
 
-        $task['task'] = preg_replace('/[^A-Za-z А-Яа-яёЁ 0-9 ;.,-=+]/ui', "", $task['task']);
+        if (empty($task['userid'])) {
+            return [];
+        }
+
         $task['task'] = trim($task['task']);
-        $task['task'] = mb_substr($task['task'], 0, 900);
         $task['task'] = base64_encode($task['task']);
 
         $dt_task = new \DateTime($task['date']);
@@ -38,16 +49,12 @@ class TasksMain extends TaskRepository
     {
         $userid = intval(auth()->user()->id);
 
-        $id = intval($task['id']);
-
-        $task['task'] = preg_replace('/[^A-Za-z А-Яа-яёЁ 0-9 ;.,-=+]/ui', "", $task['task']);
         $task['task'] = trim($task['task']);
-        $task['task'] = mb_substr($task['task'], 0, 900);
         $task['task'] = base64_encode($task['task']);
 
         $affected = $this->where([
                                     ['userid', "=", $userid], 
-                                    ['id', '=', $id],
+                                    ['id', '=', $task['id']],
                                 ])
                          ->update(['task' => $task['task'], 'priority' => $task['priorityTask'] ]);
         return true;
@@ -57,14 +64,12 @@ class TasksMain extends TaskRepository
     {
         $userid = intval(auth()->user()->id);
 
-        $id = intval($task['id']);
-
         $dt_task = new \DateTime($task['date']);
         $task['date'] = $dt_task->format('Y-m-d H:i:s');
 
         $model = $this->where([
                         ['userid', "=", $userid]
-                    ])->find($id);
+                    ])->find($task['id']);
 
         if (empty($model)) {
             return false;

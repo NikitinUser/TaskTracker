@@ -62,6 +62,11 @@ export default class Task{
             .then((data) => {
                 modal.hide();
 
+                if (data?.errors != null) {
+                    alert(data.errors?.task);
+                    return false;
+                }
+                
                 if (data.id == null) {
                     alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
                 } else {
@@ -110,6 +115,11 @@ export default class Task{
             .then((data) => {
                 modal.hide();
 
+                if (data?.errors != null) {
+                    alert(data.errors?.task);
+                    return false;
+                }
+
                 if(Number(data) == 1){
                     this.currentDomElement.parentNode.parentNode.parentNode.parentNode.removeChild(this.currentDomElement.parentNode.parentNode.parentNode);
                 } else {
@@ -140,6 +150,11 @@ export default class Task{
             .then((data) => {
                 modal.hide();
 
+                if (data?.errors != null) {
+                    alert(data.errors?.task);
+                    return false;
+                }
+
                 if(Number(data) == 1){
                     TaskDomManager.deleteDomTask(this.currentDomElement);
                 }
@@ -167,6 +182,11 @@ export default class Task{
             })
             .then((data) => {
                 modal.hide();
+
+                if (data?.errors != null) {
+                    alert(data.errors?.task);
+                    return false;
+                }
 
                 if(data.length != 0 && data != false && data != null){
                     let parentDiv = this.currentDomElement.parentNode.parentNode.parentNode;
@@ -211,6 +231,12 @@ export default class Task{
             })
             .then((data) => {
                 modal.hide();
+
+                if (data?.errors != null) {
+                    alert(data.errors?.task);
+                    return false;
+                }
+
                 location.reload();
             });
         } catch (ex) {

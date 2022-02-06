@@ -2,7 +2,7 @@ export default class TaskDomManager {
 
     static createDomTask(taskData){
         let liNew = document.createElement('li');
-        liNew.className = "list-group-item list-group-item-purple border border-dark";
+        liNew.className = "list-group-item list-group-item-darktheme border border-dark";
 
         let divRowNew = document.createElement('div');
         divRowNew.className = "row";

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\TasksMain;
 use Illuminate\Support\Facades\Log;
 use App\Models\TaskStatistic;
+use App\Repositories\TaskRepository;
 
 use Illuminate\Support\Facades\Redis;
 
@@ -19,7 +20,8 @@ class TasksMainObserver
      */
     public function creating(TasksMain $tasksMain)
     {
-        $countTasks = $tasksMain->getCountTasks($tasksMain->type);
+        $taskRepository = new TaskRepository();
+        $countTasks = $taskRepository->getCountTasks($tasksMain->type);
 
         if ($countTasks >= $tasksMain::MAX_COUNT_TASKS_INTYPE) {
 
