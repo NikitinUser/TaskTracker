@@ -14,7 +14,6 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
