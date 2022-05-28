@@ -4,9 +4,9 @@ export function show_hidTask(elem){
 	var task = document.querySelector("#textid_" + id); 
 	task.hidden = !task.hidden;
 	if(task.hidden == true){
-		elem.textContent = "Показать";
+		elem.value = "Показать";
 	}else{
-		elem.textContent = "Скрыть";
+		elem.value = "Скрыть";
 	}
 }
 

@@ -27,8 +27,8 @@ class AddTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task'          => 'required|min:3|max:900|regex:/^[A-Za-z А-Яа-яёЁ 0-9 ;.,-=+]+$/ui',
-            'date'          => 'required|date|max:18', 
+            'task'          => 'required|min:2|max:900',
+            'date'          => 'required|date|max:20', 
             'priorityTask'  => 'required|integer|min:0|max:3',
             'type'          => 'required|integer|min:0|max:3',
         ];
@@ -43,23 +43,22 @@ class AddTaskRequest extends FormRequest
     {
         $messages = [
             'task.required' => 'Чтобы добавить задачу - ее нужно ввести',
-            'task.min:3' => 'Минимальная длина задачи - 3 символа',
+            'task.min:2' => 'Минимальная длина задачи - 2 символа',
             'task.max:900' => 'Максимальная длина задачи - 400 символов',
-            'task.regex' => 'Допустимые символы для задачи: A-Za-z А-Яа-яёЁ 0-9 ;.,-=+',
 
             'priorityTask.required' => 'Необходимо выбрать приоритетность задачи',
             'priorityTask.integer' => 'Приоритетность задачи должна быть целым числом',
             'priorityTask.min:0' => 'Приоритетность задачи начинает от 0 (низкая)',
-            'priorityTask.max:900' => 'Максимальная приоритетность задачи - 2 (высокая)',
+            'priorityTask.max:2' => 'Максимальная приоритетность задачи - 2 (высокая)',
 
             'type.required' => 'Необходимо выбрать тип задачи',
             'type.integer' => 'Тип задачи должен быть целым числом',
             'type.min:0' => 'Тип задачи начинает от 0',
-            'type.max:900' => 'Максимальное значение для типа задачи - 3',
+            'type.max:3' => 'Максимальное значение для типа задачи - 3',
 
             'date.required' => 'Двта создания задачи должна быть сформирована',
             'date.date' => 'Дата задачи должна быть датой',
-            'date.max:18' => 'Максимальное длина даты 18 символов',
+            'date.max:20' => 'Максимальное длина даты 20 символов',
         ];
         return $messages;
     }

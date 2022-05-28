@@ -46,8 +46,6 @@ function hideAdminSideBar() {
     if (detect.mobile() != null)
         if (document.querySelector("#AdminSideBar") != null) 
             document.querySelector("#AdminSideBar").style.display = "none";
-        else
-            console.log("sb null");
 }
 
 
@@ -74,7 +72,7 @@ function recoverTask(elem){
 }
 
 function modalChangeTask(elem) {
-	var id = elem.parentNode.getAttribute('id');
+	var id = elem.id;
 	id = id.split("_")[1];
 
 	document.querySelector("#idChangeTaskModal").value = id;
