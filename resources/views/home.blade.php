@@ -92,8 +92,7 @@
               </div>
 
               <div class="text-white flex-fill ms-3 me-1">
-                <span class="li-text-task taskText"></span>
-                <i class="li-i-priority"></i>
+                <span class="li-text-task"><i class="li-i-priority ms-1"></i></span>
                 <input type="hidden" class="li-priority-id">
               </div>
             </div>
