@@ -91,6 +91,7 @@
 
             <div class="text-white flex-fill ms-5 me-3">
               <span class="li-text-task taskText"></span>
+              <i class="li-i-priority"></i>
               <input type="hidden" class="li-priority-id">
             </div>
 

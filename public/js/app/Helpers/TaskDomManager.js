@@ -4,33 +4,24 @@ export default class TaskDomManager {
         let li = document.getElementById("li-default").cloneNode(true);
         li.id = "";
 
-        // дата
         li.querySelector(".li-date").textContent = taskData.date;
 
-        // кнопка скрыть/показать
         li.querySelector(".li-btn-hid").id = 'show_' + taskData.id;
 
-        // текст задачи
         let textTask = li.querySelector(".li-text-task");
         textTask.id = 'textid_' + taskData.id;
         textTask.textContent = taskData.task;
 
-        let iPriority = document.createElement('i');
         let priorirtyId = li.querySelector(".li-priority-id");
         priorirtyId.id = 'priorityid_' + taskData.id;
-        priorirtyId.value = 0;
+        priorirtyId.value = taskData.priority;
         
         if (taskData.priority == 1) {
-            iPriority.className = "fa fa-exclamation-circle text-warning";
-            priorirtyId.value = 1;
+            li.querySelector(".li-i-priority").className = "fa fa-exclamation-circle text-warning";
         } else if (taskData.priority == 2) {
-            iPriority.className = "fa fa-exclamation-circle text-danger";
-            priorirtyId.value = 2;
+            li.querySelector(".li-i-priority").className = "fa fa-exclamation-circle text-danger";
         }
 
-        textTask.append(iPriority);
-
-        // кнопки
         let mainAction = li.querySelector(".li-main-action");
         mainAction.id = 'itembtnBookmarks_' + taskData.id;
 
@@ -45,11 +36,8 @@ export default class TaskDomManager {
         }
 
         li.querySelector(".li-move-tasks").id = 'itembtnBookmarks_' + taskData.id;
-
         li.querySelector(".li-move-bookmarks").id = 'itembtnBookmarks_' + taskData.id;
-
         li.querySelector(".li-move-archive").id = 'itembtnBookmarks_' + taskData.id;
-
         li.querySelector(".li-edit-action").id = 'itembtnBookmarks_' + taskData.id;
       
         return li;
