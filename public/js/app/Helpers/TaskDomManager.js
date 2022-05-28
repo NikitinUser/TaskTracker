@@ -4,8 +4,12 @@ export default class TaskDomManager {
         let li = document.getElementById("li-default").cloneNode(true);
         li.id = "";
         li.removeAttribute('hidden');
+        li.children[0].id = "li-div_" + taskData.id;
 
-        li.querySelector(".li-date").textContent = taskData.date;
+        if (taskData.date != undefined && taskData.date != null) {
+            li.querySelector(".li-date").textContent = taskData.date.split(" ")[0];
+            li.querySelector(".li-date-time").textContent = taskData.date.split(" ")[1];
+        }
 
         li.querySelector(".li-btn-hid").id = 'show_' + taskData.id;
 
@@ -47,8 +51,8 @@ export default class TaskDomManager {
     static deleteDomTask(elem){
         let id = elem.id.split("_")[1];
 
-        let parentDiv = elem.parentNode.parentNode.parentNode;
-        parentDiv.removeChild(elem.parentNode.parentNode);
+        let parentDiv = document.getElementById("li-div_"+id).parentNode;
+        parentDiv.removeChild(document.getElementById("li-div_"+id));
 
         let divRecover = document.createElement("div");
         divRecover.className = "row justify-content-center";
