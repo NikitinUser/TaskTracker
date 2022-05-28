@@ -15,16 +15,17 @@ export default class TaskDomManager {
 
         let textTask = li.querySelector(".li-text-task");
         textTask.id = 'textid_' + taskData.id;
-        textTask.textContent = taskData.task;
+        textTask.className += " taskText";
+        textTask.prepend(taskData.task);
 
         let priorirtyId = li.querySelector(".li-priority-id");
         priorirtyId.id = 'priorityid_' + taskData.id;
         priorirtyId.value = taskData.priority;
         
         if (taskData.priority == 1) {
-            li.querySelector(".li-i-priority").className = "fa fa-exclamation-circle text-warning";
+            li.querySelector(".li-i-priority").className += " fa fa-exclamation-circle text-warning";
         } else if (taskData.priority == 2) {
-            li.querySelector(".li-i-priority").className = "fa fa-exclamation-circle text-danger";
+            li.querySelector(".li-i-priority").className += " fa fa-exclamation-circle text-danger";
         }
 
         let mainAction = li.querySelector(".li-main-action");
