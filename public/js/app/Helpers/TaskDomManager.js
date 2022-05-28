@@ -3,6 +3,7 @@ export default class TaskDomManager {
     static createDomTask(taskData){
         let li = document.getElementById("li-default").cloneNode(true);
         li.id = "";
+        li.removeAttribute('hidden');
 
         li.querySelector(".li-date").textContent = taskData.date;
 

@@ -77,7 +77,7 @@
           </div>
         </div>        
 
-        <li class="list-group-item list-group-item-darktheme border border-dark" id="li-default">
+        <li class="list-group-item list-group-item-darktheme border border-dark" id="li-default" hidden>
           <div class="d-flex flex-row" style="min-height: 150px;">
             <div class="text-white d-flex flex-column">
               <div class="mb-3">
