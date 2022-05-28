@@ -46,8 +46,6 @@ function hideAdminSideBar() {
     if (detect.mobile() != null)
         if (document.querySelector("#AdminSideBar") != null) 
             document.querySelector("#AdminSideBar").style.display = "none";
-        else
-            console.log("sb null");
 }
 
 
