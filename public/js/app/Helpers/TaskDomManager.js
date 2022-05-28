@@ -1,112 +1,58 @@
 export default class TaskDomManager {
 
     static createDomTask(taskData){
-        let liNew = document.createElement('li');
-        liNew.className = "list-group-item list-group-item-darktheme border border-dark";
+        let li = document.getElementById("li-default").cloneNode(true);
+        li.id = "";
 
-        let divRowNew = document.createElement('div');
-        divRowNew.className = "row";
+        // дата
+        li.querySelector(".li-date").textContent = taskData.date;
 
-        let divDateNew = document.createElement('div');
-        divDateNew.className = "col-md-2 col-sm-2 text-white";
+        // кнопка скрыть/показать
+        li.querySelector(".li-btn-hid").id = 'show_' + taskData.id;
 
-        let divTextNew = document.createElement('div');
-        divTextNew.className = "col-md-9 col-sm-9 text-center text-white";
-
-        let divDoneNew = document.createElement('div');
-        divDoneNew.className = "col-md-1 col-sm-1 dropdown";
-
-        let labelDate = document.createElement('label');
-        let emDate = document.createElement('em');
-        emDate.setAttribute('style', "font-size: small");
-        emDate.append(taskData.date);
-        labelDate.append(emDate);
-
-        let spanNewText = document.createElement('span');
-        spanNewText.className = "taskText";
-        spanNewText.setAttribute('id', 'textid_' + taskData.id);
-
-        let inputPriority = document.createElement('input');
-        inputPriority.setAttribute('id', 'priorityid_' + taskData.id);
-        inputPriority.setAttribute('type', 'hidden');
-        inputPriority.value = 0;
+        // текст задачи
+        let textTask = li.querySelector(".li-text-task");
+        textTask.id = 'textid_' + taskData.id;
+        textTask.textContent = taskData.task;
 
         let iPriority = document.createElement('i');
+        let priorirtyId = li.querySelector(".li-priority-id");
+        priorirtyId.id = 'priorityid_' + taskData.id;
+        priorirtyId.value = 0;
         
         if (taskData.priority == 1) {
             iPriority.className = "fa fa-exclamation-circle text-warning";
-            inputPriority.value = 1;
+            priorirtyId.value = 1;
         } else if (taskData.priority == 2) {
             iPriority.className = "fa fa-exclamation-circle text-danger";
-            inputPriority.value = 2;
+            priorirtyId.value = 2;
         }
 
-        let btnNewHide = document.createElement('button');
-        btnNewHide.className = "btn btn-outline-light ntn-sm";
-        btnNewHide.setAttribute('id', 'show_' + taskData.id);
-        btnNewHide.setAttribute('style', 'font-size: x-small');
-        btnNewHide.setAttribute('onclick', 'show_hidTask(this)');
+        textTask.append(iPriority);
 
-        let btnNewDone = document.createElement('button');
-
-        let iNewDone = document.createElement('i');
+        // кнопки
+        let mainAction = li.querySelector(".li-main-action");
+        mainAction.id = 'itembtnBookmarks_' + taskData.id;
 
         if (taskData.type == 0 || taskData.type == 2) {
-            
-            btnNewDone.className = "pull-right btn btn-outline-success btn-sm";
-            btnNewDone.setAttribute('id', 'idtask_' + taskData.id);
-            btnNewDone.setAttribute('onclick', 'taskSwapType(this, 1)');
-
-            
-            iNewDone.className = "fa fa-check-square";
+            mainAction.className = "pull-right btn btn-outline-success w-100";
+            mainAction.setAttribute('onclick', 'taskSwapType(this, 1)');
         } else {
+            mainAction.className = "pull-right btn btn-outline-danger w-100";
+            mainAction.setAttribute('onclick', 'deleteTask(this)');
 
-            btnNewDone.className = "pull-right btn btn-outline-danger btn-sm";
-            btnNewDone.setAttribute('id', 'idtask_' + taskData.id);
-            btnNewDone.setAttribute('onclick', 'deleteTask(this)');
-
-            iNewDone.className = "fa fa-trash";
+            li.querySelector(".li-i-main-action").className = "fa fa-trash";
         }
 
-        let btnMoreActions = document.createElement('button');
-        btnMoreActions.innerHTML = '<i class="fa fa-ellipsis-h" aria-hidden="true"></i>';
-        btnMoreActions.className = "pull-right btn btn-outline-light btn-sm";
-        btnMoreActions.setAttribute('id', 'idtaskMore_' + taskData.id);
-        btnMoreActions.setAttribute('data-bs-toggle', 'dropdown');
-        btnMoreActions.setAttribute('aria-haspopup', false);
-        btnMoreActions.setAttribute('type', 'button');
+        li.querySelector(".li-move-tasks").id = 'itembtnBookmarks_' + taskData.id;
 
-        let divDropMenu = document.createElement('div');
-        divDropMenu.className = "dropdown-menu";
-        divDropMenu.setAttribute('id', 'divDropMenu_' + taskData.id);
-        divDropMenu.setAttribute('aria-labelledby', 'idtaskMore_' + taskData.id);
-        divDropMenu.innerHTML = '<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 0)">В задачи</button>'
-                                +'<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 2)">В архив</button>'
-                                +'<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="taskSwapType(this, 3)">В закладки</button>'
-                                +'<button class="dropdown-item" id="itembtnBookmarks_'+taskData.id+'" onclick="modalChangeTask(this)">Изменить</button>';
-        
-        btnNewDone.append(iNewDone);
-        btnNewHide.append('Скрыть');
-        spanNewText.append(taskData.task);
-        spanNewText.append(iPriority);
-        spanNewText.append(inputPriority);
+        li.querySelector(".li-move-bookmarks").id = 'itembtnBookmarks_' + taskData.id;
 
-        divDateNew.append(labelDate);
-        divDateNew.append(btnNewHide);
-        divTextNew.append(spanNewText);
-        if (btnNewDone.id != "")
-            divDoneNew.append(btnNewDone);
-        divDoneNew.append(btnMoreActions);
-        divDoneNew.append(divDropMenu);
+        li.querySelector(".li-move-archive").id = 'itembtnBookmarks_' + taskData.id;
 
-        divRowNew.append(divDateNew);
-        divRowNew.append(divTextNew);
-        divRowNew.append(divDoneNew);
-
-        liNew.append(divRowNew);
-        taskData.liNew = liNew;
-
-        return liNew;
+        li.querySelector(".li-edit-action").id = 'itembtnBookmarks_' + taskData.id;
+      
+        return li;
     }
 
     static deleteDomTask(elem){

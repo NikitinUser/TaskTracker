@@ -76,6 +76,47 @@
             </div>
           </div>
         </div>        
+
+        <li class="list-group-item list-group-item-darktheme border border-dark" id="li-default">
+          <div class="d-flex flex-row" style="min-height: 150px;">
+            <div class="text-white d-flex flex-column">
+              <div class="mb-3">
+                <em class="li-date" style="font-size: small"></em>
+              </div>
+
+              <div>
+                <input type="button" class="btn btn-outline-light btn-sm li-btn-hid" onclick='show_hidTask(this)' value="Скрыть">
+              </div>
+            </div>
+
+            <div class="text-white flex-fill ms-5 me-3">
+              <span class="li-text-task taskText"></span>
+              <input type="hidden" class="li-priority-id">
+            </div>
+
+            <div class="text-white d-flex flex-column">
+              <div class="mb-2">
+                <button class="pull-right btn btn-outline-success w-100 li-main-action"><i class="fa fa-check-square li-i-main-action"></i></button>
+              </div>
+
+              <div class="mb-2">
+                <button class="pull-right btn btn-outline-success w-100 li-move-tasks" onclick="taskSwapType(this, 0)"><i class="fa fa-location-arrow"></i></button>
+              </div>
+
+              <div class="mb-2">
+                <button class="pull-right btn btn-outline-primary w-100 li-move-bookmarks" onclick="taskSwapType(this, 3)"><i class="fa fa-bookmark"></i></button>
+              </div>
+
+              <div class="mb-2">
+                <button class="pull-right btn btn-outline-info w-100 li-move-archive" onclick="taskSwapType(this, 2)"><i class="fa fa-archive"></i></button>
+              </div>
+
+              <div class="mb-2">
+                <button class="pull-right btn btn-outline-warning w-100 li-edit-action" onclick="modalChangeTask(this)"><i class="fa fa-pencil-square"></i></button>
+              </div>
+            </div>
+          </div>
+        </li>
     </div>
 </div>
 

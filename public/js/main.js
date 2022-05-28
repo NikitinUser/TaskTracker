@@ -74,7 +74,7 @@ function recoverTask(elem){
 }
 
 function modalChangeTask(elem) {
-	var id = elem.parentNode.getAttribute('id');
+	var id = elem.id;
 	id = id.split("_")[1];
 
 	document.querySelector("#idChangeTaskModal").value = id;

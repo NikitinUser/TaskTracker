@@ -28,7 +28,7 @@ class SwapTheTypeOfTaskRequest extends FormRequest
     {
         return [
             'id'    => 'required|integer',
-            'date'  => 'required|date|max:18', 
+            'date'  => 'required|date|max:20', 
             'type'  => 'required|integer|min:0|max:3',
         ];
     }
