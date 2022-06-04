@@ -4,8 +4,8 @@ namespace App\Observers;
 
 use App\Models\TasksMain;
 use Illuminate\Support\Facades\Log;
-use App\Models\TaskStatistic;
 use App\Repositories\TaskRepository;
+use App\Services\TaskStatisticService;
 
 use Illuminate\Support\Facades\Redis;
 
@@ -37,11 +37,9 @@ class TasksMainObserver
      */
     public function updated(TasksMain $tasksMain)
     {
-        if ($tasksMain->isDirty('type') && $tasksMain->type == $tasksMain::TYPE_DONE_TASK) {
-            $TaskStatistic = new TaskStatistic();
-            $TaskStatistic->commitDoneTaskToStatistic();
-            unset($TaskStatistic);
-        }   
+        $statisticService = new TaskStatisticService();
+
+        $statisticService->commitDoneTaskToStatistic($tasksMain);   
     }
 
     /**

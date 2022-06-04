@@ -16,7 +16,16 @@ class TasksMain extends Model
 
     protected $table = 'tasks_mains';
 
-    protected $fillable = ['task', 'id', 'dt_task', 'priority', 'userid', 'type', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'task',
+        'id',
+        'dt_task',
+        'priority',
+        'userid',
+        'type',
+        'created_at',
+        'updated_at'
+    ];
 
     public function addNewTask($task)
     {
