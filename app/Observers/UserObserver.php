@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
-use App\Models\TaskStatistic;
+use App\Services\TaskStatisticService;
 
 class UserObserver
 {
@@ -15,8 +15,8 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $TaskStatistic = new TaskStatistic();
-        $TaskStatistic->addStatisticOfDoneTasksToUser($user->id);
-        unset($TaskStatistic);
+        $statisticService = new TaskStatisticService();
+        $statisticService->addStatisticToUser($user->id);
+        unset($statisticService);
     }
 }

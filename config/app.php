@@ -176,8 +176,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\Providers\TaskRepositoryServiceProvider::class,
-
         App\Providers\RolesServiceProvider::class,
     ],
 

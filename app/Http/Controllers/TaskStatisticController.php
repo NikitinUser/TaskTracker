@@ -1,11 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use App\Repositories\TaskRepository;
-use App\Models\TaskStatistic;
-use Illuminate\Support\Facades\Log;
+use App\Services\TaskStatisticService;
 
 class TaskStatisticController extends Controller
 {
@@ -19,19 +16,13 @@ class TaskStatisticController extends Controller
         return view('statistic'); 
     }
 
-    public function getCounTasks(TaskRepository $tasksRepository, TaskStatistic $taskStatistic)
+    public function getCounTasks()
     {
-    	$countActive = $tasksRepository->getCountTasks($tasksRepository::TYPE_ACTIVE_TASK);
-    	$countArchive = $tasksRepository->getCountTasks($tasksRepository::TYPE_ARCHIVE_TASK);
-    	$countDone = $taskStatistic->getCountDoneTasksFromStatistic();
+		$statisticService = new TaskStatisticService();
 
-    	$data = [
-    			 'countActive'  => $countActive,
-    			 'countDone' 	=> $countDone,
-    			 'countArchive' => $countArchive
-    	];
+		$data = $statisticService->getCounTasks();
 
-    	$data = json_encode($data);
+		$data = json_encode($data);
 
     	return $data;
     }
