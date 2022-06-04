@@ -3,15 +3,11 @@
 namespace App\Observers;
 
 use App\Models\TasksMain;
-use Illuminate\Support\Facades\Log;
-use App\Repositories\TaskRepository;
 use App\Services\TaskStatisticService;
-
-use Illuminate\Support\Facades\Redis;
+use App\Services\TaskService;
 
 class TasksMainObserver
 {
-
     /**
      * Handle the TasksMain "creating" event.
      *
@@ -20,11 +16,10 @@ class TasksMainObserver
      */
     public function creating(TasksMain $tasksMain)
     {
-        $taskRepository = new TaskRepository();
-        $countTasks = $taskRepository->getCountTasks($tasksMain->type);
+        $taskService = new TaskService();
+        $allowedAdd = $taskService->checkAllowedAdd($tasksMain->type);
 
-        if ($countTasks >= $tasksMain::MAX_COUNT_TASKS_INTYPE) {
-
+        if (!$allowedAdd) {
             return false;
         }
     }
@@ -39,19 +34,6 @@ class TasksMainObserver
     {
         $statisticService = new TaskStatisticService();
 
-        $statisticService->commitDoneTaskToStatistic($tasksMain);   
-    }
-
-    /**
-     * Handle the TasksMain "deleting" event.
-     *
-     * @param  \App\Models\TasksMain  $tasksMain
-     * @return void
-     */
-    public function deleting(TasksMain $tasksMain)
-    {
-        $key = "task_" . $tasksMain->id . "_" . $tasksMain->userid;
-
-        Redis::set($key, json_encode($tasksMain), 'EX', 60);
+        $statisticService->commitDoneTaskByUserid($tasksMain);   
     }
 }

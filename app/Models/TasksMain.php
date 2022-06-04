@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Redis;
 
 class TasksMain extends Model
 {
@@ -27,117 +26,33 @@ class TasksMain extends Model
         'updated_at'
     ];
 
-    public function addNewTask($task)
+    public function getTaskById(int $id): TasksMain
     {
-        $task['userid'] = intval(auth()?->user()?->id);
-
-        if (empty($task['userid'])) {
-            return [];
-        }
-
-        $task['task'] = trim($task['task']);
-        $task['task'] = base64_encode($task['task']);
-
-        $dt_task = new \DateTime($task['date']);
-        $task['date'] = $dt_task->format('Y-m-d H:i:s');
-
-        $newTask = TasksMain::create([
-            'task'      =>  $task['task'], 
-            'userid'    =>  $task['userid'],
-            'dt_task'   =>  $task['date'],
-            'type'      =>  $task['type'],
-            'priority'  =>  $task['priorityTask']
-         ]);
-
-        $task['id'] = $newTask->id;
-        
-        return $task;
+        return $this->where("id", $id)->get()->first();
     }
 
-    public function rewriteTask($task)
+    public function getTasksByUseridAndType(int $userid, int $type): ?array
     {
-        $userid = intval(auth()->user()->id);
+        $where = [
+            'userid' => $userid,
+            'type' => $type
+        ];
 
-        $task['task'] = trim($task['task']);
-        $task['task'] = base64_encode($task['task']);
-
-        $affected = $this->where([
-                                    ['userid', "=", $userid], 
-                                    ['id', '=', $task['id']],
-                                ])
-                         ->update(['task' => $task['task'], 'priority' => $task['priorityTask'] ]);
-        return true;
+        return $this->where($where)
+            ->orderBy('dt_task', 'asc')
+            ->get()
+            ->toArray();
     }
 
-    public function swapTheTypeOfTask($task)
+    public function getCountTasksByUseridAndType(int $userid, int $type): int
     {
-        $userid = intval(auth()->user()->id);
+        $where = [
+            'userid' => $userid,
+            'type' => $type
+        ];
 
-        $dt_task = new \DateTime($task['date']);
-        $task['date'] = $dt_task->format('Y-m-d H:i:s');
-
-        $model = $this->where([
-                        ['userid', "=", $userid]
-                    ])->find($task['id']);
-
-        if (empty($model)) {
-            return false;
-        }
-        
-        $model->update(['type' => $task['type'], 'dt_task' => $task['date'] ]);
-
-        return true;
-    }
-
-    public function removeTask($taskID)
-    {
-        $userid = intval(auth()->user()->id);
-
-        $taskID = intval($taskID);
-
-        $model = $this->where([
-                                ['userid', "=", $userid]
-                            ])
-                      ->find($taskID);
-
-        if (empty($model)) {
-            return false;
-        }
-
-        $model->delete();
-
-        return true;
-    }
-
-    public function recoverTask($taskID)
-    {
-        $userid = intval(auth()->user()->id);
-
-        $key = "task_" . $taskID . "_" . $userid;
-
-        $taskInRedis = Redis::get($key);
-
-        if (!$taskInRedis) {
-            return false;
-        }
-
-        $task = json_decode($taskInRedis);
-
-        if ($task->userid != $userid) {
-            return false;
-        }
-
-        $this->insert([
-            'id'        =>  $task->id, 
-            'task'      =>  $task->task, 
-            'userid'    =>  $task->userid,
-            'dt_task'   =>  $task->dt_task,
-            'type'      =>  $task->type,
-            'priority'  =>  $task->priority
-        ]);
-
-        $task->task = base64_decode($task->task);
-        
-        return $task;
+        return $this->where($where)
+            ->get()
+            ->count();
     }
 }

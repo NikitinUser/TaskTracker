@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\TaskRepository;
+use App\Services\TaskService;
 use App\Models\TaskStatistic;
 use App\Models\TasksMain;
 
@@ -17,28 +17,26 @@ class TaskStatisticService
 
     public function getCounTasks(): array
     {
-        $tasksRepository = new TaskRepository();
+        $tasksService = new TaskService();
 
         $userid = (int)auth()->user()->id;
 
-        $countActive = $tasksRepository->getCountTasks($tasksRepository::TYPE_ACTIVE_TASK);
-    	$countArchive = $tasksRepository->getCountTasks($tasksRepository::TYPE_ARCHIVE_TASK);
-    	$countDone = $this->taskStatistic->getStatisticByUserid($userid);
+        $countActive = $tasksService->getCountUserTasksByType(TasksMain::TYPE_ACTIVE_TASK);
+    	$countArchive = $tasksService->getCountUserTasksByType(TasksMain::TYPE_ARCHIVE_TASK);
+    	$statistic = $this->taskStatistic->getStatisticByUserid($userid);
 
-    	$data = [
+    	return [
     			 'countActive'  => $countActive,
-    			 'countDone' 	=> $countDone,
+    			 'countDone' 	=> $statistic?->doneTasks,
     			 'countArchive' => $countArchive
     	];
-
-    	$data = json_encode($data);
     }
 
     public function commitDoneTaskByUserid(TasksMain $tasksMain)
     {
         if (
             $tasksMain->isDirty('type')
-            && $tasksMain->type == $tasksMain::TYPE_DONE_TASK
+            && (int)$tasksMain->type == TasksMain::TYPE_DONE_TASK
         ) {
             $userid = (int)auth()->user()->id;
 
