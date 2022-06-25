@@ -1,57 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <table class="table table-striped">
-                    <th style="width: 150px; !important">Пользователи\Роли</th>
+<div class="row me-5 ms-5">
+    <div class="card col-md-12 p-3 justify-content-center">
+        <table class="table table-striped">
+            <th style="width: 150px; !important">Пользователи\Роли</th>
+            @foreach ($data['roles'] as $key => $role)
+                <th style="width: 100px; !important"> 
+                    <a href="getPageEditRole?role_id={{ $role?->id}}">{{ $role?->role_name}}</a>
+                </th>
+            @endforeach
 
-                    @foreach ($data['roles'] as $key => $value)
-                        <th style="width: 100px; !important"> 
-                            <a href="getPageEditRole?role_id={{ $value['id'] ?? '0' }}">{{ $value['role_name'] ?? "-" }}</a>
-                        </th>
+            @foreach ($data['users'] as $key => $user)
+                <tr>
+                    <td>
+                        {{ $user->login}}
+                    </td>
+
+                    @foreach ($data['roles'] as $key => $role)
+                        @php
+                            $checked = false;
+                        @endphp
+
+                        @foreach ($data['roles_for_user'] as $rolesForUser)
+                            @if ($rolesForUser['id_role'] == $role->id && $rolesForUser['id_user'] == $user->id)
+                                @php
+                                    $checked = true;
+                                @endphp
+                            @endif
+                        @endforeach
+
+                        <td>
+                            <div class="custom-control custom-switch">
+                                <input class="custom-control-input" type="checkbox" 
+                                        onclick="switchRole(this)"
+                                        id="user_role_{{$user->id}}_{{$role->id}}" 
+                                        @if ($checked) checked @endif>
+                                <label class="custom-control-label" for="user_role_{{$user->id}}_{{$role->id}}"></label>
+                            </div>
+                        </td>
                     @endforeach
-                    
-                    @foreach ($data['users'] as $key => $value)
-
-                        <tr>
-
-                            <td>
-                                {{ $value['login'] ?? "-" }}
-                            </td>
-
-                            @foreach ($value['status'] as $key => $val)
-                                <td>
-                                    @if ($val == 1)
-                                    <form>
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox" 
-                                                    onclick="switchRole(this)"
-                                                    id="user_role_{{$value['id']}}_{{$key}}" 
-                                                    checked>
-                                            <label class="custom-control-label" for="user_role_{{$value['id']}}_{{$key}}"></label>
-                                        </div>
-                                    </form>
-                                    @else
-                                    <form>
-                                        <div class="custom-control custom-switch">
-                                            <input class="custom-control-input" type="checkbox" 
-                                                    onclick="switchRole(this)"
-                                                    id="user_role_{{$value['id']}}_{{$key}}">
-                                            <label class="custom-control-label" for="user_role_{{$value['id']}}_{{$key}}"></label>
-                                        </div>
-                                    </form>    
-                                    @endif
-                                </td>
-                            @endforeach
-                        </tr>
-                        
-                    @endforeach
-                </table>
-            </div>
-        </div>
+                </tr>
+            @endforeach
+        </table>
     </div>
 </div>
 
@@ -77,9 +68,6 @@
 		     "X-CSRF-TOKEN": document.querySelector('meta[name=csrf-token').getAttribute('content')
 		   }), 
 		  body: params,
-		})
-		.then((response) => {
-		    return response.json();
 		})
 		.then((data) => {
 			console.log(data);
