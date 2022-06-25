@@ -20,8 +20,6 @@ var route = detectRoute();
 var taskController = new TaskController();
 
 window.onload = function () {
-    hideAdminSideBar();
-
     switch(route) {
         case 'done': 
             taskController.getDoneTasks();
