@@ -30,14 +30,8 @@ trait RegistersUsers
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        
-        $user = $this->create($request->all());
 
-        if (empty($user)) {
-            return redirect()->back();
-        }
-
-        event(new Registered($user));
+        event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
 

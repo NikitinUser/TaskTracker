@@ -10,9 +10,12 @@ use Illuminate\Notifications\Notifiable;
 use \Auth;
 use Illuminate\Support\Facades\DB;
 
+use NikitinUser\userManagementModule\lib\Helpers\HasRoles;
+use NikitinUser\userManagementModule\lib\Helpers\HasPermissions;
+
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles, HasPermissions;
 
     protected $arrRolesDescription = [
         "admin"  => 1,
@@ -49,38 +52,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
-    public function hasRole($role)
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-
-        if (!isset($this->arrRolesDescription[$role]) ) {
-            return false;
-        }
-
-        $needRole = $this->arrRolesDescription[$role];
-        $userid = intval(auth()->user()->id);
-        $userRoles = DB::table('roles')
-                    ->select('roles.id')
-                    ->join('roles_for_user', 'roles.id', '=', 'roles_for_user.id_role')
-                    ->where('roles_for_user.id_user', '=', $userid)
-                    ->get()
-                    ->toArray();
-        
-        $roles = [];
-
-        foreach ($userRoles as $key => $value) {
-            array_push($roles, $value->id);
-        }
-        //dd($roles);
-
-        if ( in_array($needRole, $roles) ) {
-            return true;
-        }
-
-        return false;
-    }
 }

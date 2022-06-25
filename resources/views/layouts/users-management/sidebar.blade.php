@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a class="nav-link text-white" href="/getPageAllRoles"><i class="icon-speedometer"></i> Роли и Права</a>
+    <a class="nav-link text-white" href="/getPageAllRolesAndPermissions"><i class="icon-speedometer"></i> Роли и Права</a>
 </li>
 
 <li class="nav-item">

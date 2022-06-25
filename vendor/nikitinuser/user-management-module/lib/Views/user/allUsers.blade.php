@@ -1,57 +1,53 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <table class="table table-striped">
-                    <thead>
-                        <th>id</th>
-                        <th>Логин</th>
-                        <th>Заблокирован</th>
-                        <th>Дата начала роследней сессии</th>
-                        <th>Дата регистрации</th>
-                        <th>Удалить</th>
-                    </thead>
-                    <tbody>
-                        @foreach($data as $key => $value)
-                            <tr>
-                                <td>
-                                    {{$value['id']}}
-                                </td>
+<div class="row me-5 ms-5">
+    <div class="card col-md-12 p-3 justify-content-center">
+        <table class="table table-striped">
+            <thead>
+                <th>id</th>
+                <th>Логин</th>
+                <th>Заблокирован</th>
+                <th>Дата начала роследней сессии</th>
+                <th>Дата регистрации</th>
+                <th>Удалить</th>
+            </thead>
+            <tbody>
+                @foreach($users as $key => $user)
+                    <tr>
+                        <td>
+                            {{$user?->id}}
+                        </td>
 
-                                <td>
-                                    {{$value['login']}}
-                                </td>
+                        <td>
+                            {{$user?->login}}
+                        </td>
 
-                                <td>
-                                    @if ($value['block'] == 1)
-                                        Да
-                                    @else
-                                        Нет
-                                    @endif
-                                </td>
+                        <td>
+                            @if ($user?->block == 1)
+                                Да
+                            @else
+                                Нет
+                            @endif
+                        </td>
 
-                                <td>
-                                    {{$value['last_session']}}
-                                </td>
+                        <td>
+                            {{$user?->last_session}}
+                        </td>
 
-                                <td>
-                                    {{$value['created_at']}}
-                                </td>
+                        <td>
+                            {{$user?->created_at}}
+                        </td>
 
-                                <td>
-                                    <input type="button" id="user_{{$value['id']}}" class="btn btn-outline-danger btn-sm"
-                                        onclick="deleteUser(this)" value="X">
-                                </td>
-                            </tr>
-                        @endforeach
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                        <td>
+                            <input type="button" id="user_{{$user?->id}}" class="btn btn-outline-danger btn-sm"
+                                onclick="deleteUser(this)" value="X">
+                        </td>
+                    </tr>
+                @endforeach
+                
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -68,9 +64,6 @@
 		     "X-CSRF-TOKEN": document.querySelector('meta[name=csrf-token').getAttribute('content')
 		   }), 
 		  body: params,
-		})
-		.then((response) => {
-		    return response.json();
 		})
 		.then((data) => {
 			window.location.reload();

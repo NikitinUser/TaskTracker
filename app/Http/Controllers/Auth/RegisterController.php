@@ -69,7 +69,7 @@ class RegisterController extends Controller
             return false;
         }
 
-        $last_session = new \DateTime(null, new \DateTimeZone("Europe/Moscow") );
+        $last_session = new \DateTime("", new \DateTimeZone("Europe/Moscow") );
         return User::create([
             'login'         => $data['login'],
             'password'      => Hash::make($data['password']),
