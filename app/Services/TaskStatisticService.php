@@ -18,13 +18,12 @@ class TaskStatisticService
     /**
      * getCounTasks
      *
+     * @param  int $userid
      * @return array
      */
-    public function getCounTasks(): array
+    public function getCounTasks(int $userid): array
     {
         $tasksService = new TaskService();
-
-        $userid = (int)auth()->user()->id;
 
         $countActive = $tasksService->getCountUserTasksByType(TasksMain::TYPE_ACTIVE_TASK);
     	$countArchive = $tasksService->getCountUserTasksByType(TasksMain::TYPE_ARCHIVE_TASK);

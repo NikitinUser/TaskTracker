@@ -20,7 +20,9 @@ class TaskStatisticController extends Controller
     {
 		$statisticService = new TaskStatisticService();
 
-		$data = $statisticService->getCounTasks();
+        $userid = (int)auth()->user()->id;
+
+		$data = $statisticService->getCounTasks($userid);
 
 		$data = json_encode($data);
 
