@@ -16,13 +16,13 @@ class TaskStatisticController extends Controller
         return view('statistic'); 
     }
 
-    public function getCounTasks()
+    public function getCountTasks()
     {
 		$statisticService = new TaskStatisticService();
 
         $userid = (int)auth()->user()->id;
 
-		$data = $statisticService->getCounTasks($userid);
+		$data = $statisticService->getCountTasks($userid);
 
 		$data = json_encode($data);
 

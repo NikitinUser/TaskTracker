@@ -16,12 +16,12 @@ class TaskStatisticService
     }
     
     /**
-     * getCounTasks
+     * getCountTasks
      *
      * @param  int $userid
      * @return array
      */
-    public function getCounTasks(int $userid): array
+    public function getCountTasks(int $userid): array
     {
         $tasksService = new TaskService();
 
