@@ -14,7 +14,12 @@ class TaskStatisticService
     {
         $this->taskStatistic = new TaskStatistic();
     }
-
+    
+    /**
+     * getCounTasks
+     *
+     * @return array
+     */
     public function getCounTasks(): array
     {
         $tasksService = new TaskService();
@@ -31,8 +36,14 @@ class TaskStatisticService
     			 'countArchive' => $countArchive
     	];
     }
-
-    public function commitDoneTaskByUserid(TasksMain $tasksMain)
+    
+    /**
+     * commitDoneTaskByUserid
+     *
+     * @param  TasksMain $tasksMain
+     * @return void
+     */
+    public function commitDoneTaskByUserid(TasksMain $tasksMain): void
     {
         if (
             $tasksMain->isDirty('type')
@@ -43,7 +54,13 @@ class TaskStatisticService
             $this->taskStatistic->incrementDoneTasks($userid);
         }
     }
-
+    
+    /**
+     * addStatisticToUser
+     *
+     * @param  int $userid
+     * @return void
+     */
     public function addStatisticToUser(int $userid): void
     {
         $this->taskStatistic->userid = $userid;

@@ -12,9 +12,9 @@ class TasksMainObserver
      * Handle the TasksMain "creating" event.
      *
      * @param  \App\Models\TasksMain  $tasksMain
-     * @return void
+     * @return bool|null
      */
-    public function creating(TasksMain $tasksMain)
+    public function creating(TasksMain $tasksMain): ?bool
     {
         $taskService = new TaskService();
         $allowedAdd = $taskService->checkAllowedAdd($tasksMain->type);
