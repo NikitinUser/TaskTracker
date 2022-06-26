@@ -1,9 +1,9 @@
 window.onload = function () {
-    getCounTasks();
+    getCountTasks();
 }
 
-function getCounTasks() {
-    fetch('getCounTasks')
+function getCountTasks() {
+    fetch('getCountTasks')
       .then((response) => {
         return response.json();
       })
