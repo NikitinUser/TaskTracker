@@ -13,7 +13,13 @@ class TaskService
     {
         $this->taskMain = new TasksMain();
     }
-
+    
+    /**
+     * getUserTasksByType
+     *
+     * @param  int $type
+     * @return array|null
+     */
     public function getUserTasksByType(int $type): ?array
     {
         $userid = (int)auth()->user()->id;
@@ -28,13 +34,25 @@ class TaskService
 
         return $tasks;
     }
-
-    public function getCountUserTasksByType(int $type)
+    
+    /**
+     * getCountUserTasksByType
+     *
+     * @param  int $type
+     * @return int
+     */
+    public function getCountUserTasksByType(int $type): int
     {
         $userid = (int)auth()->user()->id;
         return $this->taskMain->getCountTasksByUseridAndType($userid, $type);
     }
-
+    
+    /**
+     * addNewTask
+     *
+     * @param  array $task
+     * @return array
+     */
     public function addNewTask(array $task): array
     {
         $task['userid'] = (int)auth()?->user()?->id;
@@ -52,7 +70,13 @@ class TaskService
         
         return $task;
     }
-
+    
+    /**
+     * rewriteTask
+     *
+     * @param  array $task
+     * @return bool
+     */
     public function rewriteTask(array $task): bool
     {
         $this->taskMain = $this->taskMain->getTaskById((int)$task['id']);
@@ -63,7 +87,13 @@ class TaskService
 
         return $this->taskMain->update();
     }
-
+    
+    /**
+     * swapTypeTask
+     *
+     * @param  array $task
+     * @return bool
+     */
     public function swapTypeTask(array $task): bool
     {
         $this->taskMain = $this->taskMain->getTaskById((int)$task['id']);
@@ -76,7 +106,13 @@ class TaskService
 
         return $this->taskMain->update();
     }
-
+    
+    /**
+     * deleteTask
+     *
+     * @param  int $idTask
+     * @return bool
+     */
     public function deleteTask(int $idTask): bool
     {
         $this->taskMain = $this->taskMain->getTaskById($idTask);
@@ -85,7 +121,13 @@ class TaskService
 
         return $this->taskMain->delete();
     }
-
+    
+    /**
+     * recoverTask
+     *
+     * @param  int $idTask
+     * @return TasksMain|null
+     */
     public function recoverTask(int $idTask): ?TasksMain
     {
         $task = $this->getTaskFromRedis($idTask);
@@ -103,20 +145,38 @@ class TaskService
 
         return $this->taskMain;
     }
-
-    public function checkAllowedAdd(int $type)
+    
+    /**
+     * checkAllowedAdd
+     *
+     * @param  int $type
+     * @return bool
+     */
+    public function checkAllowedAdd(int $type): bool
     {
         $countTasks = $this->getCountUserTasksByType($type);
 
         return $countTasks < TasksMain::MAX_COUNT_TASKS_INTYPE;
     }
-
+    
+    /**
+     * saveTaskToRedis
+     *
+     * @param  TasksMain $task
+     * @return void
+     */
     private function saveTaskToRedis(TasksMain $task): void
     {
         $key = "task_" . $task->id . "_" . $task->userid;
         Redis::set($key, json_encode($task), 'EX', 60);
     }
-
+    
+    /**
+     * getTaskFromRedis
+     *
+     * @param  int $idTask
+     * @return void
+     */
     private function getTaskFromRedis(int $idTask)
     {
         $userid = (int)auth()->user()->id;
@@ -125,7 +185,12 @@ class TaskService
 
         return Redis::get($key);
     }
-
+        
+    /**
+     * getUniqumTasksThemes
+     *
+     * @return array of TasksMain
+     */
     public function getUniqumTasksThemes()
     {
         return $this->taskMain->select("theme")

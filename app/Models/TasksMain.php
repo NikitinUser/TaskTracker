@@ -26,12 +26,25 @@ class TasksMain extends Model
         'created_at',
         'updated_at'
     ];
-
-    public function getTaskById(int $id): TasksMain
+    
+    /**
+     * getTaskById
+     *
+     * @param  int $id
+     * @return TasksMain|null
+     */
+    public function getTaskById(int $id): ?TasksMain
     {
         return $this->where("id", $id)->get()->first();
     }
-
+    
+    /**
+     * getTasksByUseridAndType
+     *
+     * @param  int $userid
+     * @param  int $type
+     * @return array|null
+     */
     public function getTasksByUseridAndType(int $userid, int $type): ?array
     {
         $where = [
@@ -44,7 +57,14 @@ class TasksMain extends Model
             ->get()
             ->toArray();
     }
-
+    
+    /**
+     * getCountTasksByUseridAndType
+     *
+     * @param  int $userid
+     * @param  int $type
+     * @return int
+     */
     public function getCountTasksByUseridAndType(int $userid, int $type): int
     {
         $where = [

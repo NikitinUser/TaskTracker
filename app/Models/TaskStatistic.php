@@ -14,14 +14,26 @@ class TaskStatistic extends Model
         'doneTasks',
         'userid'
     ];
-
+	
+	/**
+	 * getStatisticByUserid
+	 *
+	 * @param  int $userid
+	 * @return TaskStatistic|null
+	 */
 	public function getStatisticByUserid(int $userid): ?TaskStatistic
     {
         return $this->where('userid', $userid)
             ->get()
             ->first();
     }
-
+    
+    /**
+     * incrementDoneTasks
+     *
+     * @param  int $userid
+     * @return bool
+     */
     public function incrementDoneTasks(int $userid): bool
     {
     	return $this->where('userid', $userid)
