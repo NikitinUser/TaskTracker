@@ -3,13 +3,15 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Tests\TestsHelper;
 use App\Services\TaskStatisticService;
 use App\Models\TasksMain;
 use App\Models\TaskStatistic;
-use App\Models\User;
 
 class TaskStatisticServiceTest extends TestCase
 {
+    use TestsHelper;
+
     /**
      * @test
      */
@@ -98,24 +100,5 @@ class TaskStatisticServiceTest extends TestCase
         }
         
         $this->assertTrue($res);
-    }
-
-    private function authByUserId(int $userId)
-    {
-        $user = User::where("id", $userId)->first();
-        \Auth::shouldReceive('guard')->andReturnSelf()
-                ->shouldReceive('user')->andReturn($user)
-                ->shouldReceive('check')->andReturn(true);
-    }
-
-    private function createNewUserGetId()
-    {
-        return User::insertGetId(
-            [
-                "login" => "login" . date("U") . rand(1, 1990009),
-                "password" => "123",
-                "block" => 0,
-            ]
-        );
     }
 }
