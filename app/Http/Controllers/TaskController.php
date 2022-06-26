@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-
 use App\Services\TaskService;
-
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\GetTasksRequest;
 use App\Http\Requests\RewriteTaskRequest;
 use App\Http\Requests\RecoverTaskRequest;
-
-use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -38,14 +33,14 @@ class TaskController extends Controller
         $tasks = $this->taskService->getUserTasksByType($type);
 
         $tasks = json_encode($tasks);
-        
+
         return $tasks;
     }
     
     public function addtask(AddTaskRequest $request)
     {
         $taskDataInput = $request->all();
-        
+
         $addedTaskData = $this->taskService->addNewTask($taskDataInput);
 
         $addedTaskData = json_encode($addedTaskData);
@@ -67,26 +62,26 @@ class TaskController extends Controller
         $taskDataInput = $request->all();
 
         $statusSwapType = $this->taskService->swapTypeTask($taskDataInput);
-        
+
         return $statusSwapType;
     }
 
     public function deleteTask(DeleteTaskRequest $request)
     {
-        $taskID = (int)($request->input('id') ?? 0);
+        $taskId = (int)($request->input('id') ?? 0);
 
-        $statusDelete = $this->taskService->deleteTask($taskID);
-        
+        $statusDelete = $this->taskService->deleteTask($taskId);
+
         return $statusDelete;
     }
 
     public function recoverTask(RecoverTaskRequest $request)
     {
-        $taskID = (int)($request->input('id') ?? 0);
+        $taskId = (int)($request->input('id') ?? 0);
 
-        $recoveredTask = $this->taskService->recoverTask($taskID);
+        $recoveredTask = $this->taskService->recoverTask($taskId);
         $recoveredTask = json_encode($recoveredTask);
-        
+
         return $recoveredTask;
     }
 
