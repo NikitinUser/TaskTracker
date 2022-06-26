@@ -2797,15 +2797,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NikitinUser/userManagementModule.git",
-                "reference": "80d55c4007bd1e25885227927bc162b1670dd92f"
+                "reference": "a2c7b3abe5760084c8e80f35b5c0448e8dd74ca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NikitinUser/userManagementModule/zipball/80d55c4007bd1e25885227927bc162b1670dd92f",
-                "reference": "80d55c4007bd1e25885227927bc162b1670dd92f",
+                "url": "https://api.github.com/repos/NikitinUser/userManagementModule/zipball/a2c7b3abe5760084c8e80f35b5c0448e8dd74ca0",
+                "reference": "a2c7b3abe5760084c8e80f35b5c0448e8dd74ca0",
                 "shasum": ""
             },
-            "time": "2022-06-25T20:30:26+00:00",
+            "time": "2022-06-25T20:53:43+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",

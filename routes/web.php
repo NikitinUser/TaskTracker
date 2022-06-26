@@ -39,3 +39,5 @@ Route::post('taskSwapType', [App\Http\Controllers\TaskController::class, 'swapTh
 Route::post('deleteTask', [App\Http\Controllers\TaskController::class, 'deleteTask']);
 
 Route::post('recoverTask', [App\Http\Controllers\TaskController::class, 'recoverTask']);
+
+Route::get('/get_tasks_themes', [App\Http\Controllers\TaskController::class, 'getTasksThemes'])->name('get_tasks_themes');

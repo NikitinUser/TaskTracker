@@ -2,7 +2,8 @@ export default class TaskDomManager {
 
     static createDomTask(taskData){
         let li = document.getElementById("li-default").cloneNode(true);
-        li.id = "";
+        li.id = "li-task_" + taskData.id;
+        li.className += " li_task_elem";
         li.removeAttribute('hidden');
         li.children[0].id = "li-div_" + taskData.id;
 
@@ -12,6 +13,9 @@ export default class TaskDomManager {
         }
 
         li.querySelector(".li-btn-hid").id = 'show_' + taskData.id;
+
+        li.querySelector(".task-theme").id = "theme_" + taskData.id;
+        li.querySelector(".task-theme").textContent = taskData.theme;
 
         let textTask = li.querySelector(".li-text-task");
         textTask.id = 'textid_' + taskData.id;

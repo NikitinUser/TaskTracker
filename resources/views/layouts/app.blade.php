@@ -94,22 +94,15 @@
                                         @csrf
                                     </form>
                             </li>
+
+                            @role('admin')
+                                @include('user-management-module::sidebar')
+                            @endrole
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-
-        @role('admin')
-        <div id="AdminSideBar">
-            <div style="float: left; height: 200vh !important;  min-height: 100vh !important; width: 15%;" class="bg-dark" id="sideBarMain"> </div>
-
-            <div style="float: left; height: 100vh !important;   min-height: 100vh !important; width: 15%; position:fixed;" >
-                @include('layouts.side_bar')
-            </div>
-        </div>
-        @endrole
-
 
         <div id="returnMessages">
             @if( isset($errors) )
@@ -158,14 +151,5 @@
         </div>
       </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
-
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", () => {
-            const pageHeight = document.documentElement.scrollHeight;
-            document.querySelector('#sideBarMain').style.height = (pageHeight + 100) + "px";
-          });
-    </script>
 </body>
 </html>
