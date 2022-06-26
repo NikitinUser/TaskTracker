@@ -25,8 +25,21 @@
             		<center>Выполненные задачи</center>
             	</div>
 
+              <div class="d-flex justify-content-between mb-3">
+                <div>
+                   <label for="" class="text-white">Фильтры по теме:</label>
+                   <select name="theme-filtre" id="theme-filtre" list="suggestions-themes" onchange="filtreByTheme()">
+                      <option value=""></option>
+                   </select>
+                </div>
+
+                <div>
+                   <button type="button" class="btn btn-outline-light btn-sm" onclick="dropThemeFiltre()">Сбросить</button>
+                </div>
+            	</div>
+
             	<div class="mb-3">
-            		<center>
+                <center>
             			<button class="btn btn-outline-light btn-sm" type="button" onclick="hideAll(this)">Скрыть все</button>
             		</center>
             	</div>
@@ -41,6 +54,9 @@
               </div>
             </div>
         </div>
+
+        <!-- Themes Suggestions -->
+        <datalist id="suggestions-themes"></datalist>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,7 +83,11 @@
                         <option value="2"> High</option>
                     </select>
                 </div>
-                
+
+                <div>
+                    <label>Тема задачи:</label>
+                    <input type="text" name="theme" id="themeChangeTaskModal" class="form-control" list="suggestions-themes">
+                </div>
               </div>
               <div class="modal-footer bg-dark-theme">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -77,10 +97,16 @@
           </div>
         </div>        
 
+        <!-- Template -->
         <li class="list-group-item list-group-item-darktheme border border-dark" id="li-default" hidden>
           <div>
             <div class="d-flex flex-row" style="min-height: 150px;">
               <div class="text-white d-flex flex-column" style="max-width: 20%">
+
+                <div class="mb-3">
+                  <label class="task-theme"></label>
+                </div>
+
                 <div class="mb-3 d-flex flex-column">
                   <em class="li-date" style="font-size: small"></em>
                   <em class="li-date-time" style="font-size: small"></em>

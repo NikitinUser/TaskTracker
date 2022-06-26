@@ -86,7 +86,10 @@ export default class TaskController{
 
         var priorityTask = document.querySelector('#priorityChangeTaskModal').value;
 
-        var params = "task=" + task + "&priorityTask=" + priorityTask + "&id=" + id;
+        let theme = document.querySelector('#themeChangeTaskModal').value;
+
+        var params = "task=" + task + "&priorityTask=" + priorityTask + "&id=" + id
+            + "&theme=" + theme;
 
         this.taskModel.changeTask(params);
     }

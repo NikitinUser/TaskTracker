@@ -59,6 +59,7 @@ class TaskService
 
         $this->taskMain->task = base64_encode(trim($task['task']));
         $this->taskMain->priority = $task['priorityTask'];
+        $this->taskMain->theme = $task['theme'] ?? "";
 
         return $this->taskMain->update();
     }
@@ -123,5 +124,12 @@ class TaskService
         $key = "task_" . $idTask . "_" . $userid;
 
         return Redis::get($key);
+    }
+
+    public function getUniqumTasksThemes()
+    {
+        return $this->taskMain->select("theme")
+            ->distinct()
+            ->get();
     }
 }

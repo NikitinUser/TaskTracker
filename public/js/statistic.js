@@ -43,10 +43,3 @@ function drawStat(data) {
         }
     });
 }
-
-function hideAdminSideBar() {
-    let detect = new MobileDetect(window.navigator.userAgent)
-    if (detect.mobile() != null)
-        if (document.querySelector("#AdminSideBar") != null) 
-            document.querySelector("#AdminSideBar").style.display = "none";
-}

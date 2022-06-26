@@ -31,6 +31,7 @@ export default class Task{
                     taskData.task = data[i].task;
                     taskData.priority = data[i].priority;
                     taskData.type = this.type;
+                    taskData.theme = data[i]?.theme ?? "Без темы";
                         
                     let liNew = TaskDomManager.createDomTask(taskData);
 

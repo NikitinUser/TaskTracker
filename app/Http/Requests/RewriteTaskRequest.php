@@ -27,9 +27,10 @@ class RewriteTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'            => 'required|integer',
-            'task'          => 'required|min:2|max:900',
-            'priorityTask'  => 'required|integer|min:0|max:3',
+            'id' => 'required|integer',
+            'task' => 'required|min:2|max:900',
+            'priorityTask' => 'required|integer|min:0|max:3',
+            'theme' => 'min:2|max:30|regex:/^[A-Za-z А-Яа-яёЁ 0-9]+$/ui',
         ];
     }
 
@@ -52,6 +53,10 @@ class RewriteTaskRequest extends FormRequest
 
             'id.required' => 'Идентификатор задачи должен быть указан',
             'id.integer' => 'Идентификатор задачи должен быть целым числом',
+
+            'theme.min:2' => 'Минимальная длина темы - 2 сивола',
+            'theme.max:30' => 'Максимальная длина темы - 30 символов',
+            'theme.regex:/^[A-Za-z А-Яа-яёЁ 0-9]+$/ui' => 'Допустимы только символы русского, англиского алфавитов и цифры',
         ];
         return $messages;
     }

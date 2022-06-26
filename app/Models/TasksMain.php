@@ -22,6 +22,7 @@ class TasksMain extends Model
         'priority',
         'userid',
         'type',
+        'theme',
         'created_at',
         'updated_at'
     ];
