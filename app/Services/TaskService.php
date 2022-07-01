@@ -66,6 +66,7 @@ class TaskService
 
         $newTask = TasksMain::create($task);
 
+        $task['date'] = $task['dt_task'];
         $task['id'] = $newTask->id;
         
         return $task;
