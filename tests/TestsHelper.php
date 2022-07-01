@@ -6,6 +6,9 @@ use App\Models\User;
 
 trait TestsHelper
 {
+    public int $minLenTask = 2;
+    public int $maxLenTask = 900;
+
     public function authByUserId(int $userId)
     {
         $user = User::where("id", $userId)->first();
@@ -23,5 +26,27 @@ trait TestsHelper
                 "block" => 0,
             ]
         );
+    }
+
+    public function generateStringLessMin(): string
+    {
+        $str = "";
+
+        for ($i = 0; $i < $this->minLenTask - 1; $i++) {
+            $str .= "a";
+        }
+
+        return $str;
+    }
+
+    public function generateStringMoreMax(): string
+    {
+        $str = "";
+
+        for ($i = 0; $i <= $this->maxLenTask + 1; $i++) {
+            $str .= "a";
+        }
+
+        return $str;
     }
 }
