@@ -106,4 +106,46 @@ class TaskTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /**
+     * @test
+     */
+    public function testSwapTypeTask()
+    {
+        $userId = $this->createNewUserGetId();
+        $user = User::where("id", $userId)->first();
+
+        $task = TasksMain::first();
+
+        $request = [
+            'id' => $task->id,
+            'date' => "10-06-2021 14:00:00",
+            'type' => 0
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/taskSwapType', $request);
+ 
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function testDeleteTask()
+    {
+        $userId = $this->createNewUserGetId();
+        $user = User::where("id", $userId)->first();
+
+        $task = TasksMain::first();
+
+        $request = [
+            'id' => $task->id
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/deleteTask', $request);
+ 
+        $response->assertStatus(200);
+    }
 }
