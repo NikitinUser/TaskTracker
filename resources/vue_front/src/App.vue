@@ -3,7 +3,12 @@
     <div class="row justify-content-center bg-dark-theme">
       <div class="col-md-9 bg-dark-theme">
         <div class="card-body task-input" id="">
-          <TaskInput></TaskInput>
+          <TaskInput
+            v-if="
+              this.currentRoute != 'done'
+              && this.currentRoute != 'archive'
+            "
+          ></TaskInput>
 
           <ul id="task-list" class="list-group list-group-flush bg-dark-tasks-theme">
             <li class="list-group-item list-group-item-darktheme border border-dark"
@@ -36,17 +41,67 @@ export default {
   },
   data() {
     return {
-      tasks: []
+      tasks: [],
+      currentRoute: window.location.href.split("/")[3]
+    }
+  },
+  methods: {
+    loadTasks (typeRequest) {
+        let route = '/get_tasks';
+        route += "?type=" + typeRequest;
+        this.type = typeRequest;
+
+        //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
+        //modal.show();
+ 
+        try {
+            fetch(route)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                //modal.hide();
+                this.tasks = [];
+                for (let i = 0; i < data.length; i++) {
+                    let taskData = {};
+                    taskData.id = data[i].id;
+                    taskData.date = data[i].dt_task;
+                    taskData.task = data[i].task;
+                    taskData.priority = data[i].priority;
+                    taskData.type = this.type;
+                    taskData.theme = data[i]?.theme ?? "Без темы";
+                    this.tasks.push(taskData);
+                }
+            });
+        } catch (ex) {
+            //modal.hide();
+            console.log(ex);
+        }
     }
   },
   mounted() {
-    if (localStorage.getItem('tasks')) {
-      try {
-        this.tasks = JSON.parse(localStorage.getItem('tasks'));
-      } catch(e) {
-        localStorage.removeItem('tasks');
+    if (this.currentRoute == "demo") {
+      if (localStorage.getItem('tasks')) {
+        try {
+          this.tasks = JSON.parse(localStorage.getItem('tasks'));
+        } catch(e) {
+          localStorage.removeItem('tasks');
+        }
       }
+    } else {
+      let type = 0;
+
+      if (this.currentRoute == "done") {
+        type = 1;
+      } else if (this.currentRoute == "bookmarks") {
+        type = 3;
+      } else if (this.currentRoute == "archive") {
+        type = 2;
+      }
+
+      this.loadTasks(type);
     }
+    
   },
   flag_rewrite: false,
 }
