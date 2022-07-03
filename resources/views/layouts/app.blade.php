@@ -39,19 +39,19 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('demo') }}">Без регистрации</a>
+                                <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                                <a class="nav-link @if(Request::is('login')) active @endif" href="{{ route('login') }}">{{ __('Вход') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                                    <a class="nav-link @if(Request::is('register')) active @endif" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('demo') }}">Без регистрации</a>
+                                <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
