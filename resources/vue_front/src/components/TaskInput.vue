@@ -27,7 +27,8 @@ export default {
             task: "",
             priority: 0,
             type: "",
-            date: ""
+            date: "",
+            token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
     },
     methods: {
@@ -41,7 +42,22 @@ export default {
             this.date = this.getDateTime();
             this.type = window.location.href.split("/")[3];
 
-            this.saveTaskToLocalStorage();
+            if (this.type == "demo") {
+                this.saveTaskToLocalStorage();
+            } else {
+                let typeTask = 0;
+
+                if (this.type == "bookmarks") {
+                    typeTask = 3;
+                }
+
+                let params = "task=" + this.task
+                    + "&date=" + this.date
+                    + "&priorityTask=" + this.priority
+                    + "&type=" + typeTask;
+                this.saveTaskOnServer(params);
+            }
+            
             this.cleanInput();
         },
         getDateTime () {
@@ -83,11 +99,59 @@ export default {
 
             localStorage.setItem('tasks', storage);
         },
+        saveTaskOnServer(params) {
+            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
+            //modal.show();
+
+            try {
+                fetch('addTask', {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "X-CSRF-TOKEN": this.token
+                }), 
+                body: params,
+                })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    //modal.hide();
+
+                    if (data?.errors != null) {
+                        alert(data.errors?.task);
+                        return false;
+                    }
+                    
+                    if (data.id == null) {
+                        alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
+                    } else {
+                        let taskData = {};
+                        
+                        taskData.id = data.id;
+                        taskData.date = data.date;
+                        taskData.task = this.b64DecodeUnicode(data.task);
+                        taskData.priority = data.priorityTask;
+                        taskData.type = data.type;
+
+                        this.$parent.tasks.push(taskData);
+                    }
+                });
+            } catch (ex) {
+                //modal.hide();
+            }
+        },
         cleanInput () {
             this.task = "";
             this.priority = 0;
             this.date = "";
             this.type = "";
+        },
+        b64DecodeUnicode(str) {
+            // Going backwards: from bytestream, to percent-encoding, to original string.
+            return decodeURIComponent(atob(str).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
         }
     }
 }
