@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/demo', function () {
-    return redirect("https://nikitinuser.github.io/ToDo/");	
+    return view("demo");	
 })->name('demo');
 
 Auth::routes();
