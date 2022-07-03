@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 </head>
 <body>
-    <div id="app">
+    <div id="main-app">
         <a name="top"></a>
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm p-3">
