@@ -24,6 +24,8 @@
             </li>
           </ul>
 
+          <LoadingSpinner v-show="showLoadingSpinner"></LoadingSpinner>
+
           <datalist id="suggestions-themes">
             <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
               {{theme.theme ?? 'Без темы'}}
@@ -38,12 +40,14 @@
 <script>
 import TaskInput from './components/TaskInput.vue'
 import TaskItem from './components/TaskItem.vue'
+import LoadingSpinner from './components/LoadingSpinner.vue'
 
 export default {
   name: 'App',
   components: {
     TaskInput,
-    TaskItem
+    TaskItem,
+    LoadingSpinner
   },
   data() {
     return {
@@ -59,8 +63,8 @@ export default {
         route += "?type=" + typeRequest;
         this.type = typeRequest;
 
-        //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-        //modal.show();
+        var aThis = this;
+        aThis.showLoadingSpinner = true;
  
         try {
             fetch(route)
@@ -68,7 +72,7 @@ export default {
                 return response.json();
             })
             .then((data) => {
-                //modal.hide();
+                aThis.showLoadingSpinner = false;
                 this.tasks = [];
                 for (let i = 0; i < data.length; i++) {
                     let taskData = {};
@@ -82,7 +86,7 @@ export default {
                 }
             });
         } catch (ex) {
-            //modal.hide();
+            aThis.showLoadingSpinner = false;
             console.log(ex);
         }
     },

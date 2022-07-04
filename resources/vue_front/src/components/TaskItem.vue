@@ -136,8 +136,6 @@ export default {
     },
     methods: {
         recoverTask () {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
             let params = "id=" + this.id;
             try {
                 fetch('recoverTask', {
@@ -152,8 +150,6 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
-
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
@@ -167,7 +163,7 @@ export default {
                     }
                 });	
             } catch (ex) {
-                //modal.hide();
+                console.log(ex);
             }
         },
     }

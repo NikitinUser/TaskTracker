@@ -64,8 +64,6 @@ export default {
             this.$parent.visibleModalChange = false;
         },
         changeTask () {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
             let params = "task=" + this.changedTask + "&priority="
                 + this.changedPriority + "&id=" + this.id
                 + "&theme=" + this.changedTheme;
@@ -83,8 +81,6 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
-
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
@@ -93,7 +89,7 @@ export default {
                     location.reload();
                 });
             } catch (ex) {
-                //modal.hide();
+                console.log(ex);
             }
         }
     }

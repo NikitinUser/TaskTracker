@@ -60,9 +60,9 @@ export default {
             localStorage.setItem('tasks', storage);
         },
         taskSwapType (type) {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
-            console.log(this.idTask);
+            var parentEl = this.$parent.$parent;
+            parentEl.showLoadingSpinner = true;
+            
             let dateTime = this.getDateTime();
             let params = "id=" + this.idTask + "&date=" + dateTime+ "&type=" + type;
 
@@ -79,7 +79,7 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
+                    parentEl.showLoadingSpinner = false;
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
@@ -95,12 +95,14 @@ export default {
                     }
                 });	
             } catch (ex) {
-                //modal.hide();
+                console.log(ex);
+                parentEl.showLoadingSpinner = false;
             }
         },
         deleteTask () {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
+            var parentEl = this.$parent.$parent;
+            parentEl.showLoadingSpinner = true;
+
             var params = "id=" + this.idTask;
             try {
                 fetch('deleteTask', {
@@ -115,7 +117,7 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
+                    parentEl.showLoadingSpinner = false;
 
                     if (data?.errors != null) {
                         alert(data.errors?.task);
@@ -131,7 +133,7 @@ export default {
                     }
                 });	
             } catch (ex) {
-                //modal.hide();
+                parentEl.showLoadingSpinner = false;
             }
         },
         getDateTime () {
