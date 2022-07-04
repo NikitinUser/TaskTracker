@@ -1,15 +1,21 @@
 <template>
     <div v-bind:id="id" style="min-height: 200px;">
         <div>
-            <div class="d-flex flex-row" style="min-height: 150px;">
+            <div class="d-flex flex-row mb-3" style="min-height: 150px;">
                 <div class="text-white d-flex flex-column" style="max-width: 20%">
                     <div class="mb-3">
-                        <label class="task-theme" v-bind:id="id"></label>
+                        <label class="task-theme" v-bind:id="id">
+                            {{ theme ?? 'Без темы' }}
+                        </label>
                     </div>
 
                     <div class="mb-3 d-flex flex-column">
-                        <em class="li-date" style="font-size: small"></em>
-                        <em class="li-date-time" style="font-size: small"></em>
+                        <em class="li-date" style="font-size: small">
+                            {{ date.split(" ")[0] }}
+                        </em>
+                        <em class="li-date-time" style="font-size: small">
+                            {{ date.split(" ")[1] }}
+                        </em>
                     </div>
 
                     <div>
@@ -20,10 +26,15 @@
                     </div>
                 </div>
 
-                <div class="text-white flex-fill ms-3 me-1">
+                <div class="text-white d-flex justify-content-center w-100 ms-3 me-1">
                     <span v-bind:id="id" class="li-text-task" v-show="visibleTask">
                         {{ task }}
-                        <i class="li-i-priority ms-1"></i>
+                        <i class="li-i-priority ms-1"
+                            v-if="priority == 0"></i>
+                        <i class="li-i-priority ms-1 fa fa-exclamation-circle text-warning"
+                            v-else-if="priority == 1"></i>
+                        <i class="li-i-priority ms-1 fa fa-exclamation-circle text-danger"
+                            v-else-if="priority == 2"></i>
                     </span>
                     <input v-bind:id="id" type="hidden" class="li-priority-id" v-bind:value="priority">
                 </div>
@@ -99,6 +110,7 @@
             :id="id"
             :priority="priority"
             :task="task"
+            :theme="theme"
         ></TaskEditModal>
     </div>
 </template>
@@ -113,7 +125,7 @@ export default {
         TaskActionButton,
         TaskEditModal
     },
-    props: ['task', 'priority', 'type', 'date', 'id'],
+    props: ['task', 'priority', 'type', 'date', 'id', 'theme'],
     data() {
         return {
             visibleTask: true,
@@ -124,8 +136,6 @@ export default {
     },
     methods: {
         recoverTask () {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
             let params = "id=" + this.id;
             try {
                 fetch('recoverTask', {
@@ -140,8 +150,6 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
-
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
@@ -155,7 +163,7 @@ export default {
                     }
                 });	
             } catch (ex) {
-                //modal.hide();
+                console.log(ex);
             }
         },
     }

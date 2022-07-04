@@ -53,8 +53,9 @@ export default {
 
                 let params = "task=" + this.task
                     + "&date=" + this.date
-                    + "&priorityTask=" + this.priority
+                    + "&priority=" + this.priority
                     + "&type=" + typeTask;
+                console.log(params);
                 this.saveTaskOnServer(params);
             }
             
@@ -100,8 +101,8 @@ export default {
             localStorage.setItem('tasks', storage);
         },
         saveTaskOnServer(params) {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
+            var parentEl = this.$parent;
+            parentEl.showLoadingSpinner = true;
 
             try {
                 fetch('addTask', {
@@ -116,7 +117,7 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
+                    parentEl.showLoadingSpinner = false;
 
                     if (data?.errors != null) {
                         alert(data.errors?.task);
@@ -138,7 +139,8 @@ export default {
                     }
                 });
             } catch (ex) {
-                //modal.hide();
+                console.log(ex);
+                parentEl.showLoadingSpinner = false;
             }
         },
         cleanInput () {

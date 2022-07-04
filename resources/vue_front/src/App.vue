@@ -19,10 +19,18 @@
                 :type="task.type"
                 :date="task.date"
                 :id="task.id"
+                :theme="task.theme"
               ></TaskItem>
             </li>
           </ul>
 
+          <LoadingSpinner v-show="showLoadingSpinner"></LoadingSpinner>
+
+          <datalist id="suggestions-themes">
+            <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
+              {{theme.theme ?? 'Без темы'}}
+            </option>
+          </datalist>
         </div>
       </div>
     </div>
@@ -32,17 +40,21 @@
 <script>
 import TaskInput from './components/TaskInput.vue'
 import TaskItem from './components/TaskItem.vue'
+import LoadingSpinner from './components/LoadingSpinner.vue'
 
 export default {
   name: 'App',
   components: {
     TaskInput,
-    TaskItem
+    TaskItem,
+    LoadingSpinner
   },
   data() {
     return {
       tasks: [],
-      currentRoute: window.location.href.split("/")[3]
+      currentRoute: window.location.href.split("/")[3],
+      suggestionsThemes: [],
+      showLoadingSpinner: false
     }
   },
   methods: {
@@ -51,8 +63,8 @@ export default {
         route += "?type=" + typeRequest;
         this.type = typeRequest;
 
-        //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-        //modal.show();
+        var aThis = this;
+        aThis.showLoadingSpinner = true;
  
         try {
             fetch(route)
@@ -60,7 +72,7 @@ export default {
                 return response.json();
             })
             .then((data) => {
-                //modal.hide();
+                aThis.showLoadingSpinner = false;
                 this.tasks = [];
                 for (let i = 0; i < data.length; i++) {
                     let taskData = {};
@@ -69,14 +81,26 @@ export default {
                     taskData.task = data[i].task;
                     taskData.priority = data[i].priority;
                     taskData.type = this.type;
-                    taskData.theme = data[i]?.theme ?? "Без темы";
+                    taskData.theme = data[i].theme;
                     this.tasks.push(taskData);
                 }
             });
         } catch (ex) {
-            //modal.hide();
+            aThis.showLoadingSpinner = false;
             console.log(ex);
         }
+    },
+    getTasksThemes() {
+      var vThis = this;
+      fetch('get_tasks_themes', {
+        method: 'GET'
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+          vThis.suggestionsThemes = data;
+      });
     }
   },
   mounted() {
@@ -100,6 +124,7 @@ export default {
       }
 
       this.loadTasks(type);
+      this.getTasksThemes();
     }
     
   },

@@ -24,7 +24,9 @@
 
                 <div class="mb-2">
                     <label>Тема задачи:</label>
-                    <input type="text" name="theme" class="form-control" list="suggestions-themes">
+                    <input type="text" name="theme" v-bind:value="theme"
+                        v-on:input="changeTheme"
+                        class="form-control" list="suggestions-themes">
                 </div>
             </div>
             <div class="modal-footer bg-dark-theme">
@@ -43,8 +45,9 @@ export default {
     data() {
         return {
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
-            changedTask: "",
-            changedPriority: "",
+            changedTask: this.task,
+            changedPriority: this.priority,
+            changedTheme: this.theme,
         }
     },
     methods: {
@@ -54,14 +57,16 @@ export default {
         changePriority (event) {
             this.changedPriority = event.target.value;
         },
+        changeTheme () {
+            this.changedTheme = event.target.value;
+        },
         hideModal () {
             this.$parent.visibleModalChange = false;
         },
         changeTask () {
-            //var modal = new bootstrap.Modal(document.getElementById('modalWaitingServer'));
-            //modal.show();
-            let params = "task=" + this.changedTask + "&priorityTask="
-                + this.changedPriority + "&id=" + this.id + "&theme=" + this.theme;
+            let params = "task=" + this.changedTask + "&priority="
+                + this.changedPriority + "&id=" + this.id
+                + "&theme=" + this.changedTheme;
 
             try {
                 fetch('changeTask', {
@@ -76,8 +81,6 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    //modal.hide();
-
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
@@ -86,7 +89,7 @@ export default {
                     location.reload();
                 });
             } catch (ex) {
-                //modal.hide();
+                console.log(ex);
             }
         }
     }

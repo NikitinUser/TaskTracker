@@ -24,7 +24,7 @@ class AddingTaskTest extends TestCase
         $request = [
             'task' => "task_text",
             'date' => "10-06-2021 14:00:00",
-            'priorityTask' => 0,
+            'priority' => 0,
             'type' => 0
         ];
 
@@ -44,7 +44,7 @@ class AddingTaskTest extends TestCase
 
         $request = [
             'date' => "10-06-2021 14:00:00",
-            'priorityTask' => 0,
+            'priority' => 0,
             'type' => 0
         ];
 
@@ -65,7 +65,7 @@ class AddingTaskTest extends TestCase
         $request = [
             'task' => $this->generateStringLessMin(),
             'date' => "10-06-2021 14:00:00",
-            'priorityTask' => 0,
+            'priority' => 0,
             'type' => 0
         ];
 
@@ -86,7 +86,7 @@ class AddingTaskTest extends TestCase
         $request = [
             'task' => $this->generateStringMoreMax(),
             'date' => "10-06-2021 14:00:00",
-            'priorityTask' => 0,
+            'priority' => 0,
             'type' => 0
         ];
 
@@ -106,7 +106,7 @@ class AddingTaskTest extends TestCase
 
         $request = [
             'task' => "text",
-            'priorityTask' => 0,
+            'priority' => 0,
             'type' => 0
         ];
 
@@ -127,7 +127,7 @@ class AddingTaskTest extends TestCase
         $request = [
             'task' => "text",
             'date' => "not date",
-            'priorityTask' => 0,
+            'priority' => 0,
             'type' => 0
         ];
 
@@ -167,7 +167,7 @@ class AddingTaskTest extends TestCase
 
         $request = [
             'task' => "text",
-            'priorityTask' => 0,
+            'priority' => 0,
             'date' => "10-06-2021 14:00:00",
         ];
 

@@ -133,23 +133,5 @@
             @yield('content')
         </main>
     </div>
-    
-    <!-- Modal -->
-    <div class="modal" id="modalWaitingServer" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Загрузка</h5>
-          </div>
-          <div class="modal-body">
-            <center>
-                <div class="spinner-border text-warning" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-            </center>
-          </div>
-        </div>
-      </div>
-    </div>
 </body>
 </html>

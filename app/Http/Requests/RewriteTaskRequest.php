@@ -29,7 +29,7 @@ class RewriteTaskRequest extends FormRequest
         return [
             'id' => 'required|integer',
             'task' => 'required|min:2|max:900',
-            'priorityTask' => 'required|integer|min:0|max:3',
+            'priority' => 'required|integer|min:0|max:3',
             'theme' => 'min:2|max:30|regex:/^[A-Za-z А-Яа-яёЁ 0-9]+$/ui',
         ];
     }

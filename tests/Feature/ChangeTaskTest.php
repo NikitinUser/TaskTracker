@@ -27,7 +27,7 @@ class ChangeTaskTest extends TestCase
             'id' => $task->id,
             'task' => "task_text",
             'theme' => "Testing",
-            'priorityTask' => 1,
+            'priority' => 1,
         ];
 
         $response = $this->actingAs($user)
@@ -49,7 +49,7 @@ class ChangeTaskTest extends TestCase
         $request = [
             'id' => $task->id,
             'theme' => "Testing",
-            'priorityTask' => 0,
+            'priority' => 0,
         ];
 
         $response = $this->actingAs($user)
@@ -72,7 +72,7 @@ class ChangeTaskTest extends TestCase
             'id' => $task->id,
             'task' => $this->generateStringLessMin(),
             'theme' => "Testing",
-            'priorityTask' => 0,
+            'priority' => 0,
         ];
 
         $response = $this->actingAs($user)
@@ -95,7 +95,7 @@ class ChangeTaskTest extends TestCase
             'id' => $task->id,
             'task' => $this->generateStringMoreMax(),
             'theme' => "Testing",
-            'priorityTask' => 0,
+            'priority' => 0,
         ];
 
         $response = $this->actingAs($user)
@@ -117,7 +117,7 @@ class ChangeTaskTest extends TestCase
         $request = [
             'id' => $task->id,
             'task' => "text",
-            'priorityTask' => 0,
+            'priority' => 0,
         ];
 
         $response = $this->actingAs($user)
@@ -140,7 +140,7 @@ class ChangeTaskTest extends TestCase
             'id' => $task->id,
             'task' => "text",
             'theme' => "!@#$#%^%&(**)_+=?><<M'`~",
-            'priorityTask' => 0,
+            'priority' => 0,
         ];
 
         $response = $this->actingAs($user)
@@ -184,7 +184,7 @@ class ChangeTaskTest extends TestCase
         $request = [
             'task' => "text",
             'theme' => "Testing",
-            'priorityTask' => 0,
+            'priority' => 0,
         ];
 
         $response = $this->actingAs($user)
