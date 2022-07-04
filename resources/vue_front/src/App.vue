@@ -19,10 +19,16 @@
                 :type="task.type"
                 :date="task.date"
                 :id="task.id"
+                :theme="task.theme"
               ></TaskItem>
             </li>
           </ul>
 
+          <datalist id="suggestions-themes">
+            <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
+              {{theme.theme ?? 'Без темы'}}
+            </option>
+          </datalist>
         </div>
       </div>
     </div>
@@ -42,7 +48,9 @@ export default {
   data() {
     return {
       tasks: [],
-      currentRoute: window.location.href.split("/")[3]
+      currentRoute: window.location.href.split("/")[3],
+      suggestionsThemes: [],
+      showLoadingSpinner: false
     }
   },
   methods: {
@@ -69,7 +77,7 @@ export default {
                     taskData.task = data[i].task;
                     taskData.priority = data[i].priority;
                     taskData.type = this.type;
-                    taskData.theme = data[i]?.theme ?? "Без темы";
+                    taskData.theme = data[i].theme;
                     this.tasks.push(taskData);
                 }
             });
@@ -77,6 +85,18 @@ export default {
             //modal.hide();
             console.log(ex);
         }
+    },
+    getTasksThemes() {
+      var vThis = this;
+      fetch('get_tasks_themes', {
+        method: 'GET'
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+          vThis.suggestionsThemes = data;
+      });
     }
   },
   mounted() {
@@ -100,6 +120,7 @@ export default {
       }
 
       this.loadTasks(type);
+      this.getTasksThemes();
     }
     
   },

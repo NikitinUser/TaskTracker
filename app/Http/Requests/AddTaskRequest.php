@@ -29,7 +29,7 @@ class AddTaskRequest extends FormRequest
         return [
             'task'          => 'required|min:2|max:900',
             'date'          => 'required|date|max:20', 
-            'priorityTask'  => 'required|integer|min:0|max:3',
+            'priority'  => 'required|integer|min:0|max:3',
             'type'          => 'required|integer|min:0|max:3',
         ];
     }

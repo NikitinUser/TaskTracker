@@ -53,8 +53,9 @@ export default {
 
                 let params = "task=" + this.task
                     + "&date=" + this.date
-                    + "&priorityTask=" + this.priority
+                    + "&priority=" + this.priority
                     + "&type=" + typeTask;
+                console.log(params);
                 this.saveTaskOnServer(params);
             }
             
