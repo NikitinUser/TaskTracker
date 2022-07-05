@@ -154,12 +154,10 @@ export default {
                         return false;
                     }
 
-                    if(data.length != 0 && data != false && data != null){
-                        location.reload();
-                    } else {
+                    if (data.length == 0 || data == false || data == null) {
                         alert("Эту запись нельзя восстановить");
-                        location.reload();
                     }
+                    location.reload();
                 });	
             } catch (ex) {
                 console.log(ex);
