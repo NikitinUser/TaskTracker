@@ -49,7 +49,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
+                                <a class="nav-link @if(Request::is('home') || Request::is('/')) active @endif" href="{{ route('home') }}">
                                     TaskTracker
                                 </a>
                             </li>
