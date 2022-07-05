@@ -1,38 +1,29 @@
 <template>
-  <div id="app" class="container bg-dark-theme">
-    <div class="row justify-content-center bg-dark-theme">
-      <div class="col-md-9 bg-dark-theme">
-        <div class="card-body task-input" id="">
-          <TaskInput
-            v-if="
-              this.currentRoute != '/done'
-              && this.currentRoute != '/archive'
-            "
-          ></TaskInput>
+  <div id="app" class="row justify-content-center bg-dark-theme">
+    <div class="col-md-9 bg-dark-theme">
+      <TaskInput v-if="showInput"></TaskInput>
 
-          <ul id="task-list" class="list-group list-group-flush bg-dark-tasks-theme">
-            <li class="list-group-item list-group-item-darktheme border border-dark"
-              v-for="task in tasks" v-bind:key="task.id">
-              <TaskItem
-                :task="task.task"
-                :priority="task.priority"
-                :type="task.type"
-                :date="task.date"
-                :id="task.id"
-                :theme="task.theme"
-              ></TaskItem>
-            </li>
-          </ul>
+      <ul id="task-list" class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-darktheme border border-dark"
+          v-for="task in tasks" v-bind:key="task.id">
+          <TaskItem
+            :task="task.task"
+            :priority="task.priority"
+            :type="task.type"
+            :date="task.date"
+            :id="task.id"
+            :theme="task.theme"
+          ></TaskItem>
+        </li>
+      </ul>
 
-          <LoadingSpinner v-show="showLoadingSpinner"></LoadingSpinner>
+      <LoadingSpinner v-show="showLoadingSpinner"></LoadingSpinner>
 
-          <datalist id="suggestions-themes">
-            <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
-              {{ theme.theme ?? 'Без темы' }}
-            </option>
-          </datalist>
-        </div>
-      </div>
+      <datalist id="suggestions-themes">
+        <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
+          {{ theme.theme ?? 'Без темы' }}
+        </option>
+      </datalist>
     </div>
   </div>
 </template>
@@ -62,7 +53,8 @@ export default {
       tasks: [],
       currentRoute: window.location.pathname,
       suggestionsThemes: [],
-      showLoadingSpinner: false
+      showLoadingSpinner: false,
+      showInput: true
     }
   },
   methods: {
@@ -132,6 +124,7 @@ export default {
       this.getTasksThemes();
     }
     
+    this.showInput = this.currentRoute != '/done' && this.currentRoute != '/archive';
   },
   flag_rewrite: false,
 }
