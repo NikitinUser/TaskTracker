@@ -22,8 +22,6 @@
 </head>
 <body>
     <div id="main-app">
-        <a name="top"></a>
-
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm p-3">
             <a class="navbar-brand" href="{{ route('home') }}">TaskTracker</a>
             <div class="container-fluid">
@@ -36,11 +34,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav nav-pills ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link @if(Request::is('login')) active @endif" href="{{ route('login') }}">{{ __('Вход') }}</a>
                             </li>
@@ -50,9 +48,6 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
                                     TaskTracker
