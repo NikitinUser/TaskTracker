@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="row justify-content-center bg-dark-theme">
-    <div class="col-md-9 bg-dark-theme">
+    <div class="col-md-7 bg-dark-theme">
       <TaskInput v-if="showInput"></TaskInput>
 
       <ul id="task-list" class="list-group list-group-flush">

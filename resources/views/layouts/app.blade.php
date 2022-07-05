@@ -22,8 +22,6 @@
 </head>
 <body>
     <div id="main-app">
-        <a name="top"></a>
-
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm p-3">
             <a class="navbar-brand" href="{{ route('home') }}">TaskTracker</a>
             <div class="container-fluid">
@@ -36,11 +34,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav nav-pills ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link @if(Request::is('login')) active @endif" href="{{ route('login') }}">{{ __('Вход') }}</a>
                             </li>
@@ -51,10 +49,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link @if(Request::is('home')) active @endif" href="{{ route('home') }}">
+                                <a class="nav-link @if(Request::is('home') || Request::is('/')) active @endif" href="{{ route('home') }}">
                                     TaskTracker
                                 </a>
                             </li>
@@ -103,31 +98,6 @@
                 </div>
             </div>
         </nav>
-
-        <div id="returnMessages">
-            @if( isset($errors) )
-                @if( !empty($errors->all()))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <div class="d-flex justify-content-center">
-                            {{ $errors->all()[0] }}
-                        </div>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-            @endif
-            @if( Session::has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <div class="d-flex justify-content-center">
-                        {{ Session::get('success') }}
-                    </div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-        </div>
        
         <main class="py-4 bg-dark-theme">
             @yield('content')
