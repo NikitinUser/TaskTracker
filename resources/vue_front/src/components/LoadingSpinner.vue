@@ -1,15 +1,8 @@
 <template>
 <div class="modal-mask" tabindex="-1">
     <div class="modal-wrapper text-white">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Загрузка</h5>
-        </div>
-        <div class="modal-body">
-            <center>
-                <div class="spinner-border text-warning" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </center>
+        <div class="spinner-border text-warning" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
     </div>
 </div>   
