@@ -41,7 +41,7 @@
             </div>
 
             <div class="text-white d-flex flex-row pull-right"
-                v-if="currentRoute == 'demo'">
+                v-if="currentRoute == '/demo'">
                 <TaskActionButton
                     buttonIcon = "fa fa-check-square li-i-main-action"
                     buttonClass = "pull-right btn btn-outline-success w-100 li-main-action"
@@ -52,7 +52,7 @@
             <div class="text-white d-flex flex-row pull-right"
                 v-else>
                 <TaskActionButton 
-                    v-if="currentRoute != 'done'"
+                    v-if="currentRoute != '/done'"
                     buttonIcon = "fa fa-check-square li-i-main-action"
                     buttonClass = "pull-right btn btn-outline-success w-100 li-main-action"
                     action = "swapTaskToDone"
@@ -130,7 +130,7 @@ export default {
         return {
             visibleTask: true,
             visibleModalChange: false,
-            currentRoute: window.location.href.split("/")[3],
+            currentRoute: window.location.pathname,
             token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
     },
@@ -169,7 +169,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

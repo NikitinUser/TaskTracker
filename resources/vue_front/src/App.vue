@@ -5,8 +5,8 @@
         <div class="card-body task-input" id="">
           <TaskInput
             v-if="
-              this.currentRoute != 'done'
-              && this.currentRoute != 'archive'
+              this.currentRoute != '/done'
+              && this.currentRoute != '/archive'
             "
           ></TaskInput>
 
@@ -28,7 +28,7 @@
 
           <datalist id="suggestions-themes">
             <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
-              {{theme.theme ?? 'Без темы'}}
+              {{ theme.theme ?? 'Без темы' }}
             </option>
           </datalist>
         </div>
@@ -42,6 +42,14 @@ import TaskInput from './components/TaskInput.vue'
 import TaskItem from './components/TaskItem.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 
+const typesTasks = {
+  "/": 0,
+  "/home": 0,
+  "/done": 1,
+  "/archive": 2,
+  "/bookmarks": 3,
+}
+
 export default {
   name: 'App',
   components: {
@@ -52,35 +60,33 @@ export default {
   data() {
     return {
       tasks: [],
-      currentRoute: window.location.href.split("/")[3],
+      currentRoute: window.location.pathname,
       suggestionsThemes: [],
       showLoadingSpinner: false
     }
   },
   methods: {
     loadTasks (typeRequest) {
-        let route = '/get_tasks';
-        route += "?type=" + typeRequest;
-        this.type = typeRequest;
+        let requestRoute = '/get_tasks' + "?type=" + typeRequest;
 
         var aThis = this;
         aThis.showLoadingSpinner = true;
  
         try {
-            fetch(route)
+            fetch(requestRoute)
             .then((response) => {
                 return response.json();
             })
             .then((data) => {
                 aThis.showLoadingSpinner = false;
-                this.tasks = [];
+
                 for (let i = 0; i < data.length; i++) {
                     let taskData = {};
                     taskData.id = data[i].id;
                     taskData.date = data[i].dt_task;
                     taskData.task = data[i].task;
                     taskData.priority = data[i].priority;
-                    taskData.type = this.type;
+                    taskData.type = typeRequest;
                     taskData.theme = data[i].theme;
                     this.tasks.push(taskData);
                 }
@@ -90,7 +96,7 @@ export default {
             console.log(ex);
         }
     },
-    getTasksThemes() {
+    getTasksThemes () {
       var vThis = this;
       fetch('get_tasks_themes', {
         method: 'GET'
@@ -101,29 +107,28 @@ export default {
         .then((data) => {
           vThis.suggestionsThemes = data;
       });
+    },
+    getTasksFromLocalStorage () {
+      let tasksFromStorage = localStorage.getItem('tasks');
+      if (tasksFromStorage == null) {
+          tasksFromStorage = [];
+      } else {
+          try {
+              tasksFromStorage = JSON.parse(tasksFromStorage);
+          } catch (ex) {
+              tasksFromStorage = [];
+          }
+      }
+
+      return tasksFromStorage;
     }
   },
   mounted() {
-    if (this.currentRoute == "demo") {
-      if (localStorage.getItem('tasks')) {
-        try {
-          this.tasks = JSON.parse(localStorage.getItem('tasks'));
-        } catch(e) {
-          localStorage.removeItem('tasks');
-        }
-      }
+    if (this.currentRoute == "/demo") {
+      let tasksFromLocal = this.getTasksFromLocalStorage();
+      this.tasks = tasksFromLocal;
     } else {
-      let type = 0;
-
-      if (this.currentRoute == "done") {
-        type = 1;
-      } else if (this.currentRoute == "bookmarks") {
-        type = 3;
-      } else if (this.currentRoute == "archive") {
-        type = 2;
-      }
-
-      this.loadTasks(type);
+      this.loadTasks(typesTasks[this.currentRoute]);
       this.getTasksThemes();
     }
     
@@ -131,7 +136,3 @@ export default {
   flag_rewrite: false,
 }
 </script>
-
-<style>
-
-</style>

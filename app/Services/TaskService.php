@@ -18,15 +18,15 @@ class TaskService
      * getUserTasksByType
      *
      * @param  int $type
-     * @return array|null
+     * @return array
      */
-    public function getUserTasksByType(int $type): ?array
+    public function getUserTasksByType(int $type): array
     {
         $userid = (int)auth()->user()->id;
         $tasks = $this->taskMain->getTasksByUseridAndType($userid, $type);
 
         if (empty($tasks))
-            return null;
+            return [];
         
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
@@ -68,6 +68,7 @@ class TaskService
 
         $task['date'] = $task['dt_task'];
         $task['id'] = $newTask->id;
+        $task['task'] = base64_decode($newTask->task);
         
         return $task;
     }

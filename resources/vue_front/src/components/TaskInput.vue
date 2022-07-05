@@ -12,7 +12,8 @@
             </select>
         </span>
         <span class="input-group-append">
-            <button class="btn btn-secondary" id="add_task_btn" type="button" v-on:click="addTask()">
+            <button class="btn btn-secondary" id="add_task_btn" type="button"
+                v-on:click="addTask()">
                 <i class="fa fa-plus"></i>
             </button>
         </span>
@@ -20,13 +21,15 @@
 </template>
 
 <script>
+import dateTimeMixin from './../mixins/dateTimeMixin';
+
 export default {
     name: 'TaskInput',
+    mixins: [dateTimeMixin],
     data() {
         return {
             task: "",
             priority: 0,
-            type: "",
             date: "",
             token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
@@ -40,14 +43,13 @@ export default {
         },
         addTask () {
             this.date = this.getDateTime();
-            this.type = window.location.href.split("/")[3];
 
-            if (this.type == "demo") {
+            if (this.$parent.currentRoute == "/demo") {
                 this.saveTaskToLocalStorage();
             } else {
                 let typeTask = 0;
 
-                if (this.type == "bookmarks") {
+                if (this.$parent.currentRoute == "/bookmarks") {
                     typeTask = 3;
                 }
 
@@ -55,43 +57,20 @@ export default {
                     + "&date=" + this.date
                     + "&priority=" + this.priority
                     + "&type=" + typeTask;
-                console.log(params);
                 this.saveTaskOnServer(params);
             }
             
             this.cleanInput();
         },
-        getDateTime () {
-            let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0'); 
-            let yyyy = today.getFullYear();
-            let h = today.getHours();
-            let m = today.getMinutes();
-            let s = today.getSeconds();
-
-            return dd + '-' + mm + '-' + yyyy + " " + h + ":" + m + ":" + s;
-        },
         saveTaskToLocalStorage () {
-            let storage = localStorage.getItem('tasks');
-
-            if (storage == null) {
-                storage = [];
-            } else {
-                try {
-                    storage = JSON.parse(storage);
-                } catch (ex) {
-                    storage = [];
-                }
-            }
+            let storage = this.$parent.getTasksFromLocalStorage();
 
             let newTask = {
-                id: storage.length + 1 + Math.round(new Date().getTime()/1000.0),
+                id: storage.length + 1 + this.date,
                 task: this.task,
                 priority: this.priority,
-                type: this.type,
                 date: this.date
-            }
+            };
 
             storage.push(newTask);
 
@@ -128,10 +107,10 @@ export default {
                         alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
                     } else {
                         let taskData = {};
-                        
+
                         taskData.id = data.id;
                         taskData.date = data.date;
-                        taskData.task = this.b64DecodeUnicode(data.task);
+                        taskData.task = data.task;
                         taskData.priority = data.priorityTask;
                         taskData.type = data.type;
 
@@ -147,18 +126,7 @@ export default {
             this.task = "";
             this.priority = 0;
             this.date = "";
-            this.type = "";
-        },
-        b64DecodeUnicode(str) {
-            // Going backwards: from bytestream, to percent-encoding, to original string.
-            return decodeURIComponent(atob(str).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
         }
     }
 }
 </script>
-
-<style scoped>
-
-</style>
