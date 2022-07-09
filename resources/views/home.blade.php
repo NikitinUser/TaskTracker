@@ -10,13 +10,4 @@
 
 <link href="/js/vue_compiled/css/app.css" rel="stylesheet">
 
-<script type="text/javascript">
-	document.addEventListener('keydown', function(event) {
-	  if (event.keyCode === 13) {
-	   	addTask();
-	  }
-	});
-
-</script>	
-
 @endsection

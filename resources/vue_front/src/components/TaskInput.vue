@@ -127,6 +127,14 @@ export default {
             this.priority = 0;
             this.date = "";
         }
+    },
+    mounted() {
+        let vThis = this;
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 13) {
+                vThis.addTask();
+            }
+        });
     }
 }
 </script>
