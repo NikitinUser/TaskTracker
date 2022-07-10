@@ -14,9 +14,9 @@
                     <input id="login" type="text" class="form-control" name="login" value="{{ old('login') }}" required autofocus>
 
                     @error('name')
-                        <span class="invalid-feedback" role="alert">
+                        <div class="invalid-feedback" role="alert" style="display: block">
                             <strong>{{ $message }}</strong>
-                        </span>
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <input id="password" type="password" class="form-control" name="password" required>
 
                     @error('password')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback" role="alert" style="display: block">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror

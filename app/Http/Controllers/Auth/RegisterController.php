@@ -73,8 +73,6 @@ class RegisterController extends Controller
         return User::create([
             'login'         => $data['login'],
             'password'      => Hash::make($data['password']),
-            'sending'       =>  0,
-            'chat_id'       =>  0,
             'block'         =>  0,
             'last_session'  =>  $last_session
         ]);
