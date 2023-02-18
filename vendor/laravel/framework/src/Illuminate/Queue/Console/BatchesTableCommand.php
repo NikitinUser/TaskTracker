@@ -5,8 +5,9 @@ namespace Illuminate\Queue\Console;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
-use Illuminate\Support\Str;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'queue:batches-table')]
 class BatchesTableCommand extends Command
 {
     /**
@@ -60,10 +61,10 @@ class BatchesTableCommand extends Command
         $table = $this->laravel['config']['queue.batching.table'] ?? 'job_batches';
 
         $this->replaceMigration(
-            $this->createBaseMigration($table), $table, Str::studly($table)
+            $this->createBaseMigration($table), $table
         );
 
-        $this->info('Migration created successfully!');
+        $this->components->info('Migration created successfully.');
 
         $this->composer->dumpAutoloads();
     }
@@ -86,15 +87,12 @@ class BatchesTableCommand extends Command
      *
      * @param  string  $path
      * @param  string  $table
-     * @param  string  $tableClassName
      * @return void
      */
-    protected function replaceMigration($path, $table, $tableClassName)
+    protected function replaceMigration($path, $table)
     {
         $stub = str_replace(
-            ['{{table}}', '{{tableClassName}}'],
-            [$table, $tableClassName],
-            $this->files->get(__DIR__.'/stubs/batches.stub')
+            '{{table}}', $table, $this->files->get(__DIR__.'/stubs/batches.stub')
         );
 
         $this->files->put($path, $stub);

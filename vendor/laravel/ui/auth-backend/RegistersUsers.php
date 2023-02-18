@@ -31,19 +31,8 @@ trait RegistersUsers
     {
         $this->validator($request->all())->validate();
 
-        $user = $this->create($request->all());
+        event(new Registered($user = $this->create($request->all())));
 
-        if (empty($user)) {
-            return $request->wantsJson()
-                ? new JsonResponse(["error" => "login exist"], 401)
-                : redirect()
-                    ->back()
-                    ->withInput($request->all())
-                    ->withErrors(["name" => "Такой логин уже занят"]);   
-        }
-
-        event(new Registered($user));
-        
         $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
