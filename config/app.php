@@ -185,6 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
+        NikitinUser\userManagementModule\UserManagementModuleProvider::class,
 
         /*
          * Application Service Providers...
