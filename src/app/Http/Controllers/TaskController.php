@@ -7,7 +7,6 @@ use App\Services\TaskService;
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
-use App\Http\Requests\GetTasksRequest;
 use App\Http\Requests\RewriteTaskRequest;
 use App\Http\Requests\RecoverTaskRequest;
 
@@ -26,7 +25,7 @@ class TaskController extends Controller
         return view('home'); 
     }
 
-    public function getUserTasks(GetTasksRequest $request)
+    public function getUserTasks(Request $request)
     {
         $type = (int)$request->input('type');
 

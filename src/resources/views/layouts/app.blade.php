@@ -89,7 +89,6 @@
                                         @csrf
                                     </form>
                             </li>
-
                             @role('admin')
                                 @include('user-management-module::sidebar')
                             @endrole
