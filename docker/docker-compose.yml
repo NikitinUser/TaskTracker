@@ -36,10 +36,10 @@ services:
         ports:
             - 7776:3306
         environment:
-            MYSQL_DATABASE: tasktracker
-            MYSQL_USER: non-root
-            MYSQL_PASSWORD: root
-            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ${DB_NAME}
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_PASS}
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
             SERVICE_NAME: mysql
             SERVICE_TAGS: dev
         volumes:
