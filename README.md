@@ -19,4 +19,5 @@ PHP 8, Laravel 10, MySQL, Vue.js, Bootstrap 5 <br>
 9. php artisan key:generate
 10. chmod -R 777 ./storage (если есть ошибки доступа к папке)
 11. php artisan migrate
-12. можно проверять проект
+12. <a href="https://github.com/NikitinUser/userManagementModule">Выполнить 3-4 пункты<a>
+13. можно проверять проект
