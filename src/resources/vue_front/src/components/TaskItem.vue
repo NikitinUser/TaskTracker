@@ -3,12 +3,6 @@
         <div>
             <div class="d-flex flex-row mb-3" style="min-height: 150px;">
                 <div class="text-white d-flex flex-column" style="max-width: 20%">
-                    <div class="mb-3">
-                        <label v-bind:id="id">
-                            {{ theme ?? 'Без темы' }}
-                        </label>
-                    </div>
-
                     <div class="mb-3 d-flex flex-column">
                         <em style="font-size: small">
                             {{ date.split(" ")[0] }}
@@ -109,7 +103,6 @@
             :id="id"
             :priority="priority"
             :task="task"
-            :theme="theme"
         ></TaskEditModal>
     </div>
 </template>
@@ -124,7 +117,7 @@ export default {
         TaskActionButton,
         TaskEditModal
     },
-    props: ['task', 'priority', 'type', 'date', 'id', 'theme'],
+    props: ['task', 'priority', 'type', 'date', 'id'],
     data() {
         return {
             visibleTask: true,

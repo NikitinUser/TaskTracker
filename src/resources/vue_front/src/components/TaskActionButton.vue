@@ -106,8 +106,8 @@ export default {
 
             var params = "id=" + this.idTask;
             try {
-                fetch('deleteTask', {
-                method: 'POST',
+                fetch('/tasks', {
+                method: 'DELETE',
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded',
                     "X-CSRF-TOKEN": this.token
