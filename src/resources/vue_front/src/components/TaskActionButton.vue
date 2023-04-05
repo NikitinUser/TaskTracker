@@ -12,7 +12,7 @@ import dateTimeMixin from './../mixins/dateTimeMixin';
 
 export default {
     name: 'TaskActionButton',
-    props: ['buttonClass', 'buttonIcon', 'action', 'idTask'],
+    props: ['buttonClass', 'buttonIcon', 'action', 'idTask', 'changedTask', 'type'],
     mixins: [dateTimeMixin],
     data() {
         return {
@@ -70,13 +70,13 @@ export default {
         taskSwapType (type) {
             var parentEl = this.$parent.$parent;
             parentEl.showLoadingSpinner = true;
-            
+
             let dateTime = this.getDateTime();
-            let params = "id=" + this.idTask + "&date=" + dateTime+ "&type=" + type;
+            let params = "task=" + this.changedTask + "&id=" + this.idTask + "&date=" + dateTime+ "&type=" + type;
 
             try {
-                fetch('taskSwapType', {
-                method: 'POST',
+                fetch('tasks', {
+                method: 'PUT',
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded',
                     "X-CSRF-TOKEN": this.token

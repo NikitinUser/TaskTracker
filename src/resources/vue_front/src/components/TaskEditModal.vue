@@ -22,13 +22,15 @@
 </template>
 
 <script>
+import dateTimeMixin from './../mixins/dateTimeMixin';
 export default {
     name: 'TaskEditModal',
-    props: ['task', 'id'],
+    props: ['task', 'id', 'type'],
+    mixins: [dateTimeMixin],
     data() {
         return {
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
-            changedTask: this.task
+            changedTask: this.task,
         }
     },
     methods: {
@@ -39,7 +41,8 @@ export default {
             this.$parent.visibleModalChange = false;
         },
         changeTask () {
-            let params = "task=" + this.changedTask + "&id=" + this.id;
+            let dateTime = this.getDateTime();
+            let params = "task=" + this.changedTask + "&id=" + this.id + "&date=" + dateTime+ "&type=" + this.type;
 
             try {
                 fetch('/tasks', {

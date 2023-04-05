@@ -29,5 +29,3 @@ Route::get('tasks', [App\Http\Controllers\TaskController::class, 'getUserTasks']
 Route::post('tasks', [App\Http\Controllers\TaskController::class, 'addtask']);
 Route::put('tasks', [App\Http\Controllers\TaskController::class, 'rewriteTask']);
 Route::delete('tasks', [App\Http\Controllers\TaskController::class, 'deleteTask']);
-Route::post('tasks/recover', [App\Http\Controllers\TaskController::class, 'recoverTask']);
-Route::post('taskSwapType', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\TasksMain;
-use Illuminate\Support\Facades\Redis;
 
 class TaskService
 {
@@ -85,21 +84,8 @@ class TaskService
 
         $this->taskMain->task = base64_encode(trim($task['task']));
 
-        return $this->taskMain->update();
-    }
-    
-    /**
-     * swapTypeTask
-     *
-     * @param  array $task
-     * @return bool
-     */
-    public function swapTypeTask(array $task): bool
-    {
-        $this->taskMain = $this->taskMain->getTaskById((int)$task['id']);
-
-        $dt_task = new \DateTime($task['date']);
-        $task['date'] = $dt_task->format('Y-m-d H:i:s');
+        $dtTask = new \DateTime($task['date']);
+        $task['date'] = $dtTask->format('Y-m-d H:i:s');
 
         $this->taskMain->type = $task['type'];
         $this->taskMain->dt_task = $task['date'];
@@ -117,33 +103,7 @@ class TaskService
     {
         $this->taskMain = $this->taskMain->getTaskById($idTask);
 
-        $this->saveTaskToRedis($this->taskMain);
-
         return $this->taskMain->delete();
-    }
-    
-    /**
-     * recoverTask
-     *
-     * @param  int $idTask
-     * @return TasksMain|null
-     */
-    public function recoverTask(int $idTask): ?TasksMain
-    {
-        $task = $this->getTaskFromRedis($idTask);
-        $task = json_decode($task, true);
-
-        if (empty($task)) {
-            return null;
-        }
-
-        $this->taskMain->forceFill($task);
-
-        $this->taskMain->save();
-
-        $this->taskMain->task = base64_decode($this->taskMain->task);
-
-        return $this->taskMain;
     }
     
     /**
@@ -158,31 +118,5 @@ class TaskService
 
         return $countTasks < TasksMain::MAX_COUNT_TASKS_INTYPE;
     }
-    
-    /**
-     * saveTaskToRedis
-     *
-     * @param  TasksMain $task
-     * @return void
-     */
-    private function saveTaskToRedis(TasksMain $task): void
-    {
-        $key = "task_" . $task->id . "_" . $task->userid;
-        Redis::set($key, json_encode($task), 'EX', 60);
-    }
-    
-    /**
-     * getTaskFromRedis
-     *
-     * @param  int $idTask
-     * @return void
-     */
-    private function getTaskFromRedis(int $idTask)
-    {
-        $userid = (int)auth()->user()->id;
 
-        $key = "task_" . $idTask . "_" . $userid;
-
-        return Redis::get($key);
-    }
 }

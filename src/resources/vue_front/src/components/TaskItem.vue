@@ -34,6 +34,8 @@
                     buttonClass = "pull-right btn btn-outline-success w-100"
                     action = "removeTaskFromLocal"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
             </div>
             <div class="text-white d-flex flex-row pull-right"
@@ -44,6 +46,8 @@
                     buttonClass = "pull-right btn btn-outline-success w-100"
                     action = "swapTaskToDone"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -52,6 +56,8 @@
                     buttonClass = "pull-right btn btn-outline-danger w-100"
                     action = "deleteTask"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -59,6 +65,8 @@
                     buttonClass = "pull-right btn btn-outline-success w-100"
                     action = "swapTaskToTasks"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -66,6 +74,8 @@
                     buttonClass = "pull-right btn btn-outline-primary w-100"
                     action = "swapTaskToBookmarks"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -73,6 +83,8 @@
                     buttonClass = "pull-right btn btn-outline-info w-100"
                     action = "swapTaskToArchive"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -88,6 +100,7 @@
             v-show="visibleModalChange"
             :id="id"
             :task="task"
+            :type="type"
         ></TaskEditModal>
     </div>
 </template>
