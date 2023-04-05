@@ -23,13 +23,7 @@
                 <div class="text-white d-flex justify-content-center w-100 ms-3 me-1">
                     <span v-bind:id="id" v-show="visibleTask">
                         {{ task }}
-                        <i v-if="priority == 0" class="ms-1"></i>
-                        <i v-else-if="priority == 1"
-                            class="ms-1 fa fa-exclamation-circle text-warning"></i>
-                        <i v-else-if="priority == 2"
-                            class="ms-1 fa fa-exclamation-circle text-danger"></i>
                     </span>
-                    <input v-bind:id="id" type="hidden" v-bind:value="priority">
                 </div>
             </div>
 
@@ -40,6 +34,8 @@
                     buttonClass = "pull-right btn btn-outline-success w-100"
                     action = "removeTaskFromLocal"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
             </div>
             <div class="text-white d-flex flex-row pull-right"
@@ -50,6 +46,8 @@
                     buttonClass = "pull-right btn btn-outline-success w-100"
                     action = "swapTaskToDone"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -58,6 +56,8 @@
                     buttonClass = "pull-right btn btn-outline-danger w-100"
                     action = "deleteTask"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -65,6 +65,8 @@
                     buttonClass = "pull-right btn btn-outline-success w-100"
                     action = "swapTaskToTasks"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -72,6 +74,8 @@
                     buttonClass = "pull-right btn btn-outline-primary w-100"
                     action = "swapTaskToBookmarks"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -79,6 +83,8 @@
                     buttonClass = "pull-right btn btn-outline-info w-100"
                     action = "swapTaskToArchive"
                     :idTask="id"
+                    :changedTask="task"
+                    :type="type"
                 ></TaskActionButton>
 
                 <TaskActionButton
@@ -90,19 +96,11 @@
             </div>
         </div>
 
-        <div id="recoveryTask" class="justify-content-center pt-5"
-            style="display: none">
-            <button class="btn btn-outline-primary" type="button"
-                v-on:click="recoverTask">
-                Восстановить
-            </button>
-        </div>
-
         <TaskEditModal
             v-show="visibleModalChange"
             :id="id"
-            :priority="priority"
             :task="task"
+            :type="type"
         ></TaskEditModal>
     </div>
 </template>
@@ -117,7 +115,7 @@ export default {
         TaskActionButton,
         TaskEditModal
     },
-    props: ['task', 'priority', 'type', 'date', 'id'],
+    props: ['task', 'type', 'date', 'id'],
     data() {
         return {
             visibleTask: true,
@@ -125,37 +123,6 @@ export default {
             currentRoute: window.location.pathname,
             token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
-    },
-    methods: {
-        recoverTask () {
-            let params = "id=" + this.id;
-            try {
-                fetch('recoverTask', {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
-                })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    if (data?.errors != null) {
-                        alert(data.errors?.task);
-                        return false;
-                    }
-
-                    if (data.length == 0 || data == false || data == null) {
-                        alert("Эту запись нельзя восстановить");
-                    }
-                    location.reload();
-                });	
-            } catch (ex) {
-                console.log(ex);
-            }
-        },
     }
 }
 </script>

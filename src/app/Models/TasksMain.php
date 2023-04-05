@@ -19,7 +19,6 @@ class TasksMain extends Model
         'task',
         'id',
         'dt_task',
-        'priority',
         'userid',
         'type',
         'created_at',

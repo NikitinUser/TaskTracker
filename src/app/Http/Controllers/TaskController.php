@@ -8,7 +8,6 @@ use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\RewriteTaskRequest;
-use App\Http\Requests\RecoverTaskRequest;
 
 class TaskController extends Controller
 {
@@ -56,15 +55,6 @@ class TaskController extends Controller
         return json_encode($res);
     }
     
-    public function swapTheTypeOfTask(SwapTheTypeOfTaskRequest $request)
-    {
-        $taskDataInput = $request->all();
-
-        $statusSwapType = $this->taskService->swapTypeTask($taskDataInput);
-
-        return $statusSwapType;
-    }
-
     public function deleteTask(DeleteTaskRequest $request)
     {
         $taskId = (int)($request->input('id') ?? 0);
@@ -72,15 +62,5 @@ class TaskController extends Controller
         $statusDelete = $this->taskService->deleteTask($taskId);
 
         return $statusDelete;
-    }
-
-    public function recoverTask(RecoverTaskRequest $request)
-    {
-        $taskId = (int)($request->input('id') ?? 0);
-
-        $recoveredTask = $this->taskService->recoverTask($taskId);
-        $recoveredTask = json_encode($recoveredTask);
-
-        return $recoveredTask;
     }
 }

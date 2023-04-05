@@ -8,7 +8,6 @@
           v-for="task in tasks" v-bind:key="task.id">
           <TaskItem
             :task="task.task"
-            :priority="task.priority"
             :type="task.type"
             :date="task.date"
             :id="task.id"
@@ -69,7 +68,6 @@ export default {
                     taskData.id = data[i].id;
                     taskData.date = data[i].dt_task;
                     taskData.task = data[i].task;
-                    taskData.priority = data[i].priority;
                     taskData.type = typeRequest;
                     this.tasks.push(taskData);
                 }

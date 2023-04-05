@@ -4,14 +4,6 @@
             size="100" class="form-control bg-dark-theme"
             v-bind:value="task" v-on:input="inputTask"> 
         <span class="input-group-append">
-            <select class="form-select" name="priorityTask" id="priorityTask"
-                v-bind:value="priority" v-on:change="selectPriority">
-                <option value="0">Low</option>
-                <option value="1">Middle</option>
-                <option value="2">High</option>
-            </select>
-        </span>
-        <span class="input-group-append">
             <button class="btn btn-secondary" id="add_task_btn" type="button"
                 v-on:click="addTask()">
                 <i class="fa fa-plus"></i>
@@ -29,7 +21,6 @@ export default {
     data() {
         return {
             task: "",
-            priority: 0,
             date: "",
             token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
@@ -37,9 +28,6 @@ export default {
     methods: {
         inputTask (event) {
             this.task = event.target.value;
-        },
-        selectPriority (event) {
-            this.priority = event.target.value;
         },
         addTask () {
             this.date = this.getDateTime();
@@ -55,7 +43,6 @@ export default {
 
                 let params = "task=" + this.task
                     + "&date=" + this.date
-                    + "&priority=" + this.priority
                     + "&type=" + typeTask;
                 this.saveTaskOnServer(params);
             }
@@ -68,7 +55,6 @@ export default {
             let newTask = {
                 id: storage.length + 1 + this.date,
                 task: this.task,
-                priority: this.priority,
                 date: this.date
             };
 
@@ -111,7 +97,6 @@ export default {
                         taskData.id = data.id;
                         taskData.date = data.date;
                         taskData.task = data.task;
-                        taskData.priority = data.priorityTask;
                         taskData.type = data.type;
 
                         this.$parent.tasks.push(taskData);
@@ -124,7 +109,6 @@ export default {
         },
         cleanInput () {
             this.task = "";
-            this.priority = 0;
             this.date = "";
         }
     },

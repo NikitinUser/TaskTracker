@@ -28,9 +28,7 @@ class RewriteTaskRequest extends FormRequest
     {
         return [
             'id' => 'required|integer',
-            'task' => 'required|min:2|max:900',
-            'priority' => 'required|integer|min:0|max:3',
-            'theme' => 'min:2|max:30|regex:/^[A-Za-z А-Яа-яёЁ 0-9]+$/ui',
+            'task' => 'required|min:2|max:900'
         ];
     }
 
@@ -46,17 +44,8 @@ class RewriteTaskRequest extends FormRequest
             'task.min:2' => 'Минимальная длина задачи - 2 символа',
             'task.max:900' => 'Максимальная длина задачи - 400 символов',
 
-            'priorityTask.required' => 'Необходимо выбрать приоритетность задачи',
-            'priorityTask.integer' => 'Приоритетность задачи должна быть целым числом',
-            'priorityTask.min:0' => 'Приоритетность задачи начинает от 0 (низкая)',
-            'priorityTask.max:2' => 'Максимальная приоритетность задачи - 2 (высокая)',
-
             'id.required' => 'Идентификатор задачи должен быть указан',
             'id.integer' => 'Идентификатор задачи должен быть целым числом',
-
-            'theme.min:2' => 'Минимальная длина темы - 2 сивола',
-            'theme.max:30' => 'Максимальная длина темы - 30 символов',
-            'theme.regex:/^[A-Za-z А-Яа-яёЁ 0-9]+$/ui' => 'Допустимы только символы русского, англиского алфавитов и цифры',
         ];
         return $messages;
     }

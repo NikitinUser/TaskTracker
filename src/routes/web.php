@@ -19,9 +19,6 @@ Route::get('/demo', function () {
 
 Auth::routes();
 
-Route::get('/statistic', [App\Http\Controllers\TaskStatisticController::class, 'index'])->name('statistic');
-Route::get('/getCountTasks', [App\Http\Controllers\TaskStatisticController::class, 'getCountTasks'])->name('getCountTasks');
-
 Route::get('/', [App\Http\Controllers\TaskController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\TaskController::class, 'index'])->name('home');
 Route::get('/done', [App\Http\Controllers\TaskController::class, 'index'])->name('done');
@@ -32,6 +29,3 @@ Route::get('tasks', [App\Http\Controllers\TaskController::class, 'getUserTasks']
 Route::post('tasks', [App\Http\Controllers\TaskController::class, 'addtask']);
 Route::put('tasks', [App\Http\Controllers\TaskController::class, 'rewriteTask']);
 Route::delete('tasks', [App\Http\Controllers\TaskController::class, 'deleteTask']);
-Route::post('taskSwapType', [App\Http\Controllers\TaskController::class, 'swapTheTypeOfTask']);
-
-Route::post('recoverTask', [App\Http\Controllers\TaskController::class, 'recoverTask']);
