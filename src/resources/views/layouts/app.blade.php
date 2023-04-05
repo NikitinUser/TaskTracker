@@ -69,11 +69,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if(Request::is('statistic')) active @endif" href="{{ route('statistic') }}">
-                                    Статистика
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="#" role="button">
                                     {{ Auth::user()->login }} <span class="caret"></span>
                                 </a>
