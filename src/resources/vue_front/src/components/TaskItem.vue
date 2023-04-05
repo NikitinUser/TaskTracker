@@ -84,14 +84,6 @@
             </div>
         </div>
 
-        <div id="recoveryTask" class="justify-content-center pt-5"
-            style="display: none">
-            <button class="btn btn-outline-primary" type="button"
-                v-on:click="recoverTask">
-                Восстановить
-            </button>
-        </div>
-
         <TaskEditModal
             v-show="visibleModalChange"
             :id="id"
@@ -118,37 +110,6 @@ export default {
             currentRoute: window.location.pathname,
             token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
-    },
-    methods: {
-        recoverTask () {
-            let params = "id=" + this.id;
-            try {
-                fetch('tasks/recover', {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
-                })
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    if (data?.errors != null) {
-                        alert(data.errors?.task);
-                        return false;
-                    }
-
-                    if (data.length == 0 || data == false || data == null) {
-                        alert("Эту запись нельзя восстановить");
-                    }
-                    location.reload();
-                });	
-            } catch (ex) {
-                console.log(ex);
-            }
-        },
     }
 }
 </script>

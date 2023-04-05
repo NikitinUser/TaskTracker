@@ -126,8 +126,6 @@ export default {
                     }
 
                     this.$parent.$el.removeChild(this.$parent.$el.children[0]);
-
-                    this.$parent.$el.children[0].style.display = "flex";
                 });	
             } catch (ex) {
                 console.log(ex);
