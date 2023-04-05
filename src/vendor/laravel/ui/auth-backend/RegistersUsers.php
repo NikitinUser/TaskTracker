@@ -33,6 +33,12 @@ trait RegistersUsers
 
         event(new Registered($user = $this->create($request->all())));
 
+        if (!$user) {
+            return $request->wantsJson()
+                    ? new JsonResponse([], 400)
+                    : back()->withInput();
+        }
+
         $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {

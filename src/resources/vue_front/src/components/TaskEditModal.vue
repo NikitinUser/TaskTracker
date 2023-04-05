@@ -21,13 +21,6 @@
                         <option value="2"> High</option>
                     </select>
                 </div>
-
-                <div class="mb-2">
-                    <label>Тема задачи:</label>
-                    <input type="text" name="theme" v-bind:value="theme"
-                        v-on:input="changeTheme"
-                        class="form-control" list="suggestions-themes">
-                </div>
             </div>
             <div class="modal-footer bg-dark-theme">
                 <button type="button" class="btn btn-secondary" v-on:click="hideModal">Закрыть</button>
@@ -41,13 +34,12 @@
 <script>
 export default {
     name: 'TaskEditModal',
-    props: ['task', 'priority', 'id', 'theme'],
+    props: ['task', 'priority', 'id'],
     data() {
         return {
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
             changedTask: this.task,
-            changedPriority: this.priority,
-            changedTheme: this.theme,
+            changedPriority: this.priority
         }
     },
     methods: {
@@ -57,20 +49,16 @@ export default {
         changePriority (event) {
             this.changedPriority = event.target.value;
         },
-        changeTheme () {
-            this.changedTheme = event.target.value;
-        },
         hideModal () {
             this.$parent.visibleModalChange = false;
         },
         changeTask () {
             let params = "task=" + this.changedTask + "&priority="
-                + this.changedPriority + "&id=" + this.id
-                + "&theme=" + this.changedTheme;
+                + this.changedPriority + "&id=" + this.id;
 
             try {
-                fetch('changeTask', {
-                method: 'POST',
+                fetch('/tasks', {
+                method: 'PUT',
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded',
                     "X-CSRF-TOKEN": this.token

@@ -83,11 +83,4 @@ class TaskController extends Controller
 
         return $recoveredTask;
     }
-
-    public function getTasksThemes()
-    {
-        $themes = $this->taskService->getUniqumTasksThemes();
-
-        return json_encode($themes);
-    }
 }

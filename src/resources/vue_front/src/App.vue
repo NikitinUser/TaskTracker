@@ -12,18 +12,11 @@
             :type="task.type"
             :date="task.date"
             :id="task.id"
-            :theme="task.theme"
           ></TaskItem>
         </li>
       </ul>
 
       <LoadingSpinner v-show="showLoadingSpinner"></LoadingSpinner>
-
-      <datalist id="suggestions-themes">
-        <option v-for="theme in suggestionsThemes" v-bind:key="theme.theme">
-          {{ theme.theme ?? 'Без темы' }}
-        </option>
-      </datalist>
     </div>
   </div>
 </template>
@@ -52,14 +45,13 @@ export default {
     return {
       tasks: [],
       currentRoute: window.location.pathname,
-      suggestionsThemes: [],
       showLoadingSpinner: false,
       showInput: true
     }
   },
   methods: {
     loadTasks (typeRequest) {
-        let requestRoute = '/get_tasks' + "?type=" + typeRequest;
+        let requestRoute = '/tasks?' + 'type=' + typeRequest;
 
         var aThis = this;
         aThis.showLoadingSpinner = true;
@@ -79,7 +71,6 @@ export default {
                     taskData.task = data[i].task;
                     taskData.priority = data[i].priority;
                     taskData.type = typeRequest;
-                    taskData.theme = data[i].theme;
                     this.tasks.push(taskData);
                 }
             });
@@ -87,18 +78,6 @@ export default {
             aThis.showLoadingSpinner = false;
             console.log(ex);
         }
-    },
-    getTasksThemes () {
-      var vThis = this;
-      fetch('get_tasks_themes', {
-        method: 'GET'
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-          vThis.suggestionsThemes = data;
-      });
     },
     getTasksFromLocalStorage () {
       let tasksFromStorage = localStorage.getItem('tasks');
@@ -121,7 +100,6 @@ export default {
       this.tasks = tasksFromLocal;
     } else {
       this.loadTasks(typesTasks[this.currentRoute]);
-      this.getTasksThemes();
     }
     
     this.showInput = this.currentRoute != '/done' && this.currentRoute != '/archive';
