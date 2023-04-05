@@ -24,7 +24,6 @@ class CreateTasksMainsTable extends Migration
             $table->dateTime('dt_task')->nullable();
 
             $table->integer('type')->default(0);
-            $table->integer('priority')->default(0);
 
             $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

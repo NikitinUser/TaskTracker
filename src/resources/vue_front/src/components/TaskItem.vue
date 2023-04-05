@@ -23,13 +23,7 @@
                 <div class="text-white d-flex justify-content-center w-100 ms-3 me-1">
                     <span v-bind:id="id" v-show="visibleTask">
                         {{ task }}
-                        <i v-if="priority == 0" class="ms-1"></i>
-                        <i v-else-if="priority == 1"
-                            class="ms-1 fa fa-exclamation-circle text-warning"></i>
-                        <i v-else-if="priority == 2"
-                            class="ms-1 fa fa-exclamation-circle text-danger"></i>
                     </span>
-                    <input v-bind:id="id" type="hidden" v-bind:value="priority">
                 </div>
             </div>
 
@@ -101,7 +95,6 @@
         <TaskEditModal
             v-show="visibleModalChange"
             :id="id"
-            :priority="priority"
             :task="task"
         ></TaskEditModal>
     </div>
@@ -117,7 +110,7 @@ export default {
         TaskActionButton,
         TaskEditModal
     },
-    props: ['task', 'priority', 'type', 'date', 'id'],
+    props: ['task', 'type', 'date', 'id'],
     data() {
         return {
             visibleTask: true,
@@ -130,7 +123,7 @@ export default {
         recoverTask () {
             let params = "id=" + this.id;
             try {
-                fetch('recoverTask', {
+                fetch('tasks/recover', {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded',

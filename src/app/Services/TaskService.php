@@ -84,7 +84,6 @@ class TaskService
         $this->taskMain = $this->taskMain->getTaskById((int)$task['id']);
 
         $this->taskMain->task = base64_encode(trim($task['task']));
-        $this->taskMain->priority = $task['priority'];
 
         return $this->taskMain->update();
     }

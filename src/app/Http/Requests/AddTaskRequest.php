@@ -28,8 +28,7 @@ class AddTaskRequest extends FormRequest
     {
         return [
             'task'          => 'required|min:2|max:900',
-            'date'          => 'required|date|max:20', 
-            'priority'  => 'required|integer|min:0|max:3',
+            'date'          => 'required|date|max:20',
             'type'          => 'required|integer|min:0|max:3',
         ];
     }
@@ -45,11 +44,6 @@ class AddTaskRequest extends FormRequest
             'task.required' => 'Чтобы добавить задачу - ее нужно ввести',
             'task.min:2' => 'Минимальная длина задачи - 2 символа',
             'task.max:900' => 'Максимальная длина задачи - 400 символов',
-
-            'priorityTask.required' => 'Необходимо выбрать приоритетность задачи',
-            'priorityTask.integer' => 'Приоритетность задачи должна быть целым числом',
-            'priorityTask.min:0' => 'Приоритетность задачи начинает от 0 (низкая)',
-            'priorityTask.max:2' => 'Максимальная приоритетность задачи - 2 (высокая)',
 
             'type.required' => 'Необходимо выбрать тип задачи',
             'type.integer' => 'Тип задачи должен быть целым числом',

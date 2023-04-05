@@ -11,16 +11,6 @@
                     <textarea class="form-control" rows="3" v-bind:value="task"
                         v-on:input="changeTaskText"></textarea>
                 </div>
-                
-                <div class="mb-2">
-                    <label>Приоритетность:</label>
-                    <select class="form-select" v-bind:value="priority"
-                        v-on:change="changePriority">
-                        <option value="0"> Low </option>
-                        <option value="1"> Middle</option>
-                        <option value="2"> High</option>
-                    </select>
-                </div>
             </div>
             <div class="modal-footer bg-dark-theme">
                 <button type="button" class="btn btn-secondary" v-on:click="hideModal">Закрыть</button>
@@ -34,27 +24,22 @@
 <script>
 export default {
     name: 'TaskEditModal',
-    props: ['task', 'priority', 'id'],
+    props: ['task', 'id'],
     data() {
         return {
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
-            changedTask: this.task,
-            changedPriority: this.priority
+            changedTask: this.task
         }
     },
     methods: {
         changeTaskText (event) {
             this.changedTask = event.target.value;
         },
-        changePriority (event) {
-            this.changedPriority = event.target.value;
-        },
         hideModal () {
             this.$parent.visibleModalChange = false;
         },
         changeTask () {
-            let params = "task=" + this.changedTask + "&priority="
-                + this.changedPriority + "&id=" + this.id;
+            let params = "task=" + this.changedTask + "&id=" + this.id;
 
             try {
                 fetch('/tasks', {
