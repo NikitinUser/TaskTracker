@@ -1,20 +1,20 @@
 <template>
-    <div class="input-group mb-3 bg-dark-theme" id="task-input">
-        <input type="text" name="newTask" id="newTask" placeholder="Задача"
+    <div class="p-2 bg-dark-theme" id="task-input">
+        <textarea type="text" name="newTask" id="newTask" placeholder="Задача"
             size="100" class="form-control bg-dark-theme"
-            v-bind:value="task" v-on:input="inputTask"> 
-        <span class="input-group-append">
-            <button class="btn btn-secondary" id="add_task_btn" type="button"
+            v-bind:value="task" v-on:input="inputTask"></textarea>
+
+        <div class="d-flex justify-content-center mt-1">
+            <button class="btn btn-secondary btn-lg rounded-circle" id="add_task_btn" type="button"
                 v-on:click="addTask()">
                 <i class="fa fa-plus"></i>
             </button>
-        </span>
+        </div>
     </div>
 </template>
 
 <script>
 import dateTimeMixin from './../mixins/dateTimeMixin';
-
 export default {
     name: 'TaskInput',
     mixins: [dateTimeMixin],
@@ -111,14 +111,6 @@ export default {
             this.task = "";
             this.date = "";
         }
-    },
-    mounted() {
-        let vThis = this;
-        document.addEventListener('keydown', function(event) {
-            if (event.keyCode === 13) {
-                vThis.addTask();
-            }
-        });
     }
 }
 </script>
