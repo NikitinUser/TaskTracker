@@ -3,17 +3,19 @@
     <div class="col-md-7 bg-dark-theme">
       <TaskInput v-if="showInput"></TaskInput>
 
-      <ul id="task-list" class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-darktheme border border-dark"
-          v-for="task in tasks" v-bind:key="task.id">
-          <TaskItem
-            :task="task.task"
-            :type="task.type"
-            :date="task.date"
-            :id="task.id"
-          ></TaskItem>
-        </li>
-      </ul>
+      <div class="p-2">
+        <ul id="task-list" class="list-group list-group-flush">
+          <li class="list-group-item list-group-item-darktheme border border-dark"
+            v-for="task in tasks" v-bind:key="task.id">
+            <TaskItem
+              :task="task.task"
+              :type="task.type"
+              :date="task.date"
+              :id="task.id"
+            ></TaskItem>
+          </li>
+        </ul>
+      </div>
 
       <LoadingSpinner v-show="showLoadingSpinner"></LoadingSpinner>
     </div>
