@@ -24,9 +24,6 @@ class TaskService
         $userid = (int)auth()->user()->id;
         $tasks = $this->taskMain->getTasksByUseridAndType($userid, $type);
 
-        if (empty($tasks))
-            return [];
-        
         for ($i = 0; $i < count($tasks); $i++) {
             $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
         }
@@ -56,9 +53,8 @@ class TaskService
     {
         $task['userid'] = (int)auth()?->user()?->id;
 
-        $task['task'] = trim($task['task']);
-        $task['task'] = base64_encode($task['task']);
-
+        $task['task'] = base64_encode(trim($task['task']));
+        
         $dateTask = new \DateTime($task['date']);
         $task['dt_task'] = $dateTask->format('Y-m-d H:i:s');
         unset($task['date']);
@@ -67,8 +63,8 @@ class TaskService
 
         $task['date'] = $task['dt_task'];
         $task['id'] = $newTask->id;
-        $task['task'] = base64_decode($newTask->task);
         
+        $task['task'] = base64_decode($newTask->task);
         return $task;
     }
     
@@ -118,5 +114,4 @@ class TaskService
 
         return $countTasks < TasksMain::MAX_COUNT_TASKS_INTYPE;
     }
-
 }
