@@ -4,17 +4,19 @@
             <div class="text-white mb-3">
                 <em style="font-size: small">{{ date }}</em>
 
-                <button type="button" class="btn btn-outline-light ms-2"
-                    v-on:click="visibleTask=!visibleTask">
-                    <i v-if="visibleTask" class="fa fa-eye-slash" aria-hidden="true"></i>
-                    <i v-else class="fa fa-eye" aria-hidden="true"></i>
-                </button>
+                <div class="text-white d-flex flex-row pull-right">
+                    <button type="button" class="btn btn-outline-light btn-sm"
+                        v-on:click="visibleTask=!visibleTask">
+                        <i v-if="visibleTask" class="fa fa-eye-slash" aria-hidden="true"></i>
+                        <i v-else class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                </div>
 
                 <div class="text-white d-flex flex-row pull-right"
                     v-if="currentRoute == '/demo'">
                     <TaskActionButton
                         buttonIcon = "fa fa-check-square"
-                        buttonClass = "pull-right btn btn-outline-success w-100"
+                        buttonClass = "pull-right btn btn-outline-success btn-sm w-100"
                         action = "removeTaskFromLocal"
                         :idTask="id"
                         :changedTask="task"
@@ -26,7 +28,7 @@
                     <TaskActionButton 
                         v-if="currentRoute != '/done'"
                         buttonIcon = "fa fa-check-square"
-                        buttonClass = "pull-right btn btn-outline-success w-100"
+                        buttonClass = "pull-right btn btn-outline-success btn-sm w-100"
                         action = "swapTaskToDone"
                         :idTask="id"
                         :changedTask="task"
@@ -36,7 +38,7 @@
                     <TaskActionButton
                         v-else
                         buttonIcon = "fa fa-trash"
-                        buttonClass = "pull-right btn btn-outline-danger w-100"
+                        buttonClass = "pull-right btn btn-outline-danger btn-sm w-100"
                         action = "deleteTask"
                         :idTask="id"
                         :changedTask="task"
@@ -45,7 +47,7 @@
 
                     <TaskActionButton
                         buttonIcon = "fa fa-location-arrow"
-                        buttonClass = "pull-right btn btn-outline-success w-100"
+                        buttonClass = "pull-right btn btn-outline-success btn-sm w-100"
                         action = "swapTaskToTasks"
                         :idTask="id"
                         :changedTask="task"
@@ -54,7 +56,7 @@
 
                     <TaskActionButton
                         buttonIcon = "fa fa-bookmark"
-                        buttonClass = "pull-right btn btn-outline-primary w-100"
+                        buttonClass = "pull-right btn btn-outline-primary btn-sm w-100"
                         action = "swapTaskToBookmarks"
                         :idTask="id"
                         :changedTask="task"
@@ -63,7 +65,7 @@
 
                     <TaskActionButton
                         buttonIcon = "fa fa-archive"
-                        buttonClass = "pull-right btn btn-outline-info w-100"
+                        buttonClass = "pull-right btn btn-outline-info btn-sm w-100"
                         action = "swapTaskToArchive"
                         :idTask="id"
                         :changedTask="task"
@@ -72,7 +74,7 @@
 
                     <TaskActionButton
                         buttonIcon = "fa fa-pencil-square"
-                        buttonClass = "pull-right btn btn-outline-warning w-100"
+                        buttonClass = "pull-right btn btn-outline-warning btn-sm w-100"
                         action = "editTask"
                         :idTask="id"
                     ></TaskActionButton>
