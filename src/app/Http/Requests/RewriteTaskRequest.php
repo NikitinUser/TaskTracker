@@ -28,7 +28,9 @@ class RewriteTaskRequest extends FormRequest
     {
         return [
             'id' => 'required|integer',
-            'task' => 'required|min:2|max:2100'
+            'task' => 'required|min:2|max:2100',
+            'date' => 'required|date|max:20',
+            'type' => 'required|integer|min:0|max:3',
         ];
     }
 
@@ -42,10 +44,19 @@ class RewriteTaskRequest extends FormRequest
         $messages = [
             'task.required' => 'Чтобы добавить задачу - ее нужно ввести',
             'task.min:2' => 'Минимальная длина задачи - 2 символа',
-            'task.max:900' => 'Максимальная длина задачи - 2100 символов',
+            'task.max:2100' => 'Максимальная длина задачи - 2100 символов',
 
             'id.required' => 'Идентификатор задачи должен быть указан',
             'id.integer' => 'Идентификатор задачи должен быть целым числом',
+
+            'type.required' => 'Необходимо выбрать тип задачи',
+            'type.integer' => 'Тип задачи должен быть целым числом',
+            'type.min:0' => 'Тип задачи начинает от 0',
+            'type.max:3' => 'Максимальное значение для типа задачи - 3',
+
+            'date.required' => 'Двта создания задачи должна быть сформирована',
+            'date.date' => 'Дата задачи должна быть датой',
+            'date.max:20' => 'Максимальное длина даты 20 символов',
         ];
         return $messages;
     }
