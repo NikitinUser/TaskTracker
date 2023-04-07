@@ -16,7 +16,7 @@ class CreateTasksMainsTable extends Migration
         Schema::create('tasks_mains', function (Blueprint $table) {
             $table->id();
             
-            $table->string('task', 1700);
+            $table->string('task', 5600);
 
             $table->unsignedBigInteger('userid');
             $table->foreign('userid')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -27,7 +27,7 @@ class AddTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task'          => 'required|min:2|max:900',
+            'task'          => 'required|min:2|max:2100',
             'date'          => 'required|date|max:20',
             'type'          => 'required|integer|min:0|max:3',
         ];
@@ -43,7 +43,7 @@ class AddTaskRequest extends FormRequest
         $messages = [
             'task.required' => 'Чтобы добавить задачу - ее нужно ввести',
             'task.min:2' => 'Минимальная длина задачи - 2 символа',
-            'task.max:900' => 'Максимальная длина задачи - 400 символов',
+            'task.max:900' => 'Максимальная длина задачи - 2100 символов',
 
             'type.required' => 'Необходимо выбрать тип задачи',
             'type.integer' => 'Тип задачи должен быть целым числом',
