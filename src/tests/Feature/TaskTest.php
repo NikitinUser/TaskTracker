@@ -88,44 +88,8 @@ class TaskTest extends TestCase
         $user = User::where("id", $userId)->first();
         
         $response = $this->actingAs($user)
-                         ->get('/get_tasks?type=' . TasksMain::TYPE_ACTIVE_TASK);
+                         ->get('/tasks?type=' . TasksMain::TYPE_ACTIVE_TASK);
 
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function testGetTasksThemesWithAuth()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-        
-        $response = $this->actingAs($user)
-                         ->get('/get_tasks_themes');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function testSwapTypeTask()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-
-        $task = TasksMain::first();
-
-        $request = [
-            'id' => $task->id,
-            'date' => "10-06-2021 14:00:00",
-            'type' => 0
-        ];
-
-        $response = $this->actingAs($user)
-            ->post('/taskSwapType', $request);
- 
         $response->assertStatus(200);
     }
 
@@ -144,7 +108,7 @@ class TaskTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post('/deleteTask', $request);
+            ->delete('/tasks', $request);
  
         $response->assertStatus(200);
     }

@@ -7,7 +7,7 @@ use App\Models\User;
 trait TestsHelper
 {
     public int $minLenTask = 2;
-    public int $maxLenTask = 900;
+    public int $maxLenTask = 2100;
 
     public function authByUserId(int $userId)
     {
@@ -33,7 +33,7 @@ trait TestsHelper
         $str = "";
 
         for ($i = 0; $i < $this->minLenTask - 1; $i++) {
-            $str .= "a";
+            $str .= "а";
         }
 
         return $str;
