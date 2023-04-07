@@ -2,7 +2,7 @@
     <div class="p-2 bg-dark-theme" id="task-input">
         <textarea type="text" name="newTask" id="newTask" placeholder="Задача"
             size="100" class="form-control bg-dark-theme"
-            v-bind:value="task" v-on:input="inputTask"></textarea>
+            v-bind:value="task" v-on:input="inputTask($event); autoHeight($event)"></textarea>
 
         <div class="d-flex justify-content-center mt-1">
             <button class="btn btn-secondary btn-lg rounded-circle" id="add_task_btn" type="button"
@@ -110,6 +110,9 @@ export default {
         cleanInput () {
             this.task = "";
             this.date = "";
+        },
+        autoHeight(event) {
+            event.target.style.height = (event.target.scrollHeight)+"px";
         }
     }
 }
