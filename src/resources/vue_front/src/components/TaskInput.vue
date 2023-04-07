@@ -1,8 +1,10 @@
 <template>
     <div class="p-2 bg-dark-theme" id="task-input">
+        <span id="count_new_task" class="text-white" style="font-size: small">0/2100</span>
         <textarea type="text" name="newTask" id="newTask" placeholder="Задача"
-            size="100" class="form-control bg-dark-theme"
-            v-bind:value="task" v-on:input="inputTask"></textarea>
+            size="100" maxlength="2100" class="form-control bg-dark-theme"
+            v-bind:value="task" v-on:input="inputTask($event); autoHeight($event)"
+        ></textarea>
 
         <div class="d-flex justify-content-center mt-1">
             <button class="btn btn-secondary btn-lg rounded-circle" id="add_task_btn" type="button"
@@ -28,6 +30,7 @@ export default {
     methods: {
         inputTask (event) {
             this.task = event.target.value;
+            document.getElementById("count_new_task").textContent = event.target.value.length + "/2100";
         },
         addTask () {
             this.date = this.getDateTime();
@@ -110,6 +113,13 @@ export default {
         cleanInput () {
             this.task = "";
             this.date = "";
+
+            document.querySelector("#newTask").style.height = "60px";
+            document.getElementById("count_new_task").textContent = "0/2100"
+        },
+        autoHeight(event) {
+            event.target.style.height = "60px";
+            event.target.style.height = (event.target.scrollHeight)+"px";
         }
     }
 }

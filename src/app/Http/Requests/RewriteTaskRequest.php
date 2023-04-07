@@ -28,7 +28,7 @@ class RewriteTaskRequest extends FormRequest
     {
         return [
             'id' => 'required|integer',
-            'task' => 'required|min:2|max:900'
+            'task' => 'required|min:2|max:2100'
         ];
     }
 
@@ -42,7 +42,7 @@ class RewriteTaskRequest extends FormRequest
         $messages = [
             'task.required' => 'Чтобы добавить задачу - ее нужно ввести',
             'task.min:2' => 'Минимальная длина задачи - 2 символа',
-            'task.max:900' => 'Максимальная длина задачи - 400 символов',
+            'task.max:900' => 'Максимальная длина задачи - 2100 символов',
 
             'id.required' => 'Идентификатор задачи должен быть указан',
             'id.integer' => 'Идентификатор задачи должен быть целым числом',
