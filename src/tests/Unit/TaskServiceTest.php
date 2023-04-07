@@ -55,8 +55,7 @@ class TaskServiceTest extends TestCase
             "task" => "3232",
             "userid" => $userId,
             "date" => "2022-06-26 03:14:23",
-            "type" => 0,
-            "priority" => 0,
+            "type" => 0
         ];
 
         $res = $taskService->addNewTask($task);
@@ -78,42 +77,13 @@ class TaskServiceTest extends TestCase
             "task" => "3232",
             "userid" => $userId,
             "date" => "2022-06-26 03:14:23",
-            "type" => 0,
-            "priority" => 0,
+            "type" => 0
         ];
 
         $task = $taskService->addNewTask($task);
         $task["date"] = "2022-06-26 03:14:23";
-        $task["priorityTask"] = 0;
 
         $res = $taskService->rewriteTask($task);
-        
-        $this->assertTrue($res);
-    }
-
-    /**
-     * @test
-     */
-    public function testSwapTypeTask()
-    {
-        $taskService = new TaskService();
-        $userId = $this->createNewUserGetId();
-        
-        $this->authByUserId($userId);
-
-        $task = [
-            "task" => "3232",
-            "userid" => $userId,
-            "date" => "2022-06-26 03:14:23",
-            "type" => 0,
-            "priority" => 0,
-        ];
-
-        $task = $taskService->addNewTask($task);
-        $task["date"] = "2022-06-26 03:14:23";
-        $task["type"] = 1;
-
-        $res = $taskService->swapTypeTask($task);
         
         $this->assertTrue($res);
     }
@@ -132,8 +102,7 @@ class TaskServiceTest extends TestCase
             "task" => "3232",
             "userid" => $userId,
             "date" => "2022-06-26 03:14:23",
-            "type" => 0,
-            "priority" => 0,
+            "type" => 0
         ];
 
         $task = $taskService->addNewTask($task);

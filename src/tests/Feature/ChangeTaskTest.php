@@ -26,12 +26,12 @@ class ChangeTaskTest extends TestCase
         $request = [
             'id' => $task->id,
             'task' => "task_text",
-            'theme' => "Testing",
-            'priority' => 1,
+            'date' => "10-06-2021 14:00:00",
+            'type' => 0
         ];
 
         $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
+            ->put('/tasks', $request);
  
         $response->assertStatus(200);
     }
@@ -48,12 +48,12 @@ class ChangeTaskTest extends TestCase
 
         $request = [
             'id' => $task->id,
-            'theme' => "Testing",
-            'priority' => 0,
+            'date' => "10-06-2021 14:00:00",
+            'type' => 0
         ];
 
         $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
+            ->put('/tasks', $request);
  
         $response->assertStatus(422);
     }
@@ -71,12 +71,12 @@ class ChangeTaskTest extends TestCase
         $request = [
             'id' => $task->id,
             'task' => $this->generateStringLessMin(),
-            'theme' => "Testing",
-            'priority' => 0,
+            'date' => "10-06-2021 14:00:00",
+            'type' => 0
         ];
 
         $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
+            ->put('/tasks', $request);
  
         $response->assertStatus(422);
     }
@@ -94,79 +94,12 @@ class ChangeTaskTest extends TestCase
         $request = [
             'id' => $task->id,
             'task' => $this->generateStringMoreMax(),
-            'theme' => "Testing",
-            'priority' => 0,
+            'date' => "10-06-2021 14:00:00",
+            'type' => 0
         ];
 
         $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
- 
-        $response->assertStatus(422);
-    }
-
-    /**
-     * @test
-     */
-    public function testChangeTaskWithoutTheme()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-
-        $task = TasksMain::first();
-
-        $request = [
-            'id' => $task->id,
-            'task' => "text",
-            'priority' => 0,
-        ];
-
-        $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
- 
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function testChangeTaskWithInvalidTheme()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-
-        $task = TasksMain::first();
-
-        $request = [
-            'id' => $task->id,
-            'task' => "text",
-            'theme' => "!@#$#%^%&(**)_+=?><<M'`~",
-            'priority' => 0,
-        ];
-
-        $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
- 
-        $response->assertStatus(422);
-    }
-
-    /**
-     * @test
-     */
-    public function testChangeTaskWithoutPriority()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-
-        $task = TasksMain::first();
-
-        $request = [
-            'id' => $task->id,
-            'task' => "text",
-            'theme' => "Testing",
-        ];
-
-        $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
+            ->put('/tasks', $request);
  
         $response->assertStatus(422);
     }
@@ -183,12 +116,12 @@ class ChangeTaskTest extends TestCase
 
         $request = [
             'task' => "text",
-            'theme' => "Testing",
-            'priority' => 0,
+            'date' => "10-06-2021 14:00:00",
+            'type' => 0
         ];
 
         $response = $this->actingAs($user)
-            ->post('/changeTask', $request);
+            ->put('/tasks', $request);
  
         $response->assertStatus(422);
     }
