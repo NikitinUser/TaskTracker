@@ -85,7 +85,7 @@
 
             <div class="text-white mb-2">
                 <textarea v-bind:id="'task_' + id" v-show="visibleTask" class="form-control"
-                    :value="task" readonly></textarea>
+                    :value="task" maxlength="2100" readonly></textarea>
             </div>
         </div>
 
