@@ -27,5 +27,5 @@ Route::get('/bookmarks', [App\Http\Controllers\TaskController::class, 'index'])-
 
 Route::get('tasks', [App\Http\Controllers\TaskController::class, 'getUserTasks'])->name('tasks');
 Route::post('tasks', [App\Http\Controllers\TaskController::class, 'addtask']);
-Route::put('tasks', [App\Http\Controllers\TaskController::class, 'rewriteTask']);
+Route::put('tasks', [App\Http\Controllers\TaskController::class, 'updateTask']);
 Route::delete('tasks', [App\Http\Controllers\TaskController::class, 'deleteTask']);

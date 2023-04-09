@@ -12,6 +12,7 @@ class TasksMain extends Model
     public const TYPE_DONE_TASK = 1;
     public const TYPE_ARCHIVE_TASK = 2;
     public const TYPE_BOOKMARK = 3;
+    public const TYPES_ARRAY_ID = [0, 1, 2, 3];
 
     protected $table = 'tasks_mains';
 

@@ -27,9 +27,9 @@ class AddTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task'          => 'required|min:2|max:2100',
-            'date'          => 'required|date|max:20',
-            'type'          => 'required|integer|min:0|max:3',
+            'task' => 'required|min:2|max:2100',
+            'date' => 'required|date|max:20',
+            'type' => 'required|integer|min:0|max:3',
         ];
     }
 

@@ -7,7 +7,7 @@ use App\Services\TaskService;
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
-use App\Http\Requests\RewriteTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
@@ -46,11 +46,11 @@ class TaskController extends Controller
         return $addedTaskData;
     }
 
-    public function rewriteTask(RewriteTaskRequest $request)
+    public function updateTask(UpdateTaskRequest $request)
     {
         $taskDataInput = $request->all();
 
-        $res = $this->taskService->rewriteTask($taskDataInput);
+        $res = $this->taskService->updateTask($taskDataInput);
 
         return json_encode($res);
     }

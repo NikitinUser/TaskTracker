@@ -28,6 +28,13 @@ trait TestsHelper
         );
     }
 
+    public function authByNewUser(): int
+    {
+        $userId = $this->createNewUserGetId();
+        $this->authByUserId($userId);
+        return $userId;
+    }
+
     public function generateStringLessMin(): string
     {
         $str = "";
@@ -48,5 +55,17 @@ trait TestsHelper
         }
 
         return $str;
+    }
+
+    public function getTestEntityArray(int $userId, int $type = 0): array
+    {
+        $date = new \DateTime();
+
+        return [
+            "task" => "3232",
+            "userid" => $userId,
+            "date" => $date->format("Y-m-d H:i:s"),
+            "type" => $type
+        ];
     }
 }

@@ -69,12 +69,12 @@ class TaskService
     }
     
     /**
-     * rewriteTask
+     * updateTask
      *
      * @param  array $task
      * @return bool
      */
-    public function rewriteTask(array $task): bool
+    public function updateTask(array $task): bool
     {
         $this->taskMain = $this->taskMain->getTaskById((int)$task['id']);
 

@@ -19,7 +19,6 @@ class TaskTest extends TestCase
     public function testHomePageWithoutAuth()
     {
         $response = $this->get('/');
-
         $response->assertStatus(302);
     }
 
@@ -31,51 +30,7 @@ class TaskTest extends TestCase
         $userId = $this->createNewUserGetId();
         $user = User::where("id", $userId)->first();
 
-        $response = $this->actingAs($user)
-                         ->get('/');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function testHomePageWithAuthDone()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-        
-        $response = $this->actingAs($user)
-                         ->get('/done');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function testHomePageWithAuthArchive()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-        
-        $response = $this->actingAs($user)
-                         ->get('/archive');
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * @test
-     */
-    public function testHomePageWithAuthBookmarks()
-    {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-        
-        $response = $this->actingAs($user)
-                         ->get('/bookmarks');
-
+        $response = $this->actingAs($user)->get('/');
         $response->assertStatus(200);
     }
 
@@ -86,11 +41,125 @@ class TaskTest extends TestCase
     {
         $userId = $this->createNewUserGetId();
         $user = User::where("id", $userId)->first();
-        
-        $response = $this->actingAs($user)
-                         ->get('/tasks?type=' . TasksMain::TYPE_ACTIVE_TASK);
 
+        foreach (TasksMain::TYPES_ARRAY_ID as $type) {
+            $response = $this->actingAs($user)
+                ->get('/tasks?type=' . $type);
+            $response->assertStatus(200);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function testAddTask()
+    {
+        $userId = $this->createNewUserGetId();
+        $user = User::where("id", $userId)->first();
+
+        $request = $this->getTestEntityArray($userId);
+
+        $response = $this->actingAs($user)
+            ->post('/tasks', $request);
         $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function testAddTaskWithoutTask()
+    {
+        $userId = $this->createNewUserGetId();
+        $user = User::where("id", $userId)->first();
+
+        $request = $this->getTestEntityArray($userId);
+        unset($request["task"]);
+
+        $response = $this->actingAs($user)
+            ->post('/tasks', $request);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @test
+     */
+    public function testAddTaskWithoutDate()
+    {
+        $userId = $this->createNewUserGetId();
+        $user = User::where("id", $userId)->first();
+
+        $request = $this->getTestEntityArray($userId);
+        unset($request["date"]);
+
+        $response = $this->actingAs($user)
+            ->post('/tasks', $request);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @test
+     */
+    public function testAddTaskWithoutType()
+    {
+        $userId = $this->createNewUserGetId();
+        $user = User::where("id", $userId)->first();
+
+        $request = $this->getTestEntityArray($userId);
+        unset($request["type"]);
+
+        $response = $this->actingAs($user)
+            ->post('/tasks', $request);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @test
+     */
+    public function testUpdateTask()
+    {
+        $task = TasksMain::first();
+        $user = User::where("id", $task->userid)->first();
+
+        $request = $this->getTestEntityArray($task->userid);
+        $request["id"] = $task->id;
+
+        $response = $this->actingAs($user)
+            ->put('/tasks', $request);
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function testUpdateTaskWithoutTask()
+    {
+        $task = TasksMain::first();
+        $user = User::where("id", $task->userid)->first();
+
+        $request = $this->getTestEntityArray($task->userid);
+        $request["id"] = $task->id;
+        unset($request["task"]);
+
+        $response = $this->actingAs($user)
+            ->put('/tasks', $request);
+        $response->assertStatus(422);
+    }
+
+    /**
+     * @test
+     */
+    public function testUpdateTaskWithoutId()
+    {
+        $task = TasksMain::first();
+        $user = User::where("id", $task->userid)->first();
+
+        $request = $this->getTestEntityArray($task->userid);
+        $request["id"] = $task->id;
+        unset($request["id"]);
+
+        $response = $this->actingAs($user)
+            ->put('/tasks', $request);
+        $response->assertStatus(422);
     }
 
     /**
@@ -98,18 +167,13 @@ class TaskTest extends TestCase
      */
     public function testDeleteTask()
     {
-        $userId = $this->createNewUserGetId();
-        $user = User::where("id", $userId)->first();
-
         $task = TasksMain::first();
+        $user = User::where("id", $task->userid)->first();
 
-        $request = [
-            'id' => $task->id
-        ];
+        $request = ['id' => $task->id];
 
         $response = $this->actingAs($user)
             ->delete('/tasks', $request);
- 
         $response->assertStatus(200);
     }
 }

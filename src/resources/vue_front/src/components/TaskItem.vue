@@ -64,13 +64,6 @@
                             :changedTask="task"
                             :type="type"
                         ></TaskActionButton>
-
-                        <TaskActionButton
-                            buttonIcon = "fa fa-pencil-square"
-                            buttonClass = "pull-right btn btn-outline-warning btn-sm w-100"
-                            action = "editTask"
-                            :idTask="id"
-                        ></TaskActionButton>
                     </div>
 
                     <div class="text-white d-flex flex-row pull-right me-2">
@@ -83,48 +76,85 @@
                 </div>
             </div>
 
-            <div class="text-white mb-2">
-                <textarea v-bind:id="'task_' + id" v-show="visibleTask" class="form-control"
-                    :value="task" maxlength="2100" readonly></textarea>
+            <div class="text-white mb-2" v-show="visibleTask">
+                <span :id="'count_task_' + id" class="text-white" style="font-size: small">{{currentSymbolsTask}}/2100</span>
+                <textarea type="text" :id="'task_' + id" placeholder="Задача"
+                    size="100" maxlength="2100" class="form-control bg-dark-theme"
+                    v-on:input="inputTask($event); autoHeight($event)"
+                    v-on:blur="autoHeight" v-on:focus="autoHeight" :value="task"
+                ></textarea>
             </div>
         </div>
-
-        <TaskEditModal
-            v-show="visibleModalChange"
-            :id="id"
-            :task="task"
-            :type="type"
-        ></TaskEditModal>
     </div>
 </template>
 
 <script>
-import TaskActionButton from './TaskActionButton.vue'
-import TaskEditModal from './TaskEditModal.vue'
+import TaskActionButton from './TaskActionButton.vue';
+import dateTimeMixin from './../mixins/dateTimeMixin';
 
 export default {
     name: 'TaskItem',
     components: {
-        TaskActionButton,
-        TaskEditModal
+        TaskActionButton
     },
+    mixins: [dateTimeMixin],
     props: ['task', 'type', 'date', 'id'],
     data() {
         return {
             visibleTask: true,
             visibleModalChange: false,
             currentRoute: window.location.pathname,
-            token: document.querySelector('meta[name=csrf-token').getAttribute('content')
+            token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
+            currentSymbolsTask: 0,
+            maxSymbolsTask: 2100
         }
     },
     methods: {
-        autoHeight() {
-            document.getElementById('task_' + this.id).style.height
-                = (document.getElementById('task_' + this.id).scrollHeight)+"px";
+        inputTask(event) {
+            // eslint-disable-next-line
+            this.task = event.target.value;
+            this.currentSymbolsTask = event.target.value.length;
+            this.updateTask();
+        },
+        getCurrentSymbolsInInput() {
+            this.currentSymbolsTask = this.task.length;
+        },
+        autoHeight(event) {
+            event.target.style.height = "60px";
+            event.target.style.height = (event.target.scrollHeight)+"px";
+        },
+        updateTask() {
+            // eslint-disable-next-line
+            this.date = this.getDateTime();
+            let params = "task=" + this.task + "&id=" + this.id + "&date=" + this.date + "&type=" + this.type;
+
+            try {
+                fetch('/tasks', {
+                method: 'PUT',
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "X-CSRF-TOKEN": this.token
+                }), 
+                body: params,
+                })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data?.errors != null) {
+                        alert(data.errors?.task);
+                    }
+                });
+            } catch (ex) {
+                console.log(ex);
+            }
         }
     },
     mounted() {
-        this.autoHeight();
+        this.getCurrentSymbolsInInput();
+        if (window.location.pathname == '/demo' && this.inputId != "newTask") {
+            this.readonlyInput = true;
+        }
     }
 }
 </script>

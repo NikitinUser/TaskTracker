@@ -92,7 +92,7 @@ export default {
       }
 
       return tasksFromStorage;
-    }
+    },
   },
   mounted() {
     if (this.currentRoute == "/demo") {
