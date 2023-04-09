@@ -31,7 +31,7 @@ class TaskServiceTest extends TestCase
     /**
      * @test
      */
-    public function testRewriteTask()
+    public function testUpdateTask()
     {
         $taskService = new TaskService();
         $this->authByUserId($this->testUserId);
@@ -42,7 +42,7 @@ class TaskServiceTest extends TestCase
         foreach (TasksMain::TYPES_ARRAY_ID as $type) {
             $task = $this->getTestEntityArray($this->testUserId, $type);
             $task["id"] = $initialTask["id"];
-            $res = $taskService->rewriteTask($task);
+            $res = $taskService->updateTask($task);
             $this->assertTrue($res);
         }
     }

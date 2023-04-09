@@ -115,7 +115,7 @@ class TaskTest extends TestCase
     /**
      * @test
      */
-    public function testChangeTask()
+    public function testUpdateTask()
     {
         $task = TasksMain::first();
         $user = User::where("id", $task->userid)->first();
@@ -131,7 +131,7 @@ class TaskTest extends TestCase
     /**
      * @test
      */
-    public function testChangeTaskWithoutTask()
+    public function testUpdateTaskWithoutTask()
     {
         $task = TasksMain::first();
         $user = User::where("id", $task->userid)->first();
@@ -148,7 +148,7 @@ class TaskTest extends TestCase
     /**
      * @test
      */
-    public function testChangeTaskWithoutId()
+    public function testUpdateTaskWithoutId()
     {
         $task = TasksMain::first();
         $user = User::where("id", $task->userid)->first();
