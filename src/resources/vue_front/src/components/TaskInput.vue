@@ -4,6 +4,7 @@
         <textarea type="text" name="newTask" id="newTask" placeholder="Задача"
             size="100" maxlength="2100" class="form-control bg-dark-theme"
             v-bind:value="task" v-on:input="inputTask($event); autoHeight($event)"
+            v-on:blur="autoHeight" v-on:focus="autoHeight"
         ></textarea>
 
         <div class="d-flex justify-content-center mt-1">
@@ -24,7 +25,8 @@ export default {
         return {
             task: "",
             date: "",
-            token: document.querySelector('meta[name=csrf-token').getAttribute('content')
+            token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
+            currentSymbolsTask: 0
         }
     },
     methods: {
@@ -114,12 +116,21 @@ export default {
             this.task = "";
             this.date = "";
 
-            document.querySelector("#newTask").style.height = "60px";
+            document.getElementById("newTask").style.height = "60px";
             document.getElementById("count_new_task").textContent = "0/2100"
+        },
+        getCurrentSymbolsInInput() {
+            this.currentSymbolsTask = document.getElementById("newTask").value.length;
         },
         autoHeight(event) {
             event.target.style.height = "60px";
             event.target.style.height = (event.target.scrollHeight)+"px";
+        }
+    },
+    mounted() {
+        this.getCurrentSymbolsInInput();
+        if (window.location.pathname == '/demo' && this.inputId != "newTask") {
+            this.readonlyInput = true;
         }
     }
 }
