@@ -128,16 +128,21 @@ export default {
         updateTask() {
             // eslint-disable-next-line
             this.date = this.getDateTime();
-            let params = "task=" + this.task + "&id=" + this.id + "&date=" + this.date + "&type=" + this.type;
+            let data = {
+                id: this.id,
+                task: this.task,
+                date: this.date,
+                type: this.type
+            };
 
             try {
                 fetch('/tasks', {
-                method: 'PUT',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.token
+                    }), 
+                    body: JSON.stringify(data)
                 })
                 .then((response) => {
                     return response.json();

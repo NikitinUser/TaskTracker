@@ -45,15 +45,18 @@ export default {
                     typeTask = 3;
                 }
 
-                let params = "task=" + this.task
-                    + "&date=" + this.date
-                    + "&type=" + typeTask;
-                this.saveTaskOnServer(params);
+                
+                let data = {
+                    task: this.task,
+                    date: this.date,
+                    type: typeTask
+                };
+                this.saveTaskOnServer(data);
             }
             
             this.cleanInput();
         },
-        saveTaskToLocalStorage () {
+        saveTaskToLocalStorage() {
             let storage = this.$parent.getTasksFromLocalStorage();
 
             let newTask = {
@@ -69,18 +72,18 @@ export default {
 
             localStorage.setItem('tasks', storage);
         },
-        saveTaskOnServer(params) {
+        saveTaskOnServer(data) {
             var parentEl = this.$parent;
             parentEl.showLoadingSpinner = true;
 
             try {
                 fetch('/tasks', {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
+                    method: 'POST',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.token
+                    }), 
+                    body: JSON.stringify(data)
                 })
                 .then((response) => {
                     return response.json();

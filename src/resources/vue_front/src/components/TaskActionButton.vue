@@ -56,16 +56,21 @@ export default {
             parentEl.showLoadingSpinner = true;
 
             let dateTime = this.getDateTime();
-            let params = "task=" + this.changedTask + "&id=" + this.idTask + "&date=" + dateTime+ "&type=" + type;
+            let data = {
+                id: this.idTask,
+                task: this.changedTask,
+                date: dateTime,
+                type: type
+            };
 
             try {
                 fetch('tasks', {
-                method: 'PUT',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.token
+                    }), 
+                    body: JSON.stringify(data)
                 })
                 .then((response) => {
                     return response.json();
@@ -88,15 +93,15 @@ export default {
             var parentEl = this.$parent.$parent;
             parentEl.showLoadingSpinner = true;
 
-            var params = "id=" + this.idTask;
+            let data = {id: this.idTask};
             try {
                 fetch('/tasks', {
-                method: 'DELETE',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
+                    method: 'DELETE',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.token
+                    }), 
+                    body: JSON.stringify(data)
                 })
                 .then((response) => {
                     return response.json();
