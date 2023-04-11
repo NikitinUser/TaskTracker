@@ -14,6 +14,8 @@
                             :idTask="id"
                             :changedTask="task"
                             :type="type"
+
+                            v-on:callRemoveTaskElement="callRemoveTaskElement"
                         ></TaskActionButton>
                     </div>
                     <div class="text-white d-flex flex-row pull-right"
@@ -26,6 +28,9 @@
                             :idTask="id"
                             :changedTask="task"
                             :type="type"
+
+                            v-on:callShowLoadingSpinner="callShowLoadingSpinner"
+                            v-on:callRemoveTaskElement="callRemoveTaskElement"
                         ></TaskActionButton>
 
                         <TaskActionButton
@@ -36,6 +41,9 @@
                             :idTask="id"
                             :changedTask="task"
                             :type="type"
+
+                            v-on:callShowLoadingSpinner="callShowLoadingSpinner"
+                            v-on:callRemoveTaskElement="callRemoveTaskElement"
                         ></TaskActionButton>
 
                         <TaskActionButton
@@ -45,6 +53,9 @@
                             :idTask="id"
                             :changedTask="task"
                             :type="type"
+
+                            v-on:callShowLoadingSpinner="callShowLoadingSpinner"
+                            v-on:callRemoveTaskElement="callRemoveTaskElement"
                         ></TaskActionButton>
 
                         <TaskActionButton
@@ -54,6 +65,9 @@
                             :idTask="id"
                             :changedTask="task"
                             :type="type"
+
+                            v-on:callShowLoadingSpinner="callShowLoadingSpinner"
+                            v-on:callRemoveTaskElement="callRemoveTaskElement"
                         ></TaskActionButton>
 
                         <TaskActionButton
@@ -63,6 +77,9 @@
                             :idTask="id"
                             :changedTask="task"
                             :type="type"
+
+                            v-on:callShowLoadingSpinner="callShowLoadingSpinner"
+                            v-on:callRemoveTaskElement="callRemoveTaskElement"
                         ></TaskActionButton>
                     </div>
 
@@ -103,7 +120,6 @@ export default {
     data() {
         return {
             visibleTask: true,
-            visibleModalChange: false,
             currentRoute: window.location.pathname,
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
             currentSymbolsTask: 0,
@@ -128,12 +144,6 @@ export default {
         updateTask() {
             // eslint-disable-next-line
             this.date = this.getDateTime();
-            let data = {
-                id: this.id,
-                task: this.task,
-                date: this.date,
-                type: this.type
-            };
 
             try {
                 fetch('/tasks', {
@@ -142,7 +152,7 @@ export default {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': this.token
                     }), 
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(this.$props)
                 })
                 .then((response) => {
                     return response.json();
@@ -155,6 +165,12 @@ export default {
             } catch (ex) {
                 console.log(ex);
             }
+        },
+        callShowLoadingSpinner(show) {
+            this.$emit("callShowLoadingSpinner", show);
+        },
+        callRemoveTaskElement() {
+            this.$el.parentNode.parentNode.removeChild(this.$el.parentNode);
         }
     },
     mounted() {
