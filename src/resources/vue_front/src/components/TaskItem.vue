@@ -82,6 +82,7 @@
                     size="100" maxlength="2100" class="form-control bg-dark-theme"
                     v-on:input="inputTask($event); autoHeight($event)"
                     v-on:blur="autoHeight" v-on:focus="autoHeight" :value="task"
+                    :readonly="readonlyInput"
                 ></textarea>
             </div>
         </div>
@@ -106,7 +107,8 @@ export default {
             currentRoute: window.location.pathname,
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
             currentSymbolsTask: 0,
-            maxSymbolsTask: 2100
+            maxSymbolsTask: 2100,
+            readonlyInput: false
         }
     },
     methods: {
