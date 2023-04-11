@@ -8,11 +8,12 @@
 
 <script>
 import dateTimeMixin from './../mixins/dateTimeMixin';
+import localStorageMixin from './../mixins/localStorageMixin';
 
 export default {
     name: 'TaskActionButton',
     props: ['buttonClass', 'buttonIcon', 'action', 'idTask', 'changedTask', 'type'],
-    mixins: [dateTimeMixin],
+    mixins: [dateTimeMixin, localStorageMixin],
     data() {
         return {
             token: document.querySelector('meta[name=csrf-token').getAttribute('content')
@@ -22,38 +23,35 @@ export default {
         taskBtnAction () {
             if (this.action == "removeTaskFromLocal") {
                 this.removeTaskFromLocal();
-            } else if (this.action == "swapTaskToDone") {
-                this.taskSwapType(1);
             } else if (this.action == "deleteTask") {
                 this.deleteTask();
             } else if (this.action == "swapTaskToTasks") {
                 this.taskSwapType(0);
-            } else if (this.action == "swapTaskToBookmarks") {
-                this.taskSwapType(3);
+            } else if (this.action == "swapTaskToDone") {
+                this.taskSwapType(1);
             } else if (this.action == "swapTaskToArchive") {
                 this.taskSwapType(2);
-            } else if (this.action == "editTask") {
-                this.$parent.visibleModalChange = true;
+            } else if (this.action == "swapTaskToBookmarks") {
+                this.taskSwapType(3);
             }
         },
         removeTaskFromLocal () {
-            let storage = this.$parent.$parent.getTasksFromLocalStorage();
+            let storage = this.getTasksFromLocalStorage();
 
             let newStorage = [];
-            for (let i=0; i < storage.length; i++) {
+            for (let i = 0; i < storage.length; i++) {
                 if (storage[i].id != this.idTask) {
                     newStorage.push(storage[i]);
                 }
             }
-
-            this.$parent.$parent.tasks = newStorage;
             storage = JSON.stringify(newStorage);
-
             localStorage.setItem('tasks', storage);
+
+            this.$emit("callRemoveTaskElement");
         },
         taskSwapType (type) {
-            var parentEl = this.$parent.$parent;
-            parentEl.showLoadingSpinner = true;
+            let nThis = this;
+            this.callShowLoadingSpinner(true);
 
             let dateTime = this.getDateTime();
             let data = {
@@ -76,22 +74,22 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    parentEl.showLoadingSpinner = false;
+                    nThis.callShowLoadingSpinner(false);
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
                     }
 
-                    this.$parent.$el.parentNode.removeChild(this.$parent.$el);
+                    nThis.$emit("callRemoveTaskElement");
                 });	
             } catch (ex) {
                 console.log(ex);
-                parentEl.showLoadingSpinner = false;
+                nThis.callShowLoadingSpinner(false);
             }
         },
         deleteTask () {
-            var parentEl = this.$parent.$parent;
-            parentEl.showLoadingSpinner = true;
+            let nThis = this;
+            this.callShowLoadingSpinner(true);
 
             let data = {id: this.idTask};
             try {
@@ -107,19 +105,22 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    parentEl.showLoadingSpinner = false;
+                    nThis.callShowLoadingSpinner(false);
 
                     if (data?.errors != null) {
                         alert(data.errors?.task);
                         return false;
                     }
 
-                    this.$parent.$el.removeChild(this.$parent.$el.children[0]);
+                    nThis.$emit("callRemoveTaskElement");
                 });	
             } catch (ex) {
                 console.log(ex);
-                parentEl.showLoadingSpinner = false;
+                nThis.callShowLoadingSpinner(false);
             }
+        },
+        callShowLoadingSpinner(show) {
+            this.$emit("callShowLoadingSpinner", show);
         }
     }
 }

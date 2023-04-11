@@ -18,9 +18,12 @@
 
 <script>
 import dateTimeMixin from './../mixins/dateTimeMixin';
+import localStorageMixin from './../mixins/localStorageMixin';
+
 export default {
     name: 'TaskInput',
-    mixins: [dateTimeMixin],
+    mixins: [dateTimeMixin, localStorageMixin],
+    props: ['currentRoute'],
     data() {
         return {
             task: "",
@@ -33,18 +36,17 @@ export default {
             this.task = event.target.value;
             document.getElementById("count_new_task").textContent = event.target.value.length + "/2100";
         },
-        addTask () {
+        addTask() {
             this.date = this.getDateTime();
 
-            if (this.$parent.currentRoute == "/demo") {
+            if (this.currentRoute == "/demo") {
                 this.saveTaskToLocalStorage();
             } else {
                 let typeTask = 0;
 
-                if (this.$parent.currentRoute == "/bookmarks") {
+                if (this.currentRoute == "/bookmarks") {
                     typeTask = 3;
                 }
-
                 
                 let data = {
                     task: this.task,
@@ -57,7 +59,7 @@ export default {
             this.cleanInput();
         },
         saveTaskToLocalStorage() {
-            let storage = this.$parent.getTasksFromLocalStorage();
+            let storage = this.getTasksFromLocalStorage();
 
             let newTask = {
                 id: storage.length + 1 + this.date,
@@ -66,15 +68,15 @@ export default {
             };
 
             storage.push(newTask);
-
-            this.$parent.tasks = storage;
             storage = JSON.stringify(storage);
-
             localStorage.setItem('tasks', storage);
+
+            this.callPushTask(newTask);
         },
         saveTaskOnServer(data) {
-            var parentEl = this.$parent;
-            parentEl.showLoadingSpinner = true;
+            this.callShowLoadingSpinner(true);
+
+            let nThis = this;
 
             try {
                 fetch('/tasks', {
@@ -89,7 +91,7 @@ export default {
                     return response.json();
                 })
                 .then((data) => {
-                    parentEl.showLoadingSpinner = false;
+                    nThis.callShowLoadingSpinner(false);
 
                     if (data?.errors != null) {
                         alert(data.errors?.task);
@@ -99,19 +101,12 @@ export default {
                     if (data.id == null) {
                         alert("Количество задач в этом списке стало равным 50. Это количество нельзя превышать, займись делом.");
                     } else {
-                        let taskData = {};
-
-                        taskData.id = data.id;
-                        taskData.date = data.date;
-                        taskData.task = data.task;
-                        taskData.type = data.type;
-
-                        this.$parent.tasks.push(taskData);
+                        nThis.callPushTask(data);
                     }
                 });
             } catch (ex) {
                 console.log(ex);
-                parentEl.showLoadingSpinner = false;
+                nThis.callShowLoadingSpinner(false);
             }
         },
         cleanInput () {
@@ -124,6 +119,12 @@ export default {
         autoHeight(event) {
             event.target.style.height = "60px";
             event.target.style.height = (event.target.scrollHeight)+"px";
+        },
+        callShowLoadingSpinner(show) {
+            this.$emit("callShowLoadingSpinner", show);
+        },
+        callPushTask(task) {
+            this.$emit("callPushTask", task);
         }
     }
 }
