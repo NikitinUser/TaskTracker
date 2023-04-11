@@ -1,7 +1,6 @@
 <template>
     <div class="me-2">
-        <button v-bind:class="buttonClass"
-            v-bind:id="idTask" v-on:click="taskBtnAction">
+        <button v-bind:class="buttonClass" v-bind:id="idTask" v-on:click="taskBtnAction">
             <i v-bind:class="buttonIcon"></i>
         </button>
     </div>
@@ -22,38 +21,23 @@ export default {
     methods: {
         taskBtnAction () {
             if (this.action == "removeTaskFromLocal") {
-
                 this.removeTaskFromLocal();
-
             } else if (this.action == "swapTaskToDone") {
-
                 this.taskSwapType(1);
-
             } else if (this.action == "deleteTask") {
-
                 this.deleteTask();
-
             } else if (this.action == "swapTaskToTasks") {
-
                 this.taskSwapType(0);
-
             } else if (this.action == "swapTaskToBookmarks") {
-
                 this.taskSwapType(3);
-
             } else if (this.action == "swapTaskToArchive") {
-
                 this.taskSwapType(2);
-
             } else if (this.action == "editTask") {
-
                 this.$parent.visibleModalChange = true;
-
             }
         },
         removeTaskFromLocal () {
-            let storage = this.$parent
-                .$parent.getTasksFromLocalStorage();
+            let storage = this.$parent.$parent.getTasksFromLocalStorage();
 
             let newStorage = [];
             for (let i=0; i < storage.length; i++) {
@@ -72,16 +56,21 @@ export default {
             parentEl.showLoadingSpinner = true;
 
             let dateTime = this.getDateTime();
-            let params = "task=" + this.changedTask + "&id=" + this.idTask + "&date=" + dateTime+ "&type=" + type;
+            let data = {
+                id: this.idTask,
+                task: this.changedTask,
+                date: dateTime,
+                type: type
+            };
 
             try {
                 fetch('tasks', {
-                method: 'PUT',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
+                    method: 'PUT',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.token
+                    }), 
+                    body: JSON.stringify(data)
                 })
                 .then((response) => {
                     return response.json();
@@ -104,15 +93,15 @@ export default {
             var parentEl = this.$parent.$parent;
             parentEl.showLoadingSpinner = true;
 
-            var params = "id=" + this.idTask;
+            let data = {id: this.idTask};
             try {
                 fetch('/tasks', {
-                method: 'DELETE',
-                headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    "X-CSRF-TOKEN": this.token
-                }), 
-                body: params,
+                    method: 'DELETE',
+                    headers: new Headers({
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': this.token
+                    }), 
+                    body: JSON.stringify(data)
                 })
                 .then((response) => {
                     return response.json();

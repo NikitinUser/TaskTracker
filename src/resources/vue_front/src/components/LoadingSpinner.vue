@@ -1,9 +1,7 @@
 <template>
 <div class="modal-mask" tabindex="-1">
-    <div class="modal-wrapper text-white">
-        <div class="spinner-border text-warning" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
+    <div class="modal-wrapper">
+        <div class="spinner-border text-warning" role="status"></div>
     </div>
 </div>   
 </template>
@@ -18,7 +16,7 @@ export default {
 .modal-mask {
     position: fixed;
     z-index: 9998;
-    top: 0;
+    top: 100px;
     left: 0;
     width: 100%;
     height: 100%;
