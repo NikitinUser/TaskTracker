@@ -1,7 +1,6 @@
 <template>
     <div class="me-2">
-        <button v-bind:class="buttonClass"
-            v-bind:id="idTask" v-on:click="taskBtnAction">
+        <button v-bind:class="buttonClass" v-bind:id="idTask" v-on:click="taskBtnAction">
             <i v-bind:class="buttonIcon"></i>
         </button>
     </div>
@@ -22,38 +21,23 @@ export default {
     methods: {
         taskBtnAction () {
             if (this.action == "removeTaskFromLocal") {
-
                 this.removeTaskFromLocal();
-
             } else if (this.action == "swapTaskToDone") {
-
                 this.taskSwapType(1);
-
             } else if (this.action == "deleteTask") {
-
                 this.deleteTask();
-
             } else if (this.action == "swapTaskToTasks") {
-
                 this.taskSwapType(0);
-
             } else if (this.action == "swapTaskToBookmarks") {
-
                 this.taskSwapType(3);
-
             } else if (this.action == "swapTaskToArchive") {
-
                 this.taskSwapType(2);
-
             } else if (this.action == "editTask") {
-
                 this.$parent.visibleModalChange = true;
-
             }
         },
         removeTaskFromLocal () {
-            let storage = this.$parent
-                .$parent.getTasksFromLocalStorage();
+            let storage = this.$parent.$parent.getTasksFromLocalStorage();
 
             let newStorage = [];
             for (let i=0; i < storage.length; i++) {
