@@ -25,8 +25,7 @@ export default {
         return {
             task: "",
             date: "",
-            token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
-            currentSymbolsTask: 0
+            token: document.querySelector('meta[name=csrf-token').getAttribute('content')
         }
     },
     methods: {
@@ -119,18 +118,9 @@ export default {
             document.getElementById("newTask").style.height = "60px";
             document.getElementById("count_new_task").textContent = "0/2100"
         },
-        getCurrentSymbolsInInput() {
-            this.currentSymbolsTask = document.getElementById("newTask").value.length;
-        },
         autoHeight(event) {
             event.target.style.height = "60px";
             event.target.style.height = (event.target.scrollHeight)+"px";
-        }
-    },
-    mounted() {
-        this.getCurrentSymbolsInInput();
-        if (window.location.pathname == '/demo' && this.inputId != "newTask") {
-            this.readonlyInput = true;
         }
     }
 }
