@@ -1,7 +1,7 @@
 <template>
     <div class="p-2 bg-dark-theme" id="task-input">
         <span id="count_new_task" class="text-white" style="font-size: small">0/2100</span>
-        <textarea type="text" name="newTask" id="newTask" placeholder="Задача"
+        <textarea type="text" name="newTask" id="newTask" placeholder="Text"
             size="100" maxlength="2100" class="form-control bg-dark-theme"
             v-bind:value="task" v-on:input="inputTask($event); autoHeight($event)"
             v-on:blur="autoHeight" v-on:focus="autoHeight"
