@@ -52,7 +52,6 @@ class TasksMain extends Model
         ];
 
         return $this->where($where)
-            ->orderBy('dt_task', 'asc')
             ->get()
             ->toArray();
     }

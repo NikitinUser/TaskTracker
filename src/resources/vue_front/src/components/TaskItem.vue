@@ -101,6 +101,7 @@
                     v-on:blur="autoHeight" v-on:focus="autoHeight" :value="task"
                     :readonly="readonlyInput"
                 ></textarea>
+                <button class="btn btn-success btn-sm" v-on:click="updateTask" v-show="showSaveBtn">save</button>
             </div>
         </div>
     </div>
@@ -124,7 +125,8 @@ export default {
             token: document.querySelector('meta[name=csrf-token').getAttribute('content'),
             currentSymbolsTask: 0,
             maxSymbolsTask: 2100,
-            readonlyInput: false
+            readonlyInput: false,
+            showSaveBtn: false
         }
     },
     methods: {
@@ -132,7 +134,7 @@ export default {
             // eslint-disable-next-line
             this.task = event.target.value;
             this.currentSymbolsTask = event.target.value.length;
-            this.updateTask();
+            this.showSaveBtn = true;
         },
         getCurrentSymbolsInInput() {
             this.currentSymbolsTask = this.task.length;
@@ -142,9 +144,10 @@ export default {
             event.target.style.height = (event.target.scrollHeight)+"px";
         },
         updateTask() {
+            this.showSaveBtn = false;
+
             // eslint-disable-next-line
             this.date = this.getDateTime();
-
             try {
                 fetch('/tasks', {
                     method: 'PUT',
@@ -159,7 +162,7 @@ export default {
                 })
                 .then((data) => {
                     if (data?.errors != null) {
-                        alert(data.errors?.task);
+                        alert(data.errors);
                     }
                 });
             } catch (ex) {
