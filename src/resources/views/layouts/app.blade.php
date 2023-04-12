@@ -10,6 +10,8 @@
 
     <title>TaskTracker</title>
 
+    <script type="text/javascript" src="{{ asset('js/localization.js') }}" ></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
@@ -21,16 +23,16 @@
           <!-- Right Side Of Navbar -->
             <ul class="nav nav-pills ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
+                    <a class="nav-link without_registration_nav @if(Request::is('demo')) active @endif" href="{{ route('demo') }}">Без регистрации</a>
                 </li>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('login')) active @endif" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                        <a class="nav-link login_nav @if(Request::is('login')) active @endif" href="{{ route('login') }}">Вход</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link @if(Request::is('register')) active @endif" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                            <a class="nav-link registration_nav @if(Request::is('register')) active @endif" href="{{ route('register') }}">Регистрация</a>
                         </li>
                     @endif
                 @else
@@ -40,17 +42,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('done')) active @endif" href="{{ route('done') }}">
-                            Выплненное
+                        <a class="nav-link done_tasks_nav @if(Request::is('done')) active @endif" href="{{ route('done') }}">
+                            Выполненное
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('archive')) active @endif" href="{{ route('archive') }}">
+                        <a class="nav-link archive_tasks_nav @if(Request::is('archive')) active @endif" href="{{ route('archive') }}">
                             Архив
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('bookmarks')) active @endif" href="{{ route('bookmarks') }}">
+                        <a class="nav-link bookmark_tasks_nav @if(Request::is('bookmarks')) active @endif" href="{{ route('bookmarks') }}">
                             Закладки
                         </a>
                     </li>
@@ -60,9 +62,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
+                        <a class="nav-link logout_nav" href="{{ route('logout') }}"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                            {{ __('Выход') }}
+                            Выход
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -72,6 +74,13 @@
                         @include('user-management-module::sidebar')
                     @endrole
                 @endguest
+                <li class="nav-item">
+                    <select class="nav-link" id="localization_language"
+                        onchange="changeLocalization(this.value)">
+                        <option value="ru">RU</option>
+                        <option value="en">EN</option>
+                    </select>    
+                </li>
             </ul>
         </nav>
        
