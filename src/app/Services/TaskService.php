@@ -25,7 +25,7 @@ class TaskService
         $tasks = $this->taskMain->getTasksByUseridAndType($userid, $type);
 
         for ($i = 0; $i < count($tasks); $i++) {
-            $tasks[$i]['task'] = base64_decode($tasks[$i]['task']);
+            $tasks[$i]['task'] = gzuncompress(base64_decode($tasks[$i]['task']));
         }
 
         return $tasks;
@@ -53,8 +53,8 @@ class TaskService
     {
         $task['userid'] = (int)auth()?->user()?->id;
 
-        $task['task'] = base64_encode(trim($task['task']));
-        
+        $task['task'] = base64_encode(gzcompress(trim($task['task'])));
+
         $dateTask = new \DateTime($task['date']);
         $task['dt_task'] = $dateTask->format('Y-m-d H:i:s');
         unset($task['date']);
@@ -64,7 +64,7 @@ class TaskService
         $task['date'] = $task['dt_task'];
         $task['id'] = $newTask->id;
         
-        $task['task'] = base64_decode($newTask->task);
+        $task['task'] = gzuncompress(base64_decode($newTask->task));
         return $task;
     }
     
@@ -78,7 +78,7 @@ class TaskService
     {
         $this->taskMain = $this->taskMain->getTaskById((int)$task['id']);
 
-        $this->taskMain->task = base64_encode(trim($task['task']));
+        $this->taskMain->task = base64_encode(gzcompress(trim($task['task'])));
 
         $dtTask = new \DateTime($task['date']);
         $task['date'] = $dtTask->format('Y-m-d H:i:s');
