@@ -1,6 +1,5 @@
 Простой менеджер задач <br>
 PHP 8, Laravel 10, MySQL, Vue.js, Bootstrap 5 <br>
-<a href="https://tasks-manager.ru">TaskTracker</a>
 
 1. склонировать проект
 2. перейти в дирректорию с проектом
