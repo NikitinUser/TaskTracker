@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
 use App\Http\Requests\AddTaskRequest;
-use App\Http\Requests\SwapTheTypeOfTaskRequest;
 use App\Http\Requests\DeleteTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
