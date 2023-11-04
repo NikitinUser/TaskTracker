@@ -1,22 +1,27 @@
 Простой менеджер задач <br>
-PHP 8, Laravel 10, MySQL, Vue.js, Bootstrap 5 <br>
+PHP 8.1, Laravel 10, Vue 3 <br>
 
-1. склонировать проект
-2. перейти в дирректорию с проектом
-3. сформировать env для docker
-4. сформировать .env для laravel
-    DB_CONNECTION=mysql
-    DB_HOST=tt_mysql        -- как container_name в docker-compose.yml
-    DB_PORT=3306
-    DB_DATABASE=${DB_NAME} -- как в env для docker-compose.yml
-    DB_USERNAME=${DB_USER} -- как в env для docker-compose.yml
-    DB_PASSWORD=${DB_PASS} -- как в env для docker-compose.yml
-5. cd ./docker
-6. sudo docker-compose up --build (sudo docker-compose up для последующих запусков)
-7. в новой вкладке открываем еще один терминал
-8. sudo docker exec -itu root tt_php bash   (tt_php как container_name в docker-compose.yml)
-9. php artisan key:generate
-10. chmod -R 777 ./storage (если есть ошибки доступа к папке)
-11. php artisan migrate
-12. <a href="https://github.com/NikitinUser/userManagementModule">Выполнить 3-4 пункты<a>
-13. можно проверять проект
+1. git clone https://github.com/NikitinUser/TaskTracker.git
+2. cd TaskTracker
+3. env
+    cp ./backend/docker/'.env.example' ./backend/docker/'.env'
+    cp ./backend/src/'.env.example' ./backend/src/'.env'
+    cp ./frontend/docker/'.env.example' ./frontend/docker/'.env'
+    cp ./frontend/src/'.env.example' ./frontend/src/'.env'
+4. frontend
+    cd ./frontend/src/
+    npm ci
+    cd ./../docker
+    sudo docker-compose up --build
+5. backend
+    cd ./backend/src/
+    composer install
+    php artisan key:generate
+    cd ./../docker
+    sudo docker-compose up --build
+6. если есть ошибки доступа к папке storage
+    в новой вкладке открываем еще один терминал
+    cd ./backend/docker
+    sudo docker exec -itu root tt_php bash   (tt_php как container_name в docker-compose.yml)
+    chmod -R 777 ./storage ()
+7. можно проверять проект
