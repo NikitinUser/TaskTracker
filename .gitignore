@@ -12,3 +12,5 @@ yarn-error.log
 /docker/mysql/data
 .DS_Store
 /.DS_Store
+vendor
+/vendor
