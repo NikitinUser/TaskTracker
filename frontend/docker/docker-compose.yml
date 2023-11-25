@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+    app:
+        build: ./php
+        image: php:8.1.16-fpm
+        container_name: tt_php
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: ${APP_PATH_CONTAINER}
+        volumes:
+            - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+            - ./php/php.ini:/usr/local/etc/php/conf.d/local.ini
+
+    webserver:
+        image: nginx:alpine
+        container_name: tt_nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - 7777:80
+        volumes:
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+            - ${APP_PATH_HOST}/public:${APP_PATH_CONTAINER}/public
