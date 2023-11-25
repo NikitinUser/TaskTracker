@@ -7,8 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRegistrationRequest;
 use App\Services\UserRegistrationService;
-use App\Http\Transformers\UserRegistrationTransformer;
-use Illuminate\Http\Request;
+use App\Transformers\UserRegistrationTransformer;
 
 class AuthController extends Controller
 {

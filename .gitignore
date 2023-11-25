@@ -1,7 +1,7 @@
 /node_modules
-/public/hot
-/public/storage
-/storage/*.key
+/backend/public/hot
+/backend/public/storage
+/backend/storage/*.key
 /backend/storage/filedatabase
 .env
 .env.backup
@@ -15,3 +15,4 @@ yarn-error.log
 /.DS_Store
 vendor
 /vendor
+/backend/docker/mysql
