@@ -22,4 +22,7 @@ PHP 8.1, Laravel 10, Vue 3 <br>
     cd ./backend/docker
     sudo docker exec -itu root tt_php bash   (tt_php как container_name в docker-compose.yml)
     chmod -R 777 ./storage ()
+
+//todo
+    php artisan jwt:secret -n
 7. можно проверять проект
