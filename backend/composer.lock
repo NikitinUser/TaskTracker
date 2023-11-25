@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0559d74e3316f738f644cd3d224a15bc",
+    "content-hash": "f2c77525685f8cf2db46df6b907210a4",
     "packages": [
         {
             "name": "brick/math",
@@ -2366,6 +2366,43 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.17.1"
             },
             "time": "2023-08-13T19:53:39+00:00"
+        },
+        {
+            "name": "nikitinuser/user-management-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NikitinUser/userManagementModule.git",
+                "reference": "23e6291812beed831b3c07d00f8451556822bf95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NikitinUser/userManagementModule/zipball/23e6291812beed831b3c07d00f8451556822bf95",
+                "reference": "23e6291812beed831b3c07d00f8451556822bf95",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NikitinUser\\UserManagementModule\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NikitinUser",
+                    "email": "jo.kent@mail.ru"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/NikitinUser/userManagementModule/issues",
+                "source": "https://github.com/NikitinUser/userManagementModule/tree/master"
+            },
+            "time": "2023-11-25T23:09:28+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -8292,7 +8329,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "nikitinuser/user-management-module": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
