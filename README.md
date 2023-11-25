@@ -3,26 +3,14 @@ PHP 8.1, Laravel 10, Vue 3 <br>
 
 1. git clone https://github.com/NikitinUser/TaskTracker.git
 2. cd TaskTracker
-3. env
-    cp ./backend/'.env.example' ./backend/'.env'
-    cp ./frontend/'.env.example' ./frontend/'.env'
-4. frontend
+3. frontend
     // todo npm ci унести в докер
     cd ./frontend/docker
     sudo docker-compose up --build
     cd ./../../
-5. backend
-    // todo composer install, php artisan key:generate унести в докер
-    cd ./backend/docker
-    sudo docker-compose up --build
-    cd ./../../
-6. если есть ошибки доступа к папке storage
-    // todo выдать права на папку для приложения при сборке докера
-    в новой вкладке открываем еще один терминал
-    cd ./backend/docker
-    sudo docker exec -itu root tt_php bash   (tt_php как container_name в docker-compose.yml)
-    chmod -R 777 ./storage ()
-
-//todo
-    php artisan jwt:secret -n
-7. можно проверять проект
+4. backend
+    cd backend
+    sudo make up
+    make init
+    2-5 https://github.com/NikitinUser/userManagementModule
+5. можно проверять проект
