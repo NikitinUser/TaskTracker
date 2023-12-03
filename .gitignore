@@ -16,3 +16,7 @@ yarn-error.log
 vendor
 /vendor
 /backend/docker/mysql
+.vscode
+/.vscode
+/frontend/.vscode
+/backend/.vscode
