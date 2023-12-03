@@ -1,15 +1,17 @@
 <template>
 <div class="modal-mask" tabindex="-1">
     <div class="modal-wrapper">
-        <div class="spinner-border text-warning" role="status"></div>
+        <div class="spinner-border text-warning" role="status">LOADING</div>
     </div>
 </div>   
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
     name: 'LoadingSpinner',
-}
+})
 </script>
 
 <style scoped>
