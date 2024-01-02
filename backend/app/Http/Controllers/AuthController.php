@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRegistrationRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\Services\UserRegistrationService;
 use App\Transformers\UserRegistrationTransformer;
 
@@ -26,9 +27,9 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
-    public function login()
+    public function login(UserLoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->validated();
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -91,7 +92,7 @@ class AuthController extends Controller
         UserRegistrationService $service
     ): JsonResponse {
         try {
-            $userDto = $transformer->transform($request->all());
+            $userDto = $transformer->transform($request->validated());
             $service->registration($userDto);
         } catch (\Throwable $t) {
             return response()->json(['error' => $t->getMessage()], 500);

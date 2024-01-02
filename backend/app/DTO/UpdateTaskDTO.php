@@ -12,8 +12,6 @@ class UpdateTaskDTO
 
     public string $task;
 
-    public bool $isComplite;
-
     public string $createdAt;
 
     public string $updatedAt;

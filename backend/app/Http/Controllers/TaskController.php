@@ -43,7 +43,7 @@ class TaskController extends Controller
         CreateTaskRequestTransformer $transformer
     ): JsonResponse {
         try {
-            $dto = $transformer->transform($request->all(), auth()->user()->id);
+            $dto = $transformer->transform($request->validated(), auth()->user()->id);
             $this->responseDto->data = $this->service->create($dto);
         } catch (Throwable $t) {
             $this->responseDto->error = $t->getMessage();
@@ -58,7 +58,7 @@ class TaskController extends Controller
         UpdateTaskRequestTransformer $transformer
     ): JsonResponse {
         try {
-            $dto = $transformer->transform($request->all(), auth()->user()->id);
+            $dto = $transformer->transform($request->validated(), auth()->user()->id);
             $this->service->update($dto);
         } catch (Throwable $t) {
             $this->responseDto->error = $t->getMessage();

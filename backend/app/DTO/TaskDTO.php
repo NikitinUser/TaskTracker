@@ -14,9 +14,7 @@ class TaskDTO implements ResponseDataObjectInterface
 
     public string $task;
 
-    public bool $isComplite;
-
     public string $createdAt;
 
-    public ?string $updatedAt = null;
+    public array $children = [];
 }
