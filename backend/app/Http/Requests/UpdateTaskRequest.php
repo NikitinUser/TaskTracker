@@ -16,6 +16,11 @@ class UpdateTaskRequest extends FormRequest
         return true;
     }
 
+    public function validationData()
+    {
+        return $this->json()->all();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,9 +31,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'id' => 'required|integer',
             'task' => 'required|min:2|max:3000',
-            'parentTask' => 'nullable|integer',
-            'isComplite' => 'required',
-            'createdAt' => 'required|integer',
+            'parentTask' => 'nullable|integer'
         ];
     }
 
@@ -40,10 +43,6 @@ class UpdateTaskRequest extends FormRequest
             'task.required' => 'Введите задачу',
             'task.min:2' => 'Минимальная длина задачи - 2 символа',
             'task.max:3000' => 'Максимальная длина задачи - 3000 символов',
-
-            'isComplite.required' => 'Статус задачи не указан',
-
-            'createdAt.required' => 'Дата создания задачи не указан',
         ];
         return $messages;
     }

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class UserRegistrationRequest extends FormRequest
+class UserLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,6 @@ class UserRegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:8|max:50',
             'email' => 'required|email',
             'password' => 'required|min:8|max:50',
         ];
@@ -38,10 +37,6 @@ class UserRegistrationRequest extends FormRequest
     public function messages()
     {
         $messages = [
-            'name.required' => 'Введите свое имя',
-            'name.min:8' => 'Минимальная длина имени - 8 символа',
-            'name.max:50' => 'Максимальная длина имени - 50 символов',
-
             'email.required' => 'Введите свою электронную почту',
             'email.email' => 'Введите свою электронную почту',
 

@@ -16,7 +16,6 @@ class Task extends Model
         'userid',
         'parentTask',
         'task',
-        'isComplite',
         'createdAt',
         'updatedAt',
     ];

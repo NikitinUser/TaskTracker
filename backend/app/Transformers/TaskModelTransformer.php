@@ -8,14 +8,12 @@ use App\Models\Task;
 class TaskModelTransformer
 {
     /**
-     * @param Task $task
+     * @param array $task
      * 
      * @return TaskDTO
      */
-    public function transform(Task $task): TaskDTO
+    public function transform(array $task): TaskDTO
     {
-        $task = $task->toArray();
-
         $dto = new TaskDTO();
         foreach ($task as $key => $value) {
             if (property_exists($dto, $key)) {

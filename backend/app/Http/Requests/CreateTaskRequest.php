@@ -16,6 +16,11 @@ class CreateTaskRequest extends FormRequest
         return true;
     }
 
+    public function validationData()
+    {
+        return $this->json()->all();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

@@ -18,7 +18,6 @@ return new class extends Migration
                 $table->unsignedBigInteger('parentTask')->nullable();
 
                 $table->string('task', 5600);
-                $table->boolean('isComplite')->default(false);
 
                 $table->integer('createdAt');
                 $table->integer('updatedAt')->nullable();
